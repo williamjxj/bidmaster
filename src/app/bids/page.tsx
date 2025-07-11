@@ -1,109 +1,41 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Target, Calendar, DollarSign, ExternalLink, Edit, Trash2, Search, Plus } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
-
-interface Bid {
-  id: string
-  projectTitle: string
-  projectId: string
-  bidAmount: number
-  bidType: 'fixed' | 'hourly'
-  proposalText: string
-  status: 'draft' | 'submitted' | 'accepted' | 'rejected'
-  submittedAt: string | null
-  projectUrl: string
-  platform: string
-  notes: string
-  createdAt: string
-  updatedAt: string
-}
-
-// Mock data for bids
-const mockBids: Bid[] = [
-  {
-    id: '1',
-    projectTitle: 'React E-commerce Website Development',
-    projectId: '1',
-    bidAmount: 2400,
-    bidType: 'fixed',
-    proposalText: 'I have extensive experience building e-commerce platforms with React, Next.js, and TypeScript. I can deliver a modern, responsive website with payment integration and admin dashboard within the specified timeframe.',
-    status: 'submitted',
-    submittedAt: '2024-01-15T14:30:00Z',
-    projectUrl: 'https://upwork.com/job/1',
-    platform: 'Upwork',
-    notes: 'Client seems responsive, good project scope',
-    createdAt: '2024-01-15T12:00:00Z',
-    updatedAt: '2024-01-15T14:30:00Z'
-  },
-  {
-    id: '2',
-    projectTitle: 'AI Image Generation Tool',
-    projectId: '2',
-    bidAmount: 70,
-    bidType: 'hourly',
-    proposalText: 'I specialize in AI development and have worked with OpenAI API extensively. I can create a robust image generation tool with a user-friendly interface.',
-    status: 'draft',
-    submittedAt: null,
-    projectUrl: 'https://freelancer.com/job/2',
-    platform: 'Freelancer',
-    notes: 'Need to research more about their specific requirements',
-    createdAt: '2024-01-14T16:00:00Z',
-    updatedAt: '2024-01-14T16:00:00Z'
-  },
-  {
-    id: '3',
-    projectTitle: 'Node.js API Development',
-    projectId: '3',
-    bidAmount: 1750,
-    bidType: 'fixed',
-    proposalText: 'I have 5+ years of experience with Node.js and Express. I can build a secure, scalable API with comprehensive documentation and testing.',
-    status: 'accepted',
-    submittedAt: '2024-01-13T10:00:00Z',
-    projectUrl: 'https://toptal.com/job/3',
-    platform: 'Toptal',
-    notes: 'Won the project! Starting next week',
-    createdAt: '2024-01-13T09:30:00Z',
-    updatedAt: '2024-01-13T18:00:00Z'
-  },
-  {
-    id: '4',
-    projectTitle: 'Mobile App Development with React Native',
-    projectId: '4',
-    bidAmount: 3000,
-    bidType: 'fixed',
-    proposalText: 'I have successfully delivered 10+ React Native apps with real-time features. I can implement the messaging system and push notifications as required.',
-    status: 'rejected',
-    submittedAt: '2024-01-12T17:00:00Z',
-    projectUrl: 'https://upwork.com/job/4',
-    platform: 'Upwork',
-    notes: 'Client chose someone else, feedback was positive though',
-    createdAt: '2024-01-12T16:45:00Z',
-    updatedAt: '2024-01-12T20:00:00Z'
-  }
-]
+import { useBids, useDeleteBid } from '@/hooks/useApi'
 
 export default function BidsPage() {
-  const [bids, setBids] = useState<Bid[]>(mockBids)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null)
 
-  const statuses = Array.from(new Set(bids.map(b => b.status)))
-  
-  const filteredBids = bids.filter(bid => {
-    const matchesSearch = bid.projectTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         bid.platform.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         bid.proposalText.toLowerCase().includes(searchTerm.toLowerCase())
+  // Build filters for API call
+  const filters = useMemo(() => {
+    const result: Record<string, string | string[] | number> = {}
     
-    const matchesStatus = !selectedStatus || bid.status === selectedStatus
+    if (selectedStatus) {
+      result.status = [selectedStatus]
+    }
+    
+    if (searchTerm) {
+      result.searchTerm = searchTerm
+    }
+    
+    return result
+  }, [selectedStatus, searchTerm])
 
-    return matchesSearch && matchesStatus
-  })
+  // Fetch bids from API
+  const { data: bids = [], error } = useBids(filters)
+  const deleteBidMutation = useDeleteBid()
+
+  const statuses = useMemo(() => 
+    Array.from(new Set(bids.map(b => b.status))), 
+    [bids]
+  )
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -135,8 +67,12 @@ export default function BidsPage() {
     }
   }
 
-  const handleDeleteBid = (bidId: string) => {
-    setBids(prevBids => prevBids.filter(bid => bid.id !== bidId))
+  const handleDeleteBid = async (bidId: string) => {
+    try {
+      await deleteBidMutation.mutateAsync(bidId)
+    } catch (error) {
+      console.error('Error deleting bid:', error)
+    }
   }
 
   const handleEditBid = (bidId: string) => {
@@ -150,6 +86,25 @@ export default function BidsPage() {
     accepted: bids.filter(b => b.status === 'accepted').length,
     rejected: bids.filter(b => b.status === 'rejected').length,
     drafts: bids.filter(b => b.status === 'draft').length
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center py-12">
+          <div className="text-red-500 mb-4">
+            <Target className="h-12 w-12 mx-auto mb-2" />
+            <h3 className="text-lg font-medium mb-2">Error Loading Bids</h3>
+            <p className="text-sm">
+              {error instanceof Error ? error.message : 'Failed to load bids'}
+            </p>
+          </div>
+          <Button onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -253,7 +208,7 @@ export default function BidsPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <p className="text-sm text-gray-600">
-            Showing {filteredBids.length} of {bids.length} bids
+            Showing {bids.length} bids
           </p>
         </div>
         <div className="flex gap-2">
@@ -266,7 +221,7 @@ export default function BidsPage() {
 
       {/* Bids List */}
       <div className="space-y-4">
-        {filteredBids.map((bid) => (
+        {bids.map((bid) => (
           <Card key={bid.id}>
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
@@ -348,7 +303,7 @@ export default function BidsPage() {
         ))}
       </div>
 
-      {filteredBids.length === 0 && (
+      {bids.length === 0 && (
         <div className="text-center py-12">
           <Target className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No bids found</h3>

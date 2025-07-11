@@ -1,74 +1,16 @@
 'use client'
 
-import { useState } from 'react'
 import { DashboardStats, RecentActivity } from '@/components/dashboard'
-import { ProjectCard, Project } from '@/components/project-card'
+import { ProjectCard } from '@/components/project-card'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Filter, Search, Target } from 'lucide-react'
+import { useDashboard, useUpdateProject } from '@/hooks/useApi'
+import { Database } from '@/types/database'
 
-// Mock data for demonstration
-const mockProjects: Project[] = [
-  {
-    id: '1',
-    title: 'React E-commerce Website Development',
-    description: 'Looking for an experienced React developer to build a modern e-commerce platform with Next.js, TypeScript, and Tailwind CSS. The project includes user authentication, payment integration, and admin dashboard.',
-    budget: 2500,
-    budget_type: 'fixed',
-    source_platform: 'Upwork',
-    source_url: 'https://upwork.com/job/1',
-    technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe'],
-    category: 'Web Development',
-    location: 'Remote',
-    posted_date: '2024-01-15T10:00:00Z',
-    deadline: '2024-02-15T10:00:00Z',
-    status: 'new',
-    created_at: '2024-01-15T10:00:00Z',
-    updated_at: '2024-01-15T10:00:00Z'
-  },
-  {
-    id: '2',
-    title: 'AI Image Generation Tool',
-    description: 'Need a skilled developer to create an AI-powered image generation tool using OpenAI API. Must have experience with Python, Flask, and machine learning.',
-    budget: 75,
-    budget_type: 'hourly',
-    source_platform: 'Freelancer',
-    source_url: 'https://freelancer.com/job/2',
-    technologies: ['Python', 'Flask', 'OpenAI API', 'Machine Learning'],
-    category: 'AI Development',
-    location: 'Remote',
-    posted_date: '2024-01-14T14:30:00Z',
-    deadline: null,
-    status: 'bookmarked',
-    created_at: '2024-01-14T14:30:00Z',
-    updated_at: '2024-01-14T14:30:00Z'
-  },
-  {
-    id: '3',
-    title: 'Node.js API Development',
-    description: 'Building a RESTful API with Node.js, Express, and MongoDB. Need someone with experience in authentication, database design, and API documentation.',
-    budget: 1800,
-    budget_type: 'fixed',
-    source_platform: 'Toptal',
-    source_url: 'https://toptal.com/job/3',
-    technologies: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Swagger'],
-    category: 'Backend Development',
-    location: 'US Only',
-    posted_date: '2024-01-13T09:15:00Z',
-    deadline: '2024-02-10T09:15:00Z',
-    status: 'applied',
-    created_at: '2024-01-13T09:15:00Z',
-    updated_at: '2024-01-13T09:15:00Z'
-  }
-]
+type Project = Database['public']['Tables']['projects']['Row']
 
-const mockStats = {
-  totalProjects: 156,
-  activeApplications: 12,
-  winRate: 68,
-  totalEarnings: 45600
-}
-
+// Mock activities for now - in production, you'd fetch these from a database
 const mockActivities = [
   {
     id: '1',
@@ -94,27 +36,68 @@ const mockActivities = [
 ]
 
 export default function Home() {
-  const [projects, setProjects] = useState<Project[]>(mockProjects)
+  const { data: dashboardData, isLoading, error } = useDashboard()
+  const updateProjectMutation = useUpdateProject()
 
-  const handleBookmark = (projectId: string) => {
-    setProjects(prevProjects =>
-      prevProjects.map(project =>
-        project.id === projectId
-          ? { ...project, status: 'bookmarked' as const }
-          : project
-      )
+  const handleBookmark = async (projectId: string) => {
+    try {
+      await updateProjectMutation.mutateAsync({
+        id: projectId,
+        updates: { status: 'bookmarked' }
+      })
+    } catch (error) {
+      console.error('Error bookmarking project:', error)
+    }
+  }
+
+  const handleApply = async (projectId: string) => {
+    try {
+      await updateProjectMutation.mutateAsync({
+        id: projectId,
+        updates: { status: 'applied' }
+      })
+    } catch (error) {
+      console.error('Error applying to project:', error)
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-gray-600">Loading your dashboard data...</p>
+        </div>
+        
+        {/* Loading skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-white rounded-lg border p-6 animate-pulse">
+              <div className="h-4 bg-gray-200 rounded mb-2"></div>
+              <div className="h-8 bg-gray-200 rounded"></div>
+            </div>
+          ))}
+        </div>
+      </div>
     )
   }
 
-  const handleApply = (projectId: string) => {
-    setProjects(prevProjects =>
-      prevProjects.map(project =>
-        project.id === projectId
-          ? { ...project, status: 'applied' as const }
-          : project
-      )
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-red-600">
+              Error loading dashboard data. Please try again later.
+            </p>
+          </div>
+        </div>
+      </div>
     )
   }
+
+  const { stats, recentProjects } = dashboardData || { stats: null, recentProjects: [] }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -126,9 +109,11 @@ export default function Home() {
       </div>
 
       {/* Stats Cards */}
-      <div className="mb-8">
-        <DashboardStats stats={mockStats} />
-      </div>
+      {stats && (
+        <div className="mb-8">
+          <DashboardStats stats={stats} />
+        </div>
+      )}
 
       {/* Recent Projects and Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
@@ -138,7 +123,7 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle>Recent Projects</CardTitle>
-                  <CardDescription>Latest opportunities matching your preferences</CardDescription>
+                  <CardDescription>Latest opportunities from your connected platforms</CardDescription>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
@@ -154,14 +139,44 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {projects.slice(0, 3).map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    onBookmark={handleBookmark}
-                    onApply={handleApply}
-                  />
-                ))}
+                {recentProjects && recentProjects.length > 0 ? (
+                  recentProjects.slice(0, 3).map((project: Project) => (
+                    <ProjectCard
+                      key={project.id}
+                      project={{
+                        id: project.id,
+                        title: project.title,
+                        description: project.description,
+                        budget: project.budget,
+                        budget_type: project.budget_type,
+                        source_platform: project.source_platform,
+                        source_url: project.source_url,
+                        technologies: project.technologies,
+                        category: project.category,
+                        location: project.location,
+                        posted_date: project.posted_date,
+                        deadline: project.deadline,
+                        status: project.status,
+                        created_at: project.created_at,
+                        updated_at: project.updated_at
+                      }}
+                      onBookmark={handleBookmark}
+                      onApply={handleApply}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">No projects found</h3>
+                    <p className="text-gray-600 mb-4">
+                      Connect your platforms to start discovering projects.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-1" />
+                      Add Platform
+                    </Button>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

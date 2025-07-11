@@ -1,145 +1,187 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Trash2, Save } from 'lucide-react'
+import { Plus, Trash2, Save, Loader2 } from 'lucide-react'
+import { useUserPreferences, useUpdateUserPreferences, useSources, useUpdateSource, useCreateSource, useDeleteSource } from '@/hooks/useApi'
 
-interface UserPreferences {
-  targetTechnologies: string[]
-  targetCategories: string[]
-  minBudget: number
-  maxBudget: number
-  preferredPlatforms: string[]
-  notifications: {
-    newProjects: boolean
-    bidUpdates: boolean
-    emailNotifications: boolean
+interface LocalPreferences {
+  target_technologies: string[]
+  target_categories: string[]
+  min_budget: number
+  max_budget: number
+  preferred_platforms: string[]
+  notification_settings: {
+    new_projects: boolean
+    bid_updates: boolean
+    email: boolean
   }
 }
-
-interface Platform {
-  id: string
-  name: string
-  url: string
-  isActive: boolean
-  lastScraped: string | null
-}
-
-const mockPreferences: UserPreferences = {
-  targetTechnologies: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python'],
-  targetCategories: ['Web Development', 'AI Development', 'Backend Development'],
-  minBudget: 1000,
-  maxBudget: 5000,
-  preferredPlatforms: ['Upwork', 'Freelancer', 'Toptal'],
-  notifications: {
-    newProjects: true,
-    bidUpdates: true,
-    emailNotifications: false
-  }
-}
-
-const mockPlatforms: Platform[] = [
-  {
-    id: '1',
-    name: 'Upwork',
-    url: 'https://upwork.com',
-    isActive: true,
-    lastScraped: '2024-01-15T10:30:00Z'
-  },
-  {
-    id: '2',
-    name: 'Freelancer',
-    url: 'https://freelancer.com',
-    isActive: true,
-    lastScraped: '2024-01-15T09:15:00Z'
-  },
-  {
-    id: '3',
-    name: 'Toptal',
-    url: 'https://toptal.com',
-    isActive: false,
-    lastScraped: null
-  }
-]
 
 export default function SettingsPage() {
-  const [preferences, setPreferences] = useState<UserPreferences>(mockPreferences)
-  const [platforms, setPlatforms] = useState<Platform[]>(mockPlatforms)
   const [newTechnology, setNewTechnology] = useState('')
   const [newCategory, setNewCategory] = useState('')
   const [newPlatformName, setNewPlatformName] = useState('')
   const [newPlatformUrl, setNewPlatformUrl] = useState('')
 
+  // Fetch data from API
+  const { data: preferences, isLoading: preferencesLoading, error: preferencesError } = useUserPreferences()
+  const { data: sources = [], isLoading: sourcesLoading, error: sourcesError } = useSources()
+  
+  // Mutations
+  const updatePreferencesMutation = useUpdateUserPreferences()
+  const updateSourceMutation = useUpdateSource()
+  const createSourceMutation = useCreateSource()
+  const deleteSourceMutation = useDeleteSource()
+
+  // Local state for form values
+  const [localPreferences, setLocalPreferences] = useState<LocalPreferences>({
+    target_technologies: [],
+    target_categories: [],
+    min_budget: 0,
+    max_budget: 0,
+    preferred_platforms: [],
+    notification_settings: {
+      new_projects: false,
+      bid_updates: false,
+      email: false
+    }
+  })
+
+  // Update local state when preferences are loaded
+  useEffect(() => {
+    if (preferences) {
+      setLocalPreferences({
+        target_technologies: preferences.target_technologies || [],
+        target_categories: preferences.target_categories || [],
+        min_budget: preferences.min_budget || 0,
+        max_budget: preferences.max_budget || 0,
+        preferred_platforms: preferences.preferred_platforms || [],
+        notification_settings: preferences.notification_settings || {
+          new_projects: false,
+          bid_updates: false,
+          email: false
+        }
+      })
+    }
+  }, [preferences])
+
+  if (preferencesError || sourcesError) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center py-12">
+          <div className="text-red-500 mb-4">
+            <Save className="h-12 w-12 mx-auto mb-2" />
+            <h3 className="text-lg font-medium mb-2">Error Loading Settings</h3>
+            <p className="text-sm">
+              {preferencesError instanceof Error ? preferencesError.message : sourcesError instanceof Error ? sourcesError.message : 'Failed to load settings'}
+            </p>
+          </div>
+          <Button onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  if (preferencesLoading || sourcesLoading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+          <span className="ml-2 text-gray-600">Loading settings...</span>
+        </div>
+      </div>
+    )
+  }
+
   const handleAddTechnology = () => {
-    if (newTechnology.trim() && !preferences.targetTechnologies.includes(newTechnology.trim())) {
-      setPreferences(prev => ({
+    if (newTechnology.trim() && !localPreferences.target_technologies.includes(newTechnology.trim())) {
+      setLocalPreferences(prev => ({
         ...prev,
-        targetTechnologies: [...prev.targetTechnologies, newTechnology.trim()]
+        target_technologies: [...prev.target_technologies, newTechnology.trim()]
       }))
       setNewTechnology('')
     }
   }
 
   const handleRemoveTechnology = (tech: string) => {
-    setPreferences(prev => ({
+    setLocalPreferences(prev => ({
       ...prev,
-      targetTechnologies: prev.targetTechnologies.filter(t => t !== tech)
+      target_technologies: prev.target_technologies.filter(t => t !== tech)
     }))
   }
 
   const handleAddCategory = () => {
-    if (newCategory.trim() && !preferences.targetCategories.includes(newCategory.trim())) {
-      setPreferences(prev => ({
+    if (newCategory.trim() && !localPreferences.target_categories.includes(newCategory.trim())) {
+      setLocalPreferences(prev => ({
         ...prev,
-        targetCategories: [...prev.targetCategories, newCategory.trim()]
+        target_categories: [...prev.target_categories, newCategory.trim()]
       }))
       setNewCategory('')
     }
   }
 
   const handleRemoveCategory = (category: string) => {
-    setPreferences(prev => ({
+    setLocalPreferences(prev => ({
       ...prev,
-      targetCategories: prev.targetCategories.filter(c => c !== category)
+      target_categories: prev.target_categories.filter(c => c !== category)
     }))
   }
 
-  const handleAddPlatform = () => {
+  const handleAddPlatform = async () => {
     if (newPlatformName.trim() && newPlatformUrl.trim()) {
-      const newPlatform: Platform = {
-        id: Date.now().toString(),
-        name: newPlatformName.trim(),
-        url: newPlatformUrl.trim(),
-        isActive: true,
-        lastScraped: null
+      try {
+        await createSourceMutation.mutateAsync({
+          name: newPlatformName.trim(),
+          url: newPlatformUrl.trim(),
+          is_active: true
+        })
+        setNewPlatformName('')
+        setNewPlatformUrl('')
+      } catch (error) {
+        console.error('Error creating platform:', error)
       }
-      setPlatforms(prev => [...prev, newPlatform])
-      setNewPlatformName('')
-      setNewPlatformUrl('')
     }
   }
 
-  const handleTogglePlatform = (platformId: string) => {
-    setPlatforms(prev => 
-      prev.map(platform => 
-        platform.id === platformId 
-          ? { ...platform, isActive: !platform.isActive }
-          : platform
-      )
-    )
+  const handleTogglePlatform = async (sourceId: string) => {
+    const source = sources.find(s => s.id === sourceId)
+    if (source) {
+      try {
+        await updateSourceMutation.mutateAsync({
+          id: sourceId,
+          updates: { is_active: !source.is_active }
+        })
+      } catch (error) {
+        console.error('Error toggling platform:', error)
+      }
+    }
   }
 
-  const handleRemovePlatform = (platformId: string) => {
-    setPlatforms(prev => prev.filter(p => p.id !== platformId))
+  const handleRemovePlatform = async (sourceId: string) => {
+    try {
+      await deleteSourceMutation.mutateAsync(sourceId)
+    } catch (error) {
+      console.error('Error removing platform:', error)
+    }
   }
 
-  const handleSaveSettings = () => {
-    // TODO: Implement save to backend
-    console.log('Saving settings:', preferences, platforms)
-    alert('Settings saved successfully!')
+  const handleSaveSettings = async () => {
+    try {
+      await updatePreferencesMutation.mutateAsync({
+        userId: '00000000-0000-0000-0000-000000000000', // Valid UUID for default user
+        preferences: localPreferences
+      })
+      alert('Settings saved successfully!')
+    } catch (error) {
+      console.error('Error saving settings:', error)
+      alert('Failed to save settings. Please try again.')
+    }
   }
 
   return (
@@ -163,7 +205,7 @@ export default function SettingsPage() {
           <CardContent>
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
-                {preferences.targetTechnologies.map((tech) => (
+                {localPreferences.target_technologies.map((tech: string) => (
                   <Badge key={tech} variant="secondary" className="pr-1">
                     {tech}
                     <button
@@ -203,7 +245,7 @@ export default function SettingsPage() {
           <CardContent>
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
-                {preferences.targetCategories.map((category) => (
+                {localPreferences.target_categories.map((category: string) => (
                   <Badge key={category} variant="secondary" className="pr-1">
                     {category}
                     <button
@@ -246,10 +288,10 @@ export default function SettingsPage() {
                 <label className="block text-sm font-medium mb-1">Minimum Budget</label>
                 <Input
                   type="number"
-                  value={preferences.minBudget}
-                  onChange={(e) => setPreferences(prev => ({
+                  value={localPreferences.min_budget}
+                  onChange={(e) => setLocalPreferences(prev => ({
                     ...prev,
-                    minBudget: parseInt(e.target.value) || 0
+                    min_budget: parseInt(e.target.value) || 0
                   }))}
                 />
               </div>
@@ -257,10 +299,10 @@ export default function SettingsPage() {
                 <label className="block text-sm font-medium mb-1">Maximum Budget</label>
                 <Input
                   type="number"
-                  value={preferences.maxBudget}
-                  onChange={(e) => setPreferences(prev => ({
+                  value={localPreferences.max_budget}
+                  onChange={(e) => setLocalPreferences(prev => ({
                     ...prev,
-                    maxBudget: parseInt(e.target.value) || 0
+                    max_budget: parseInt(e.target.value) || 0
                   }))}
                 />
               </div>
@@ -279,34 +321,34 @@ export default function SettingsPage() {
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2">
-                {platforms.map((platform) => (
-                  <div key={platform.id} className="flex items-center justify-between p-3 border rounded-lg">
+                {sources.map((source) => (
+                  <div key={source.id} className="flex items-center justify-between p-3 border rounded-lg">
                     <div className="flex items-center space-x-3">
                       <div>
-                        <h4 className="font-medium">{platform.name}</h4>
-                        <p className="text-sm text-gray-600">{platform.url}</p>
-                        {platform.lastScraped && (
+                        <h4 className="font-medium">{source.name}</h4>
+                        <p className="text-sm text-gray-600">{source.url}</p>
+                        {source.last_scraped && (
                           <p className="text-xs text-gray-500">
-                            Last scraped: {new Date(platform.lastScraped).toLocaleDateString()}
+                            Last scraped: {new Date(source.last_scraped).toLocaleDateString()}
                           </p>
                         )}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge variant={platform.isActive ? 'default' : 'secondary'}>
-                        {platform.isActive ? 'Active' : 'Inactive'}
+                      <Badge variant={source.is_active ? 'default' : 'secondary'}>
+                        {source.is_active ? 'Active' : 'Inactive'}
                       </Badge>
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleTogglePlatform(platform.id)}
+                        onClick={() => handleTogglePlatform(source.id)}
                       >
                         Toggle
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleRemovePlatform(platform.id)}
+                        onClick={() => handleRemovePlatform(source.id)}
                         className="text-red-600 hover:text-red-700"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -344,68 +386,67 @@ export default function SettingsPage() {
               Control how you receive updates and alerts
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-medium">New Projects</h4>
-                  <p className="text-sm text-gray-600">Get notified when new projects match your criteria</p>
+          <CardContent>              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium">New Projects</h4>
+                    <p className="text-sm text-gray-600">Get notified when new projects match your criteria</p>
+                  </div>
+                  <Button
+                    variant={localPreferences.notification_settings.new_projects ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setLocalPreferences(prev => ({
+                      ...prev,
+                      notification_settings: {
+                        ...prev.notification_settings,
+                        new_projects: !prev.notification_settings.new_projects
+                      }
+                    }))}
+                  >
+                    {localPreferences.notification_settings.new_projects ? 'On' : 'Off'}
+                  </Button>
                 </div>
-                <Button
-                  variant={preferences.notifications.newProjects ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPreferences(prev => ({
-                    ...prev,
-                    notifications: {
-                      ...prev.notifications,
-                      newProjects: !prev.notifications.newProjects
-                    }
-                  }))}
-                >
-                  {preferences.notifications.newProjects ? 'On' : 'Off'}
-                </Button>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-medium">Bid Updates</h4>
-                  <p className="text-sm text-gray-600">Get notified about bid status changes</p>
+                
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium">Bid Updates</h4>
+                    <p className="text-sm text-gray-600">Get notified about bid status changes</p>
+                  </div>
+                  <Button
+                    variant={localPreferences.notification_settings.bid_updates ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setLocalPreferences(prev => ({
+                      ...prev,
+                      notification_settings: {
+                        ...prev.notification_settings,
+                        bid_updates: !prev.notification_settings.bid_updates
+                      }
+                    }))}
+                  >
+                    {localPreferences.notification_settings.bid_updates ? 'On' : 'Off'}
+                  </Button>
                 </div>
-                <Button
-                  variant={preferences.notifications.bidUpdates ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPreferences(prev => ({
-                    ...prev,
-                    notifications: {
-                      ...prev.notifications,
-                      bidUpdates: !prev.notifications.bidUpdates
-                    }
-                  }))}
-                >
-                  {preferences.notifications.bidUpdates ? 'On' : 'Off'}
-                </Button>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-medium">Email Notifications</h4>
-                  <p className="text-sm text-gray-600">Receive notifications via email</p>
+                
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium">Email Notifications</h4>
+                    <p className="text-sm text-gray-600">Receive notifications via email</p>
+                  </div>
+                  <Button
+                    variant={localPreferences.notification_settings.email ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setLocalPreferences(prev => ({
+                      ...prev,
+                      notification_settings: {
+                        ...prev.notification_settings,
+                        email: !prev.notification_settings.email
+                      }
+                    }))}
+                  >
+                    {localPreferences.notification_settings.email ? 'On' : 'Off'}
+                  </Button>
                 </div>
-                <Button
-                  variant={preferences.notifications.emailNotifications ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPreferences(prev => ({
-                    ...prev,
-                    notifications: {
-                      ...prev.notifications,
-                      emailNotifications: !prev.notifications.emailNotifications
-                    }
-                  }))}
-                >
-                  {preferences.notifications.emailNotifications ? 'On' : 'Off'}
-                </Button>
               </div>
-            </div>
           </CardContent>
         </Card>
 
