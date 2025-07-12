@@ -1,67 +1,61 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import QueryProvider from "@/components/query-provider";
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar"
+import { Separator } from "@/components/ui/separator"
+import QueryProvider from "@/components/query-provider"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "BidMaster - Freelance Project Management",
-  description: "Discover, manage, and track freelance projects across multiple platforms",
-};
+  title: "BidMaster - Project Discovery Platform",
+  description: "Discover and manage freelance projects across multiple platforms",
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={inter.className}>
         <QueryProvider>
           <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-              <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-                <div className="flex items-center gap-2 px-4">
-                  <SidebarTrigger className="-ml-1" />
-                  <Separator orientation="vertical" className="mr-2 h-4" />
-                  <Breadcrumb>
-                    <BreadcrumbList>
-                      <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href="/">Dashboard</BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator className="hidden md:block" />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Projects</BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </BreadcrumbList>
-                  </Breadcrumb>
-                </div>
+              <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-6">
+                <SidebarTrigger className="-ml-1" />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href="#" className="text-base">
+                        BidMaster
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="text-base font-medium">Dashboard</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
               </header>
-              <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <main className="min-h-screen bg-background">
-                  {children}
-                </main>
-              </div>
+              <main className="flex-1 overflow-auto bg-gray-50/50">{children}</main>
             </SidebarInset>
           </SidebarProvider>
         </QueryProvider>
       </body>
     </html>
-  );
+  )
 }

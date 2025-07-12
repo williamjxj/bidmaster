@@ -521,14 +521,26 @@
 }
 
 @keyframes breathe {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.05) rotate(1deg); }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(1deg); }
-  75% { transform: rotate(-1deg); }
+  0%, 7%, 14% {
+    transform: rotateZ(0);
+  }
+  3.5% {
+    transform: rotateZ(-5deg);
+  }
+  10.5% {
+    transform: rotateZ(5deg);
+  }
 }
 
 @keyframes heartbeat {
@@ -653,6 +665,56 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Loading component utility classes */
+.loading-phase-blue {
+  @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white;
+}
+
+.loading-phase-purple {
+  @apply bg-gradient-to-r from-purple-500 to-purple-600 text-white;
+}
+
+.loading-phase-green {
+  @apply bg-gradient-to-r from-green-500 to-green-600 text-white;
+}
+
+.loading-phase-orange {
+  @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white;
+}
+
+/* Color-safe stat card backgrounds */
+.stat-bg-blue {
+  @apply bg-blue-100 dark:bg-blue-900/20;
+}
+
+.stat-bg-green {
+  @apply bg-green-100 dark:bg-green-900/20;
+}
+
+.stat-bg-purple {
+  @apply bg-purple-100 dark:bg-purple-900/20;
+}
+
+.stat-bg-orange {
+  @apply bg-orange-100 dark:bg-orange-900/20;
+}
+
+.stat-text-blue {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.stat-text-green {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.stat-text-purple {
+  @apply text-purple-600 dark:text-purple-400;
+}
+
+.stat-text-orange {
+  @apply text-orange-600 dark:text-orange-400;
+}
+
 /* Enhanced Focus States */
 .focus-ring:focus-visible {
   outline: 2px solid var(--ring);
@@ -755,10 +817,6 @@
     gap: 1rem;
   }
 }
-
-/* ========================================
-   END MODERN UI ENHANCEMENT SYSTEM
-========================================= */
 
 /* Base styles */
 * {
@@ -1188,7 +1246,7 @@ body {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
-/* Advanced hover states */
+/* Enhanced hover states */
 .hover-scale {
   transition: transform 0.2s ease-in-out;
 }
@@ -1597,14 +1655,26 @@ body {
 }
 
 @keyframes breathe {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.05) rotate(1deg); }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(1deg); }
-  75% { transform: rotate(-1deg); }
+  0%, 7%, 14% {
+    transform: rotateZ(0);
+  }
+  3.5% {
+    transform: rotateZ(-5deg);
+  }
+  10.5% {
+    transform: rotateZ(5deg);
+  }
 }
 
 @keyframes heartbeat {
@@ -1727,6 +1797,56 @@ body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Loading component utility classes */
+.loading-phase-blue {
+  @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white;
+}
+
+.loading-phase-purple {
+  @apply bg-gradient-to-r from-purple-500 to-purple-600 text-white;
+}
+
+.loading-phase-green {
+  @apply bg-gradient-to-r from-green-500 to-green-600 text-white;
+}
+
+.loading-phase-orange {
+  @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white;
+}
+
+/* Color-safe stat card backgrounds */
+.stat-bg-blue {
+  @apply bg-blue-100 dark:bg-blue-900/20;
+}
+
+.stat-bg-green {
+  @apply bg-green-100 dark:bg-green-900/20;
+}
+
+.stat-bg-purple {
+  @apply bg-purple-100 dark:bg-purple-900/20;
+}
+
+.stat-bg-orange {
+  @apply bg-orange-100 dark:bg-orange-900/20;
+}
+
+.stat-text-blue {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.stat-text-green {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.stat-text-purple {
+  @apply text-purple-600 dark:text-purple-400;
+}
+
+.stat-text-orange {
+  @apply text-orange-600 dark:text-orange-400;
 }
 
 /* Enhanced Focus States */

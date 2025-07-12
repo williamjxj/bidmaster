@@ -1,6 +1,21 @@
 "use client"
 
-import { Calendar, Home, Inbox, Search, Settings, Command, MoreHorizontal, Target, Activity, TrendingUp, BarChart3, Zap, Bell, Star } from "lucide-react"
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+  Command,
+  MoreHorizontal,
+  Target,
+  Activity,
+  TrendingUp,
+  BarChart3,
+  Zap,
+  Bell,
+  Star,
+} from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -16,6 +31,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 // Navigation items with dynamic badges and enhanced icons
 const navMain = [
@@ -24,7 +41,7 @@ const navMain = [
     url: "/",
     icon: Home,
     badge: null,
-    gradient: "from-blue-500 to-purple-600",
+    description: "Overview & analytics",
   },
   {
     title: "Projects",
@@ -32,7 +49,7 @@ const navMain = [
     icon: Search,
     badge: "23",
     badgeVariant: "secondary" as const,
-    gradient: "from-green-500 to-teal-600",
+    description: "Browse opportunities",
   },
   {
     title: "My Bids",
@@ -40,67 +57,62 @@ const navMain = [
     icon: Inbox,
     badge: "5",
     badgeVariant: "default" as const,
-    gradient: "from-orange-500 to-red-600",
+    description: "Active applications",
   },
   {
     title: "Analytics",
     url: "/analytics",
     icon: BarChart3,
     badge: null,
-    gradient: "from-purple-500 to-pink-600",
+    description: "Performance insights",
   },
   {
     title: "Calendar",
     url: "/calendar",
     icon: Calendar,
     badge: null,
-    gradient: "from-indigo-500 to-blue-600",
+    description: "Schedule & deadlines",
   },
   {
     title: "Settings",
     url: "/settings",
     icon: Settings,
     badge: null,
-    gradient: "from-gray-500 to-gray-600",
-  },
-  {
-    title: "UI Showcase",
-    url: "/shadcn-showcase",
-    icon: Zap,
-    badge: "NEW",
-    badgeVariant: "default" as const,
-    gradient: "from-violet-500 to-purple-600",
+    description: "Account preferences",
   },
 ]
 
 // Platform data with enhanced styling
 const platforms = [
-  { 
-    name: "Upwork", 
-    count: 12, 
-    color: "bg-green-500",
-    textColor: "text-green-700",
-    bgColor: "bg-green-50",
+  {
+    name: "Upwork",
+    count: 12,
+    color: "bg-emerald-500",
+    textColor: "text-emerald-700",
+    bgColor: "bg-emerald-50",
     pulse: true,
-    trend: "+2"
+    trend: "+2",
+    status: "active",
   },
-  { 
-    name: "Freelancer", 
-    count: 8, 
+  {
+    name: "Freelancer",
+    count: 8,
     color: "bg-blue-500",
     textColor: "text-blue-700",
     bgColor: "bg-blue-50",
     pulse: false,
-    trend: "+1"
+    trend: "+1",
+    status: "active",
   },
-  { 
-    name: "Toptal", 
-    count: 3, 
+  {
+    name: "Toptal",
+    count: 3,
     color: "bg-purple-500",
     textColor: "text-purple-700",
     bgColor: "bg-purple-50",
     pulse: false,
-    trend: "0"
+    trend: "0",
+    status: "idle",
   },
 ]
 
@@ -110,9 +122,9 @@ const quickStats = [
     label: "Success Rate",
     value: "68%",
     icon: Target,
-    color: "text-green-600",
+    color: "text-emerald-600",
     trend: "-2.1%",
-    trendColor: "text-red-500"
+    trendColor: "text-red-500",
   },
   {
     label: "Active Bids",
@@ -120,7 +132,7 @@ const quickStats = [
     icon: Activity,
     color: "text-blue-600",
     trend: "+5.2%",
-    trendColor: "text-green-500"
+    trendColor: "text-emerald-500",
   },
   {
     label: "This Month",
@@ -128,26 +140,35 @@ const quickStats = [
     icon: TrendingUp,
     color: "text-purple-600",
     trend: "+18.3%",
-    trendColor: "text-green-500"
-  }
+    trendColor: "text-emerald-500",
+  },
 ]
 
 export function AppSidebar() {
+  const pathname = usePathname()
+
   return (
-    <Sidebar className="border-r bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50">
-      <SidebarHeader className="border-b border-gray-200/50 dark:border-gray-700/50">
+    <Sidebar className="border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+      <SidebarHeader className="border-b border-gray-100 dark:border-gray-800 p-5">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild className="hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 transition-all duration-200">
+            <SidebarMenuButton
+              size="lg"
+              asChild
+              className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 p-3"
+            >
               <Link href="/">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
-                  <Command className="size-4" />
+                <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-sm">
+                  <Command className="size-5" />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-bold text-gray-900 dark:text-white">BidMaster</span>
-                  <span className="truncate text-xs text-gray-500 dark:text-gray-400">Project Discovery</span>
+                <div className="grid flex-1 text-left leading-tight ml-3">
+                  <span className="truncate font-bold text-lg text-gray-900 dark:text-white">BidMaster</span>
+                  <span className="truncate text-sm text-gray-500 dark:text-gray-400">Project Discovery</span>
                 </div>
-                <Badge variant="outline" className="ml-auto bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none">
+                <Badge
+                  variant="outline"
+                  className="ml-auto bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none text-xs px-2 py-1"
+                >
                   Pro
                 </Badge>
               </Link>
@@ -155,87 +176,149 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      
-      <SidebarContent className="px-2">
+
+      <SidebarContent className="px-4 py-6">
         {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold">Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold text-sm uppercase tracking-wider mb-4">
+            Navigation
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {navMain.map((item, index) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="group hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg mb-1 hover-lift animate-slide-in" style={{animationDelay: `${index * 0.1}s`}}>
-                    <Link href={item.url} className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <div className={`p-1.5 rounded-md bg-gradient-to-r ${item.gradient} group-hover:shadow-lg transition-all duration-200 animate-glow`}>
-                          <item.icon className="size-3 text-white animate-bounce" />
-                        </div>
-                        <span className="ml-3 font-medium group-hover:text-gradient">{item.title}</span>
-                      </div>
-                      {item.badge && (
-                        <Badge variant={item.badgeVariant} className="ml-auto shadow-sm animate-pulse">
-                          {item.badge}
-                        </Badge>
+            <SidebarMenu className="space-y-2">
+              {navMain.map((item) => {
+                const isActive = pathname === item.url
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      className={cn(
+                        "group relative flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800",
+                        isActive && "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400",
                       )}
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+                    >
+                      <Link href={item.url}>
+                        <div className="flex items-center min-w-0 flex-1">
+                          <div
+                            className={cn(
+                              "flex items-center justify-center w-6 h-6 rounded-lg transition-colors duration-200",
+                              isActive
+                                ? "text-blue-600 dark:text-blue-400"
+                                : "text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300",
+                            )}
+                          >
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                          <div className="ml-4 min-w-0 flex-1">
+                            <div
+                              className={cn(
+                                "truncate transition-colors duration-200 text-base font-medium",
+                                isActive
+                                  ? "text-blue-700 dark:text-blue-400"
+                                  : "text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100",
+                              )}
+                            >
+                              {item.title}
+                            </div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400 truncate mt-0.5">
+                              {item.description}
+                            </div>
+                          </div>
+                        </div>
+                        {item.badge && (
+                          <Badge
+                            variant={item.badgeVariant}
+                            className="ml-3 text-sm h-6 px-2 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 font-medium"
+                          >
+                            {item.badge}
+                          </Badge>
+                        )}
+                        {isActive && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 dark:bg-blue-400 rounded-r-full" />
+                        )}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* Platform Status */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold flex items-center gap-2">
-            <Zap className="size-3 animate-pulse" />
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Zap className="w-4 h-4" />
             Platforms
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {platforms.map((platform, index) => (
-                <SidebarMenuItem key={platform.name}>
-                  <SidebarMenuButton className="group flex items-center justify-between hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg mb-1 hover-lift animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                    <div className="flex items-center">
-                      <div className={`size-3 rounded-full ${platform.color} ${platform.pulse ? 'animate-pulse' : ''} shadow-sm animate-glow`} />
-                      <span className="ml-3 font-medium">{platform.name}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {platform.trend !== "0" && (
-                        <span className={`text-xs ${platform.trend.startsWith('+') ? 'text-green-500' : 'text-red-500'} animate-bounce`}>
-                          {platform.trend}
-                        </span>
+            <div className="space-y-3">
+              {platforms.map((platform) => (
+                <div
+                  key={platform.name}
+                  className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
+                >
+                  <div className="flex items-center min-w-0 flex-1">
+                    <div className="relative">
+                      <div className={cn("w-3 h-3 rounded-full", platform.color, platform.pulse && "animate-pulse")} />
+                      {platform.status === "active" && (
+                        <div
+                          className={cn(
+                            "absolute inset-0 w-3 h-3 rounded-full animate-ping",
+                            platform.color,
+                            "opacity-75",
+                          )}
+                        />
                       )}
-                      <Badge variant="outline" className="ml-auto shadow-sm animate-pulse">
-                        {platform.count}
-                      </Badge>
                     </div>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                    <span className="ml-4 text-base font-medium text-gray-700 dark:text-gray-300 truncate">
+                      {platform.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {platform.trend !== "0" && (
+                      <span
+                        className={cn(
+                          "text-sm font-medium",
+                          platform.trend.startsWith("+")
+                            ? "text-emerald-600 dark:text-emerald-400"
+                            : "text-red-600 dark:text-red-400",
+                        )}
+                      >
+                        {platform.trend}
+                      </span>
+                    )}
+                    <Badge variant="outline" className="text-sm h-6 px-2 bg-gray-50 dark:bg-gray-800 font-medium">
+                      {platform.count}
+                    </Badge>
+                  </div>
+                </div>
               ))}
-            </SidebarMenu>
+            </div>
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* Quick Stats */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold flex items-center gap-2">
-            <Star className="size-3" />
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Star className="w-4 h-4" />
             Quick Stats
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <div className="space-y-1">
+            <div className="space-y-3">
               {quickStats.map((stat) => (
-                <div key={stat.label} className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 group">
-                  <div className="flex items-center">
-                    <div className="p-1 rounded-md bg-gray-100 dark:bg-gray-800 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-200">
-                      <stat.icon className={`size-3 ${stat.color}`} />
+                <div
+                  key={stat.label}
+                  className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
+                >
+                  <div className="flex items-center min-w-0 flex-1">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-white dark:group-hover:bg-gray-700 transition-colors duration-200">
+                      <stat.icon className={cn("w-4 h-4", stat.color)} />
                     </div>
-                    <span className="ml-2 text-xs text-gray-600 dark:text-gray-400">{stat.label}</span>
+                    <span className="ml-3 text-sm text-gray-600 dark:text-gray-400 truncate">{stat.label}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs font-semibold text-gray-900 dark:text-white">{stat.value}</span>
-                    <span className={`text-xs ${stat.trendColor}`}>{stat.trend}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{stat.value}</span>
+                    <span className={cn("text-sm font-medium", stat.trendColor)}>{stat.trend}</span>
                   </div>
                 </div>
               ))}
@@ -244,28 +327,32 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-gray-200/50 dark:border-gray-700/50 p-2">
+      <SidebarFooter className="border-t border-gray-100 dark:border-gray-800 p-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="flex items-center justify-between hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg p-3">
-              <div className="flex items-center">
+            <SidebarMenuButton className="flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 rounded-xl p-4">
+              <div className="flex items-center min-w-0 flex-1">
                 <div className="relative">
-                  <Avatar className="size-8 ring-2 ring-blue-500/20">
+                  <Avatar className="w-10 h-10 ring-2 ring-blue-500/20">
                     <AvatarImage src="/avatar.jpg" />
-                    <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-blue-600 to-purple-600 text-white font-semibold text-base">
                       JD
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute -top-1 -right-1 size-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-900 animate-pulse" />
+                  <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-900" />
                 </div>
-                <div className="ml-3 grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold text-gray-900 dark:text-white">John Doe</span>
-                  <span className="truncate text-xs text-gray-500 dark:text-gray-400">john@example.com</span>
+                <div className="ml-3 min-w-0 flex-1">
+                  <div className="text-base font-semibold text-gray-900 dark:text-white truncate">John Doe</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 truncate">john@example.com</div>
                 </div>
               </div>
-              <div className="flex items-center gap-1">
-                <Bell className="size-3 text-gray-400" />
-                <MoreHorizontal className="size-4 text-gray-400" />
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 p-0 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center cursor-pointer transition-colors">
+                  <Bell className="w-4 h-4 text-gray-400" />
+                </div>
+                <div className="w-8 h-8 p-0 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center cursor-pointer transition-colors">
+                  <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                </div>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
