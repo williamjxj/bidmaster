@@ -69,40 +69,44 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
   const isHighBudget = project.budget && project.budget > 5000
 
   return (
-    <Card className="h-full group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+    <Card className="h-full group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden card-elevated hover-shine animate-slide-up">
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/20 dark:from-blue-900/10 dark:to-purple-900/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/20 dark:from-blue-900/10 dark:to-purple-900/10 animate-gradient" />
       
       {/* Urgent indicator */}
       {isUrgent && (
         <div className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
       )}
       
-      <CardHeader className="pb-3 relative">
+      {/* Floating elements */}
+      <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full animate-float"></div>
+      <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
+      
+      <CardHeader className="pb-3 relative z-10">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-lg leading-6 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-bold">
+            <CardTitle className="text-lg leading-6 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-bold text-gradient">
               {project.title}
             </CardTitle>
             <div className="flex items-center gap-2 mb-2">
-              <Badge className={`${getPlatformColor(project.source_platform)} font-medium`}>
+              <Badge className={`${getPlatformColor(project.source_platform)} font-medium hover-lift animate-zoom-in`}>
                 {project.source_platform}
               </Badge>
               {isHighBudget && (
-                <Badge variant="outline" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-none">
-                  <Star className="w-3 h-3 mr-1" />
+                <Badge variant="outline" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-none animate-glow">
+                  <Star className="w-3 h-3 mr-1 animate-spin" />
                   Premium
                 </Badge>
               )}
             </div>
           </div>
-          <Badge className={`${getStatusColor(project.status)} font-medium`}>
+          <Badge className={`${getStatusColor(project.status)} font-medium animate-pulse`}>
             {project.status}
           </Badge>
         </div>
       </CardHeader>
       
-      <CardContent className="pb-3 relative">
+      <CardContent className="pb-3 relative z-10">
         <div className="space-y-4">
           {project.description && (
             <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed">
@@ -112,9 +116,9 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
             {project.budget && (
-              <div className="flex items-center gap-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                <div className="p-1 bg-green-500/20 rounded-full">
-                  <DollarSign className="h-3 w-3 text-green-600" />
+              <div className="flex items-center gap-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg hover-lift glass-effect">
+                <div className="p-1 bg-green-500/20 rounded-full animate-glow">
+                  <DollarSign className="h-3 w-3 text-green-600 animate-bounce" />
                 </div>
                 <span className="font-semibold text-green-800 dark:text-green-400">
                   ${project.budget.toLocaleString()}
@@ -123,9 +127,9 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
               </div>
             )}
             
-            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <div className="p-1 bg-blue-500/20 rounded-full">
-                <Calendar className="h-3 w-3 text-blue-600" />
+            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover-lift glass-effect">
+              <div className="p-1 bg-blue-500/20 rounded-full animate-glow">
+                <Calendar className="h-3 w-3 text-blue-600 animate-pulse" />
               </div>
               <span className="font-medium text-blue-800 dark:text-blue-400">
                 {formatDate(project.posted_date)}
@@ -133,9 +137,9 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
             </div>
             
             {project.location && (
-              <div className="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                <div className="p-1 bg-purple-500/20 rounded-full">
-                  <MapPin className="h-3 w-3 text-purple-600" />
+              <div className="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover-lift glass-effect">
+                <div className="p-1 bg-purple-500/20 rounded-full animate-glow">
+                  <MapPin className="h-3 w-3 text-purple-600 animate-float" />
                 </div>
                 <span className="font-medium text-purple-800 dark:text-purple-400">
                   {project.location}

@@ -154,18 +154,18 @@ export function AppSidebar() {
           <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navMain.map((item) => (
+              {navMain.map((item, index) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="group hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg mb-1">
+                  <SidebarMenuButton asChild className="group hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg mb-1 hover-lift animate-slide-in" style={{animationDelay: `${index * 0.1}s`}}>
                     <Link href={item.url} className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <div className={`p-1.5 rounded-md bg-gradient-to-r ${item.gradient} group-hover:shadow-lg transition-all duration-200`}>
-                          <item.icon className="size-3 text-white" />
+                        <div className={`p-1.5 rounded-md bg-gradient-to-r ${item.gradient} group-hover:shadow-lg transition-all duration-200 animate-glow`}>
+                          <item.icon className="size-3 text-white animate-bounce" />
                         </div>
-                        <span className="ml-3 font-medium">{item.title}</span>
+                        <span className="ml-3 font-medium group-hover:text-gradient">{item.title}</span>
                       </div>
                       {item.badge && (
-                        <Badge variant={item.badgeVariant} className="ml-auto shadow-sm">
+                        <Badge variant={item.badgeVariant} className="ml-auto shadow-sm animate-pulse">
                           {item.badge}
                         </Badge>
                       )}
@@ -180,25 +180,25 @@ export function AppSidebar() {
         {/* Platform Status */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-gray-600 dark:text-gray-400 font-semibold flex items-center gap-2">
-            <Zap className="size-3" />
+            <Zap className="size-3 animate-pulse" />
             Platforms
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {platforms.map((platform) => (
+              {platforms.map((platform, index) => (
                 <SidebarMenuItem key={platform.name}>
-                  <SidebarMenuButton className="group flex items-center justify-between hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg mb-1">
+                  <SidebarMenuButton className="group flex items-center justify-between hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-200 rounded-lg mb-1 hover-lift animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
                     <div className="flex items-center">
-                      <div className={`size-3 rounded-full ${platform.color} ${platform.pulse ? 'animate-pulse' : ''} shadow-sm`} />
+                      <div className={`size-3 rounded-full ${platform.color} ${platform.pulse ? 'animate-pulse' : ''} shadow-sm animate-glow`} />
                       <span className="ml-3 font-medium">{platform.name}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       {platform.trend !== "0" && (
-                        <span className={`text-xs ${platform.trend.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
+                        <span className={`text-xs ${platform.trend.startsWith('+') ? 'text-green-500' : 'text-red-500'} animate-bounce`}>
                           {platform.trend}
                         </span>
                       )}
-                      <Badge variant="outline" className="ml-auto shadow-sm">
+                      <Badge variant="outline" className="ml-auto shadow-sm animate-pulse">
                         {platform.count}
                       </Badge>
                     </div>
