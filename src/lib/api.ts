@@ -21,136 +21,137 @@ export const projectsApi = {
     maxBudget?: number
     searchTerm?: string
   }) {
-    let query = supabase
-      .from('projects')
-      .select('*')
-      .order('posted_date', { ascending: false })
-
-    if (filters) {
-      if (filters.status && filters.status.length > 0) {
-        query = query.in('status', filters.status)
-      }
-      
-      if (filters.category) {
-        query = query.eq('category', filters.category)
-      }
-      
-      if (filters.platform) {
-        query = query.eq('source_platform', filters.platform)
-      }
-      
-      if (filters.minBudget) {
-        query = query.gte('budget', filters.minBudget)
-      }
-      
-      if (filters.maxBudget) {
-        query = query.lte('budget', filters.maxBudget)
-      }
-      
-      if (filters.technologies && filters.technologies.length > 0) {
-        query = query.overlaps('technologies', filters.technologies)
-      }
-      
-      if (filters.searchTerm) {
-        query = query.or(`title.ilike.%${filters.searchTerm}%,description.ilike.%${filters.searchTerm}%`)
-      }
+    const params = new URLSearchParams()
+    
+    if (filters?.category) {
+      params.append('category', filters.category)
+    }
+    
+    if (filters?.status && filters.status.length > 0) {
+      params.append('status', filters.status.join(','))
+    }
+    
+    if (filters?.searchTerm) {
+      params.append('searchTerm', filters.searchTerm)
+    }
+    
+    if (filters?.technologies && filters.technologies.length > 0) {
+      params.append('technologies', filters.technologies.join(','))
+    }
+    
+    if (filters?.platform) {
+      params.append('platform', filters.platform)
+    }
+    
+    if (filters?.minBudget) {
+      params.append('minBudget', filters.minBudget.toString())
+    }
+    
+    if (filters?.maxBudget) {
+      params.append('maxBudget', filters.maxBudget.toString())
     }
 
-    const { data, error } = await query
-
-    if (error) {
-      console.error('Error fetching projects:', error)
+    const response = await fetch(`/api/projects?${params.toString()}`)
+    
+    if (!response.ok) {
       throw new Error('Failed to fetch projects')
     }
 
-    return data as Project[]
+    return response.json()
   },
 
   // Get a single project by ID
   async getProject(id: string) {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('id', id)
-      .single()
-
-    if (error) {
-      console.error('Error fetching project:', error)
+    const response = await fetch(`/api/projects/${id}`)
+    
+    if (!response.ok) {
       throw new Error('Failed to fetch project')
     }
 
-    return data as Project
+    return response.json()
   },
 
   // Create a new project
-  async createProject(project: ProjectInsert) {
-    const { data, error } = await supabase
-      .from('projects')
-      .insert(project)
-      .select()
-      .single()
+  async createProject(project: {
+    title: string
+    description?: string
+    budget?: number
+    budgetType?: string
+    sourcePlatform: string
+    sourceUrl: string
+    technologies?: string[]
+    category?: string
+    location?: string
+    postedDate?: string
+    deadline?: string
+    status?: string
+  }) {
+    const response = await fetch('/api/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(project),
+    })
 
-    if (error) {
-      console.error('Error creating project:', error)
+    if (!response.ok) {
       throw new Error('Failed to create project')
     }
 
-    return data as Project
+    return response.json()
   },
 
   // Update a project
-  async updateProject(id: string, updates: ProjectUpdate) {
-    const { data, error } = await supabase
-      .from('projects')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single()
+  async updateProject(id: string, updates: {
+    title?: string
+    description?: string
+    budget?: number
+    budgetType?: string
+    sourcePlatform?: string
+    sourceUrl?: string
+    technologies?: string[]
+    category?: string
+    location?: string
+    deadline?: string
+    status?: string
+  }) {
+    const response = await fetch(`/api/projects/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    })
 
-    if (error) {
-      console.error('Error updating project:', error)
+    if (!response.ok) {
       throw new Error('Failed to update project')
     }
 
-    return data as Project
+    return response.json()
   },
 
   // Delete a project
   async deleteProject(id: string) {
-    const { error } = await supabase
-      .from('projects')
-      .delete()
-      .eq('id', id)
+    const response = await fetch(`/api/projects/${id}`, {
+      method: 'DELETE',
+    })
 
-    if (error) {
-      console.error('Error deleting project:', error)
+    if (!response.ok) {
       throw new Error('Failed to delete project')
     }
+
+    return response.json()
   },
 
   // Get project statistics
   async getProjectStats() {
-    const { data: projects, error } = await supabase
-      .from('projects')
-      .select('status, budget, budget_type')
-
-    if (error) {
-      console.error('Error fetching project stats:', error)
+    const response = await fetch('/api/projects/stats')
+    
+    if (!response.ok) {
       throw new Error('Failed to fetch project statistics')
     }
 
-    const stats = {
-      total: projects.length,
-      new: projects.filter(p => p.status === 'new').length,
-      bookmarked: projects.filter(p => p.status === 'bookmarked').length,
-      applied: projects.filter(p => p.status === 'applied').length,
-      inProgress: projects.filter(p => p.status === 'in_progress').length,
-      won: projects.filter(p => p.status === 'won').length,
-      lost: projects.filter(p => p.status === 'lost').length,
-      avgBudget: projects.reduce((sum, p) => sum + (p.budget || 0), 0) / projects.length
-    }
-
-    return stats
+    return response.json()
   }
 }
 
@@ -162,133 +163,109 @@ export const bidsApi = {
     projectId?: string
     searchTerm?: string
   }) {
-    let query = supabase
-      .from('bids')
-      .select(`
-        *,
-        projects (
-          title,
-          source_platform,
-          source_url
-        )
-      `)
-      .order('created_at', { ascending: false })
-
-    if (filters) {
-      if (filters.status && filters.status.length > 0) {
-        query = query.in('status', filters.status)
-      }
-      
-      if (filters.projectId) {
-        query = query.eq('project_id', filters.projectId)
-      }
+    const params = new URLSearchParams()
+    
+    if (filters?.status && filters.status.length > 0) {
+      params.append('status', filters.status.join(','))
+    }
+    
+    if (filters?.projectId) {
+      params.append('projectId', filters.projectId)
+    }
+    
+    if (filters?.searchTerm) {
+      params.append('searchTerm', filters.searchTerm)
     }
 
-    const { data, error } = await query
-
-    if (error) {
-      console.error('Error fetching bids:', error)
+    const response = await fetch(`/api/bids?${params.toString()}`)
+    
+    if (!response.ok) {
       throw new Error('Failed to fetch bids')
     }
 
-    return data
+    return response.json()
   },
 
   // Get a single bid by ID
   async getBid(id: string) {
-    const { data, error } = await supabase
-      .from('bids')
-      .select(`
-        *,
-        projects (
-          title,
-          source_platform,
-          source_url
-        )
-      `)
-      .eq('id', id)
-      .single()
-
-    if (error) {
-      console.error('Error fetching bid:', error)
+    const response = await fetch(`/api/bids/${id}`)
+    
+    if (!response.ok) {
       throw new Error('Failed to fetch bid')
     }
 
-    return data
+    return response.json()
   },
 
   // Create a new bid
-  async createBid(bid: BidInsert) {
-    const { data, error } = await supabase
-      .from('bids')
-      .insert(bid)
-      .select()
-      .single()
+  async createBid(bid: {
+    projectId: string
+    bidAmount: number
+    bidType?: string
+    status?: string
+    proposalText: string
+    notes?: string
+  }) {
+    const response = await fetch('/api/bids', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bid),
+    })
 
-    if (error) {
-      console.error('Error creating bid:', error)
+    if (!response.ok) {
       throw new Error('Failed to create bid')
     }
 
-    return data as Bid
+    return response.json()
   },
 
   // Update a bid
-  async updateBid(id: string, updates: BidUpdate) {
-    const { data, error } = await supabase
-      .from('bids')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single()
+  async updateBid(id: string, updates: {
+    bidAmount?: number
+    bidType?: string
+    status?: string
+    proposalText?: string
+    notes?: string
+  }) {
+    const response = await fetch(`/api/bids/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    })
 
-    if (error) {
-      console.error('Error updating bid:', error)
+    if (!response.ok) {
       throw new Error('Failed to update bid')
     }
 
-    return data as Bid
+    return response.json()
   },
 
   // Delete a bid
   async deleteBid(id: string) {
-    const { error } = await supabase
-      .from('bids')
-      .delete()
-      .eq('id', id)
+    const response = await fetch(`/api/bids/${id}`, {
+      method: 'DELETE',
+    })
 
-    if (error) {
-      console.error('Error deleting bid:', error)
+    if (!response.ok) {
       throw new Error('Failed to delete bid')
     }
+
+    return response.json()
   },
 
   // Get bid statistics
   async getBidStats() {
-    const { data: bids, error } = await supabase
-      .from('bids')
-      .select('status, bid_amount')
-
-    if (error) {
-      console.error('Error fetching bid stats:', error)
+    const response = await fetch('/api/bids/stats')
+    
+    if (!response.ok) {
       throw new Error('Failed to fetch bid statistics')
     }
 
-    const acceptedBids = bids.filter(b => b.status === 'accepted')
-    const submittedBids = bids.filter(b => b.status === 'submitted' || b.status === 'accepted' || b.status === 'rejected')
-    
-    const stats = {
-      total: bids.length,
-      draft: bids.filter(b => b.status === 'draft').length,
-      submitted: bids.filter(b => b.status === 'submitted').length,
-      accepted: acceptedBids.length,
-      rejected: bids.filter(b => b.status === 'rejected').length,
-      winRate: submittedBids.length > 0 ? (acceptedBids.length / submittedBids.length) * 100 : 0,
-      totalEarnings: acceptedBids.reduce((sum, b) => sum + (b.bid_amount || 0), 0),
-      avgBidAmount: bids.reduce((sum, b) => sum + (b.bid_amount || 0), 0) / bids.length
-    }
-
-    return stats
+    return response.json()
   }
 }
 
