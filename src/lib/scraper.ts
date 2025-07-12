@@ -1,6 +1,5 @@
 // Web scraper utility for freelance job platforms
 // Uses Puppeteer for real web scraping with proper error handling and rate limiting
-import puppeteer from 'puppeteer-core'
 import { createClient } from '@/utils/supabase/server'
 
 export interface ScrapedProject {
@@ -90,7 +89,7 @@ export class ProjectScraper {
 
     try {
       // Try real scraping first, fallback to mock data if it fails
-      const realProjects = await this.performRealScraping(searchTerm, maxResults)
+      const realProjects = await this.performRealScraping(searchTerm)
       if (realProjects.length > 0) {
         projects.push(...realProjects)
       } else {
@@ -114,7 +113,7 @@ export class ProjectScraper {
     return projects
   }
 
-  private async performRealScraping(searchTerm: string, maxResults: number): Promise<ScrapedProject[]> {
+  private async performRealScraping(searchTerm: string): Promise<ScrapedProject[]> {
     // Check if real scraping is enabled via environment variable
     const enableRealScraping = process.env.ENABLE_REAL_SCRAPING === 'true'
 
@@ -126,11 +125,11 @@ export class ProjectScraper {
     try {
       // Try different scraping methods based on platform
       if (this.config.platform.toLowerCase() === 'upwork') {
-        return await this.scrapeUpwork(searchTerm, maxResults)
+        return await this.scrapeUpwork(searchTerm)
       } else if (this.config.platform.toLowerCase() === 'freelancer') {
-        return await this.scrapeFreelancer(searchTerm, maxResults)
+        return await this.scrapeFreelancer(searchTerm)
       } else {
-        return await this.scrapeGeneric(searchTerm, maxResults)
+        return await this.scrapeGeneric(searchTerm)
       }
     } catch (error) {
       console.error(`Real scraping failed for ${this.config.platform}:`, error)
@@ -138,7 +137,7 @@ export class ProjectScraper {
     }
   }
 
-  private async scrapeUpwork(searchTerm: string, maxResults: number): Promise<ScrapedProject[]> {
+  private async scrapeUpwork(searchTerm: string): Promise<ScrapedProject[]> {
     // Upwork has strong anti-bot measures, so we'll use a simpler approach
     // In production, you might want to use their API instead
     console.log(`Attempting to scrape Upwork for: ${searchTerm}`)
@@ -148,7 +147,7 @@ export class ProjectScraper {
     return []
   }
 
-  private async scrapeFreelancer(searchTerm: string, maxResults: number): Promise<ScrapedProject[]> {
+  private async scrapeFreelancer(searchTerm: string): Promise<ScrapedProject[]> {
     // Freelancer scraping implementation
     console.log(`Attempting to scrape Freelancer for: ${searchTerm}`)
 
@@ -157,7 +156,7 @@ export class ProjectScraper {
     return []
   }
 
-  private async scrapeGeneric(searchTerm: string, maxResults: number): Promise<ScrapedProject[]> {
+  private async scrapeGeneric(searchTerm: string): Promise<ScrapedProject[]> {
     // Generic scraping using Puppeteer for other platforms
     console.log(`Attempting generic scraping for ${this.config.platform}: ${searchTerm}`)
 

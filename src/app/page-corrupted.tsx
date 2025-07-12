@@ -6,9 +6,6 @@ import { Target, Activity, DollarSign, Sparkles, Eye, Clock, ArrowUpRight, Arrow
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 animate-gradient relative">
-        speed={0.3}
-      />
-      
       <div className="container mx-auto p-6 space-y-8 relative z-10">
         {/* Modern Header with enhanced glass morphism */}
         <div className="glass-card p-8 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white animate-slide-in-bottom">
@@ -174,9 +171,6 @@ export default function Home() {
           </Card>
         </div>
       </div>
-      
-      {/* Floating Action Button */}
-      <FloatingActionButton onClick={() => console.log('Add new project')} />
     </div>
   )
 }

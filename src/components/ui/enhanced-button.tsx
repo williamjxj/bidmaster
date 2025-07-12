@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
-import { Button, ButtonProps } from './button'
+import { Button } from './button'
 
-interface EnhancedButtonProps extends ButtonProps {
+interface EnhancedButtonProps extends React.ComponentProps<typeof Button> {
   ripple?: boolean
   glow?: boolean
   pulse?: boolean

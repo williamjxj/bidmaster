@@ -9,6 +9,20 @@ import { Target, Calendar, DollarSign, ExternalLink, Edit, Trash2, Search, Plus 
 import { formatDate } from '@/lib/utils'
 import { useBids, useDeleteBid } from '@/hooks/useApi'
 
+interface Bid {
+  id: string
+  status: string
+  projectTitle: string
+  platform: string
+  bidAmount: number
+  bidType?: string
+  submittedAt?: string
+  createdAt: string
+  projectUrl?: string
+  proposalText?: string
+  notes?: string
+}
+
 export default function BidsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null)
@@ -33,7 +47,7 @@ export default function BidsPage() {
   const deleteBidMutation = useDeleteBid()
 
   const statuses = useMemo(() => 
-    Array.from(new Set(bids.map(b => b.status))), 
+    Array.from(new Set(bids.map((b: Bid) => b.status))) as string[], 
     [bids]
   )
 
@@ -82,10 +96,10 @@ export default function BidsPage() {
 
   const stats = {
     totalBids: bids.length,
-    submitted: bids.filter(b => b.status === 'submitted').length,
-    accepted: bids.filter(b => b.status === 'accepted').length,
-    rejected: bids.filter(b => b.status === 'rejected').length,
-    drafts: bids.filter(b => b.status === 'draft').length
+    submitted: bids.filter((b: Bid) => b.status === 'submitted').length,
+    accepted: bids.filter((b: Bid) => b.status === 'accepted').length,
+    rejected: bids.filter((b: Bid) => b.status === 'rejected').length,
+    drafts: bids.filter((b: Bid) => b.status === 'draft').length
   }
 
   if (error) {
@@ -188,7 +202,7 @@ export default function BidsPage() {
               >
                 All Status
               </Button>
-              {statuses.map(status => (
+              {statuses.map((status) => (
                 <Button
                   key={status}
                   variant="outline"
@@ -221,7 +235,7 @@ export default function BidsPage() {
 
       {/* Bids List */}
       <div className="space-y-4">
-        {bids.map((bid) => (
+        {bids.map((bid: Bid) => (
           <Card key={bid.id}>
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">

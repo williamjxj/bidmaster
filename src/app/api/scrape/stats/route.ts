@@ -36,13 +36,23 @@ export async function GET(request: NextRequest) {
       }
 
       // Group by platform and create basic stats
-      const platformStats = projects?.reduce((acc: any, project) => {
+      const platformStats = projects?.reduce((acc: Record<string, {
+        platform: string;
+        total_runs: number;
+        successful_runs: number;
+        last_run: string;
+        projects_found: number;
+        total_projects_found: number;
+        total_projects_saved: number;
+        avg_execution_time_ms: number;
+      }>, project) => {
         const platform = project.source_platform.toLowerCase()
         if (!acc[platform]) {
           acc[platform] = {
             platform,
             total_runs: 1,
             successful_runs: 1,
+            projects_found: 1,
             total_projects_found: 0,
             total_projects_saved: 0,
             avg_execution_time_ms: 0,
@@ -74,7 +84,7 @@ export async function GET(request: NextRequest) {
       totalProjects: recentProjects?.length || 0,
       platformsActive: stats.length,
       lastScrapingRun: stats.length > 0 ? 
-        Math.max(...stats.map((s: any) => new Date(s.last_run).getTime())) : null
+        Math.max(...stats.map((s: { last_run: string }) => new Date(s.last_run).getTime())) : null
     }
 
     return NextResponse.json({

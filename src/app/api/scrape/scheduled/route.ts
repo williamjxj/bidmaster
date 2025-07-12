@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateSearchTerms(preferences: any[]): string[] {
+function generateSearchTerms(preferences: { target_technologies?: string[]; target_categories?: string[] }[] | null): string[] {
   const defaultTerms = [
     'web development',
     'react developer',

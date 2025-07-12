@@ -10,7 +10,7 @@ import { toast } from '@/hooks/use-toast'
 
 interface ScrapingResult {
   success: boolean
-  projects: any[]
+  projects: Array<{ id: string; title: string; platform: string }>
   platforms: string[]
   message: string
 }

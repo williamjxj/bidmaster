@@ -8,6 +8,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Search, Plus, SortAsc, Loader2 } from 'lucide-react'
 import { useProjects, useUpdateProject } from '@/hooks/useApi'
 
+interface Project {
+  id: string
+  category: string | null
+  status: 'bookmarked' | 'applied' | 'new' | 'in_progress' | 'won' | 'lost' | 'archived'
+  title: string
+  description: string | null
+  budget: number | null
+  budget_type: 'fixed' | 'hourly' | null
+  source_platform: string
+  source_url: string
+  technologies: string[] | null
+  location: string | null
+  posted_date: string
+  created_at: string
+  deadline: string | null
+  updated_at: string
+}
+
 export default function ProjectsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -38,11 +56,11 @@ export default function ProjectsPage() {
 
   // Extract categories and statuses from fetched data
   const categories = useMemo(() => 
-    Array.from(new Set(projects.map(p => p.category).filter(Boolean))), 
+    Array.from(new Set(projects.map((p: Project) => p.category).filter(Boolean))) as string[], 
     [projects]
   )
   const statuses = useMemo(() => 
-    Array.from(new Set(projects.map(p => p.status))), 
+    Array.from(new Set(projects.map((p: Project) => p.status))) as string[], 
     [projects]
   )
 
@@ -124,7 +142,7 @@ export default function ProjectsPage() {
               >
                 All Categories
               </Button>
-              {categories.map(category => (
+              {categories.map((category) => (
                 <Button
                   key={category}
                   variant="outline"
@@ -148,7 +166,7 @@ export default function ProjectsPage() {
             >
               All Status
             </Button>
-            {statuses.map(status => (
+            {statuses.map((status) => (
               <Button
                 key={status}
                 variant="outline"
@@ -193,7 +211,7 @@ export default function ProjectsPage() {
       {/* Projects Grid */}
       {!isLoading && (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {projects.map((project) => (
+          {projects.map((project: Project) => (
             <ProjectCard
               key={project.id}
               project={project}

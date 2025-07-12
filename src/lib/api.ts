@@ -1,13 +1,4 @@
 import { supabase } from './supabase'
-import { Database } from '@/types/database'
-
-type Project = Database['public']['Tables']['projects']['Row']
-type ProjectInsert = Database['public']['Tables']['projects']['Insert']
-type ProjectUpdate = Database['public']['Tables']['projects']['Update']
-
-type Bid = Database['public']['Tables']['bids']['Row']
-type BidInsert = Database['public']['Tables']['bids']['Insert']
-type BidUpdate = Database['public']['Tables']['bids']['Update']
 
 // Projects API
 export const projectsApi = {

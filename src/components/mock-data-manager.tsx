@@ -18,8 +18,8 @@ interface MockDataSummary {
 interface MockDataAnalysis {
   success: boolean
   summary: MockDataSummary
-  mockProjects: any[]
-  realProjects: any[]
+  mockProjects: Array<{ id: string; title: string; created_at: string; source_url?: string }>
+  realProjects: Array<{ id: string; title: string; created_at: string; source_url?: string }>
 }
 
 export function MockDataManager() {

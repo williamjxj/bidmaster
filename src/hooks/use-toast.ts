@@ -1,5 +1,4 @@
 // Simple toast hook - you can replace this with a more sophisticated toast library
-import { useState, useCallback } from 'react'
 
 interface ToastProps {
   title: string

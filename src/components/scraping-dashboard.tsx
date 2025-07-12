@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { RefreshCw, Activity, Clock, CheckCircle, XCircle } from 'lucide-react'
+import { RefreshCw, Activity, Clock, CheckCircle } from 'lucide-react'
 
 interface ScrapingStats {
   platform: string

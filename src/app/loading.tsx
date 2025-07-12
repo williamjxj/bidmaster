@@ -7,8 +7,6 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 import { 
-  Code2, 
-  Zap, 
   Target, 
   TrendingUp,
   Users,
@@ -17,7 +15,6 @@ import {
   CheckCircle,
   Briefcase,
   Globe,
-  Rocket,
   Star
 } from 'lucide-react'
 
