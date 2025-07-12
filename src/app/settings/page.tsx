@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Plus, Trash2, Save, Loader2 } from 'lucide-react'
 import { useUserPreferences, useUpdateUserPreferences, useSources, useUpdateSource, useCreateSource, useDeleteSource } from '@/hooks/useApi'
+import { ScrapingControls } from '@/components/scraping-controls'
+import { MockDataManager } from '@/components/mock-data-manager'
 
 interface LocalPreferences {
   target_technologies: string[]
@@ -449,6 +451,12 @@ export default function SettingsPage() {
               </div>
           </CardContent>
         </Card>
+
+        {/* Web Scraping Controls */}
+        <ScrapingControls />
+
+        {/* Mock Data Management */}
+        <MockDataManager />
 
         {/* Save Settings */}
         <div className="flex justify-end">

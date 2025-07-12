@@ -1,20 +1,14 @@
-import { createClient } from '@supabase/supabase-js'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Database } from '@/types/database'
+// Re-export the modern utility functions for client-side use
+export { createClient as createBrowserClient } from '@/utils/supabase/client'
+// Note: Server client should be imported directly from '@/utils/supabase/server' in server components
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// For backward compatibility, keep a default client export
+// Note: This should primarily be used for client-side operations
+import { createClient } from '@/utils/supabase/client'
+export const supabase = createClient()
 
-// Default client for basic operations
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
-
-// Client for Next.js client components with auth helpers
+// Legacy function for backward compatibility
+// Prefer using createBrowserClient() directly
 export const createSupabaseClient = () => {
-  return createClientComponentClient<Database>()
+  return createClient()
 }
-
-// For server-side operations, you would use:
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-// export const createServerSupabaseClient = () => {
-//   return createServerComponentClient<Database>({ cookies })
-// }

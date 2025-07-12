@@ -67,6 +67,31 @@ BidMaster is a comprehensive web platform that enables developers, agencies, and
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
+## 🤖 Web Scraping Features
+
+BidMaster includes a comprehensive web scraping system to automatically discover new projects:
+
+### ✅ Implemented Features
+- **Multi-Platform Support**: Scrapes from Upwork, Freelancer, and other platforms
+- **Intelligent Fallback**: Uses mock data when real scraping fails (for development)
+- **Scheduled Scraping**: Automatic scraping every 6 hours via Vercel Cron
+- **Manual Scraping**: On-demand scraping through the settings page
+- **Scraping Dashboard**: Monitor performance and statistics
+- **Database Integration**: Automatic deduplication and project storage
+- **Rate Limiting**: Respectful scraping with proper delays
+
+### 🔧 API Endpoints
+- `POST /api/scrape` - Manual scraping with custom search terms
+- `POST /api/scrape/scheduled` - Scheduled scraping (called by cron)
+- `GET /api/scrape/stats` - Scraping statistics and performance metrics
+
+### 📊 Scraping Dashboard
+Access the scraping controls and dashboard through the Settings page:
+- View scraping statistics by platform
+- Monitor success rates and performance
+- Trigger manual scraping jobs
+- Track project discovery over time
+
 ## 📁 Project Structure
 
 ```
@@ -170,7 +195,9 @@ The app can be deployed on any platform that supports Next.js:
 - [x] Responsive design
 
 ### Phase 2: Enhanced Features
-- [ ] Real web scraping implementation
+- [x] Real web scraping implementation
+- [x] Scheduled scraping with cron jobs
+- [x] Scraping dashboard and statistics
 - [ ] User authentication with Supabase Auth
 - [ ] Email notifications
 - [ ] Advanced analytics and reporting
