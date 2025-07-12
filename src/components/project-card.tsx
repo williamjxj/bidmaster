@@ -69,105 +69,117 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
   const isHighBudget = project.budget && project.budget > 5000
 
   return (
-    <Card className="h-full group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden card-elevated hover-shine animate-slide-up">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/20 dark:from-blue-900/10 dark:to-purple-900/10 animate-gradient" />
+    <Card className="h-full group card-floating hover-lift-strong border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden animate-slide-up">
+      {/* Modern glass background */}
+      <div className="absolute inset-0 glass-card opacity-30" />
       
-      {/* Urgent indicator */}
+      {/* Urgent indicator with enhanced animation */}
       {isUrgent && (
-        <div className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+        <div className="absolute top-3 right-3 w-4 h-4 bg-red-500 rounded-full animate-heartbeat" />
       )}
       
-      {/* Floating elements */}
-      <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full animate-float"></div>
-      <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
+      {/* Modern floating elements with blur */}
+      <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full animate-morph backdrop-blur-sm"></div>
+      <div className="absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full animate-breathe backdrop-blur-sm" style={{animationDelay: '1s'}}></div>
       
-      <CardHeader className="pb-3 relative z-10">
+      <CardHeader className="pb-4 relative z-10">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-lg leading-6 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-bold text-gradient">
+            <CardTitle className="text-xl leading-7 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300 font-bold">
               {project.title}
             </CardTitle>
-            <div className="flex items-center gap-2 mb-2">
-              <Badge className={`${getPlatformColor(project.source_platform)} font-medium hover-lift animate-zoom-in`}>
+            <div className="flex items-center gap-3 mb-3">
+              <Badge className={`${getPlatformColor(project.source_platform)} font-semibold hover-lift-gentle animate-scale-in px-3 py-1`}>
                 {project.source_platform}
               </Badge>
               {isHighBudget && (
-                <Badge variant="outline" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-none animate-glow">
-                  <Star className="w-3 h-3 mr-1 animate-spin" />
+                <Badge className="neo-card bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-none animate-glow px-3 py-1">
+                  <Star className="w-3 h-3 mr-1 animate-wiggle" />
                   Premium
                 </Badge>
               )}
             </div>
           </div>
-          <Badge className={`${getStatusColor(project.status)} font-medium animate-pulse`}>
+          <Badge className={`${getStatusColor(project.status)} font-semibold animate-pulse px-3 py-1`}>
             {project.status}
           </Badge>
         </div>
       </CardHeader>
       
-      <CardContent className="pb-3 relative z-10">
-        <div className="space-y-4">
+      <CardContent className="pb-4 relative z-10">
+        <div className="space-y-5">
           {project.description && (
-            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed">
+            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed font-medium">
               {project.description}
             </p>
           )}
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             {project.budget && (
-              <div className="flex items-center gap-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg hover-lift glass-effect">
-                <div className="p-1 bg-green-500/20 rounded-full animate-glow">
-                  <DollarSign className="h-3 w-3 text-green-600 animate-bounce" />
+              <div className="neo-card bg-green-50 dark:bg-green-900/20 p-3 hover-glow-primary">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-green-500/20 rounded-xl animate-breathe">
+                    <DollarSign className="h-4 w-4 text-green-600" />
+                  </div>
+                  <span className="font-bold text-green-800 dark:text-green-400">
+                    ${project.budget.toLocaleString()}
+                    {project.budget_type === 'hourly' && '/hr'}
+                  </span>
                 </div>
-                <span className="font-semibold text-green-800 dark:text-green-400">
-                  ${project.budget.toLocaleString()}
-                  {project.budget_type === 'hourly' && '/hr'}
-                </span>
               </div>
             )}
             
-            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover-lift glass-effect">
-              <div className="p-1 bg-blue-500/20 rounded-full animate-glow">
-                <Calendar className="h-3 w-3 text-blue-600 animate-pulse" />
+            <div className="neo-card bg-blue-50 dark:bg-blue-900/20 p-3 hover-glow-accent">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-500/20 rounded-xl animate-breathe">
+                  <Calendar className="h-4 w-4 text-blue-600" />
+                </div>
+                <span className="font-semibold text-blue-800 dark:text-blue-400">
+                  {formatDate(project.posted_date)}
+                </span>
               </div>
-              <span className="font-medium text-blue-800 dark:text-blue-400">
-                {formatDate(project.posted_date)}
-              </span>
             </div>
             
             {project.location && (
-              <div className="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover-lift glass-effect">
-                <div className="p-1 bg-purple-500/20 rounded-full animate-glow">
-                  <MapPin className="h-3 w-3 text-purple-600 animate-float" />
+              <div className="neo-card bg-purple-50 dark:bg-purple-900/20 p-3 hover-lift-gentle">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-purple-500/20 rounded-xl animate-breathe">
+                    <MapPin className="h-4 w-4 text-purple-600" />
+                  </div>
+                  <span className="font-semibold text-purple-800 dark:text-purple-400">
+                    {project.location}
+                  </span>
                 </div>
-                <span className="font-medium text-purple-800 dark:text-purple-400">
-                  {project.location}
-                </span>
               </div>
             )}
 
             {project.deadline && (
-              <div className={`flex items-center gap-2 p-2 rounded-lg ${isUrgent ? 'bg-red-50 dark:bg-red-900/20' : 'bg-orange-50 dark:bg-orange-900/20'}`}>
-                <div className={`p-1 rounded-full ${isUrgent ? 'bg-red-500/20' : 'bg-orange-500/20'}`}>
-                  <Clock className={`h-3 w-3 ${isUrgent ? 'text-red-600' : 'text-orange-600'}`} />
+              <div className={`neo-card p-3 ${isUrgent ? 'bg-red-50 dark:bg-red-900/20 hover-glow-primary' : 'bg-orange-50 dark:bg-orange-900/20 hover-glow-accent'}`}>
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-xl animate-breathe ${isUrgent ? 'bg-red-500/20' : 'bg-orange-500/20'}`}>
+                    <Clock className={`h-4 w-4 ${isUrgent ? 'text-red-600' : 'text-orange-600'}`} />
+                  </div>
+                  <span className={`font-semibold ${isUrgent ? 'text-red-800 dark:text-red-400' : 'text-orange-800 dark:text-orange-400'}`}>
+                    {formatDate(project.deadline)}
+                  </span>
                 </div>
-                <span className={`font-medium ${isUrgent ? 'text-red-800 dark:text-red-400' : 'text-orange-800 dark:text-orange-400'}`}>
-                  {formatDate(project.deadline)}
-                </span>
               </div>
             )}
           </div>
           
           {project.technologies && project.technologies.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {project.technologies.slice(0, 5).map((tech) => (
-                <Badge key={tech} variant="secondary" className="text-xs bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800 dark:hover:to-blue-700 transition-all duration-200">
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.slice(0, 5).map((tech, index) => (
+                <Badge 
+                  key={tech} 
+                  className="text-xs btn-glass hover-lift-gentle animate-scale-in font-medium" 
+                  style={{animationDelay: `${index * 0.1}s`}}
+                >
                   {tech}
                 </Badge>
               ))}
               {project.technologies.length > 5 && (
-                <Badge variant="secondary" className="text-xs bg-gradient-to-r from-indigo-100 to-indigo-200 dark:from-indigo-800 dark:to-indigo-700">
+                <Badge className="text-xs btn-gradient animate-scale-in font-medium">
                   +{project.technologies.length - 5} more
                 </Badge>
               )}
@@ -176,15 +188,15 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
         </div>
       </CardContent>
       
-      <CardFooter className="pt-3 bg-gray-50/50 dark:bg-gray-800/50 relative">
-        <div className="flex gap-2 w-full">
+      <CardFooter className="pt-4 glass-card relative">
+        <div className="flex gap-3 w-full">
           <Button
             variant="outline"
             size="sm"
             onClick={() => onBookmark?.(project.id)}
-            className="flex-1 hover:bg-yellow-50 hover:border-yellow-300 hover:text-yellow-700 dark:hover:bg-yellow-900/20 dark:hover:border-yellow-600 dark:hover:text-yellow-400 transition-all duration-200"
+            className="flex-1 btn-glass hover-glow-accent hover-lift-gentle transition-all duration-300"
           >
-            <Bookmark className="h-4 w-4 mr-1" />
+            <Bookmark className="h-4 w-4 mr-2" />
             Bookmark
           </Button>
           
@@ -192,10 +204,10 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
             variant="outline"
             size="sm"
             asChild
-            className="flex-1 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 dark:hover:bg-blue-900/20 dark:hover:border-blue-600 dark:hover:text-blue-400 transition-all duration-200"
+            className="flex-1 btn-glass hover-glow-primary hover-lift-gentle transition-all duration-300"
           >
             <a href={project.source_url} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-1" />
+              <ExternalLink className="h-4 w-4 mr-2" />
               View
             </a>
           </Button>
@@ -203,9 +215,9 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
           <Button
             size="sm"
             onClick={() => onApply?.(project.id)}
-            className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="flex-1 btn-gradient hover-lift-gentle animate-glow font-semibold"
           >
-            <TrendingUp className="h-4 w-4 mr-1" />
+            <TrendingUp className="h-4 w-4 mr-2" />
             Apply
           </Button>
         </div>

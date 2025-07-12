@@ -63,6 +63,14 @@ const navMain = [
     badge: null,
     gradient: "from-gray-500 to-gray-600",
   },
+  {
+    title: "UI Showcase",
+    url: "/shadcn-showcase",
+    icon: Zap,
+    badge: "NEW",
+    badgeVariant: "default" as const,
+    gradient: "from-violet-500 to-purple-600",
+  },
 ]
 
 // Platform data with enhanced styling
