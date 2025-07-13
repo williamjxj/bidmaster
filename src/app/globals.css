@@ -1,6 +1,11 @@
 @import "tailwindcss/preflight";
 @import "tailwindcss";
 
+/* Professional Typography Configuration */
+.font-poppins {
+  font-family: var(--font-poppins), system-ui, -apple-system, sans-serif;
+}
+
 :root {
   /* Modern Color System with enhanced OKLCH values */
   --primary: oklch(0.33 0.15 258);
@@ -797,24 +802,191 @@
   margin-left: 1.5rem;
 }
 
-/* Modern Grid Layouts */
-.grid-modern {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* ========================================
+   ENHANCED SPACING SYSTEM
+========================================= */
+
+/* Enhanced spacing classes for menu items and navigation */
+.menu-spacing > * + * {
+  margin-top: 1rem;
 }
 
-.grid-cards {
-  display: grid;
+.menu-spacing-lg > * + * {
+  margin-top: 1.5rem;
+}
+
+.menu-spacing-xl > * + * {
+  margin-top: 2rem;
+}
+
+/* Enhanced padding utilities */
+.p-enhanced {
+  padding: 1.25rem;
+}
+
+.px-enhanced {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.py-enhanced {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+/* Enhanced margin utilities */
+.m-enhanced {
+  margin: 1.25rem;
+}
+
+.mx-enhanced {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.my-enhanced {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Section spacing */
+.section-spacing {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-spacing-lg {
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
+}
+
+/* Card spacing enhancements */
+.card-enhanced {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 1rem;
+}
+
+.card-enhanced-lg {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 1.25rem;
+}
+
+/* Enhanced button spacing */
+.btn-spaced {
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+}
+
+.btn-spaced-lg {
+  padding: 1rem 2rem;
+  margin: 0.75rem;
+}
+
+/* Navigation enhancements */
+.nav-enhanced > * + * {
+  margin-top: 0.75rem;
+}
+
+.nav-enhanced-lg > * + * {
+  margin-top: 1.25rem;
+}
+
+/* Content spacing */
+.content-spaced > * + * {
+  margin-top: 1.5rem;
+}
+
+.content-spaced-lg > * + * {
+  margin-top: 2rem;
+}
+
+/* Form spacing */
+.form-enhanced .form-group + .form-group {
+  margin-top: 1.25rem;
+}
+
+.form-enhanced-lg .form-group + .form-group {
+  margin-top: 1.75rem;
+}
+
+/* Modern flex gaps */
+.flex-gap-enhanced {
+  gap: 1.25rem;
+}
+
+.flex-gap-lg {
   gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
-@media (max-width: 640px) {
-  .grid-modern,
-  .grid-cards {
+.flex-gap-xl {
+  gap: 2.5rem;
+}
+
+/* Grid gap enhancements */
+.grid-gap-enhanced {
+  gap: 1.5rem;
+}
+
+.grid-gap-lg {
+  gap: 2.25rem;
+}
+
+.grid-gap-xl {
+  gap: 3rem;
+}
+
+/* Responsive spacing utilities */
+@media (min-width: 640px) {
+  .sm\:space-y-enhanced > * + * {
+    margin-top: 1.5rem;
+  }
+  
+  .sm\:p-enhanced {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:space-y-enhanced > * + * {
+    margin-top: 2rem;
+  }
+  
+  .md\:p-enhanced {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:space-y-enhanced > * + * {
+    margin-top: 2.5rem;
+  }
+  
+  .lg\:p-enhanced {
+    padding: 2.5rem;
+  }
+}
+
+/* Component-specific spacing */
+.sidebar-enhanced .sidebar-section + .sidebar-section {
+  margin-top: 2.5rem;
+}
+
+.dashboard-enhanced .metric-card + .metric-card {
+  margin-left: 1.5rem;
+}
+
+.project-grid-enhanced {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .project-grid-enhanced {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 }
 
@@ -1931,23 +2103,190 @@ body {
   margin-left: 1.5rem;
 }
 
-/* Modern Grid Layouts */
-.grid-modern {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* ========================================
+   ENHANCED SPACING SYSTEM
+========================================= */
+
+/* Enhanced spacing classes for menu items and navigation */
+.menu-spacing > * + * {
+  margin-top: 1rem;
 }
 
-.grid-cards {
-  display: grid;
+.menu-spacing-lg > * + * {
+  margin-top: 1.5rem;
+}
+
+.menu-spacing-xl > * + * {
+  margin-top: 2rem;
+}
+
+/* Enhanced padding utilities */
+.p-enhanced {
+  padding: 1.25rem;
+}
+
+.px-enhanced {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.py-enhanced {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+/* Enhanced margin utilities */
+.m-enhanced {
+  margin: 1.25rem;
+}
+
+.mx-enhanced {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.my-enhanced {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Section spacing */
+.section-spacing {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-spacing-lg {
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
+}
+
+/* Card spacing enhancements */
+.card-enhanced {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 1rem;
+}
+
+.card-enhanced-lg {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 1.25rem;
+}
+
+/* Enhanced button spacing */
+.btn-spaced {
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+}
+
+.btn-spaced-lg {
+  padding: 1rem 2rem;
+  margin: 0.75rem;
+}
+
+/* Navigation enhancements */
+.nav-enhanced > * + * {
+  margin-top: 0.75rem;
+}
+
+.nav-enhanced-lg > * + * {
+  margin-top: 1.25rem;
+}
+
+/* Content spacing */
+.content-spaced > * + * {
+  margin-top: 1.5rem;
+}
+
+.content-spaced-lg > * + * {
+  margin-top: 2rem;
+}
+
+/* Form spacing */
+.form-enhanced .form-group + .form-group {
+  margin-top: 1.25rem;
+}
+
+.form-enhanced-lg .form-group + .form-group {
+  margin-top: 1.75rem;
+}
+
+/* Modern flex gaps */
+.flex-gap-enhanced {
+  gap: 1.25rem;
+}
+
+.flex-gap-lg {
   gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
-@media (max-width: 640px) {
-  .grid-modern,
-  .grid-cards {
+.flex-gap-xl {
+  gap: 2.5rem;
+}
+
+/* Grid gap enhancements */
+.grid-gap-enhanced {
+  gap: 1.5rem;
+}
+
+.grid-gap-lg {
+  gap: 2.25rem;
+}
+
+.grid-gap-xl {
+  gap: 3rem;
+}
+
+/* Responsive spacing utilities */
+@media (min-width: 640px) {
+  .sm\:space-y-enhanced > * + * {
+    margin-top: 1.5rem;
+  }
+  
+  .sm\:p-enhanced {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:space-y-enhanced > * + * {
+    margin-top: 2rem;
+  }
+  
+  .md\:p-enhanced {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:space-y-enhanced > * + * {
+    margin-top: 2.5rem;
+  }
+  
+  .lg\:p-enhanced {
+    padding: 2.5rem;
+  }
+}
+
+/* Component-specific spacing */
+.sidebar-enhanced .sidebar-section + .sidebar-section {
+  margin-top: 2.5rem;
+}
+
+.dashboard-enhanced .metric-card + .metric-card {
+  margin-left: 1.5rem;
+}
+
+.project-grid-enhanced {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .project-grid-enhanced {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 }

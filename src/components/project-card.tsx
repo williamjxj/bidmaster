@@ -82,13 +82,13 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
       <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full animate-morph backdrop-blur-sm"></div>
       <div className="absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full animate-breathe backdrop-blur-sm" style={{animationDelay: '1s'}}></div>
       
-      <CardHeader className="pb-4 relative z-10">
-        <div className="flex items-start justify-between">
+      <CardHeader className="pb-5 relative z-10">
+        <div className="flex items-start justify-between mb-1">
           <div className="flex-1">
-            <CardTitle className="text-xl leading-7 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300 font-bold">
+            <CardTitle className="text-xl leading-7 mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300 font-bold">
               {project.title}
             </CardTitle>
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-4 mb-4">
               <Badge className={`${getPlatformColor(project.source_platform)} font-semibold hover-lift-gentle animate-scale-in px-3 py-1`}>
                 {project.source_platform}
               </Badge>
@@ -106,15 +106,15 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
         </div>
       </CardHeader>
       
-      <CardContent className="pb-4 relative z-10">
-        <div className="space-y-5">
+      <CardContent className="pb-5 relative z-10">
+        <div className="space-y-6">
           {project.description && (
             <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed font-medium">
               {project.description}
             </p>
           )}
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
             {project.budget && (
               <div className="neo-card bg-green-50 dark:bg-green-900/20 p-3 hover-glow-primary">
                 <div className="flex items-center gap-3">
@@ -168,18 +168,18 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
           </div>
           
           {project.technologies && project.technologies.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {project.technologies.slice(0, 5).map((tech, index) => (
                 <Badge 
                   key={tech} 
-                  className="text-xs btn-glass hover-lift-gentle animate-scale-in font-medium" 
+                  className="text-xs btn-glass hover-lift-gentle animate-scale-in font-medium px-3 py-1.5" 
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
                   {tech}
                 </Badge>
               ))}
               {project.technologies.length > 5 && (
-                <Badge className="text-xs btn-gradient animate-scale-in font-medium">
+                <Badge className="text-xs btn-gradient animate-scale-in font-medium px-3 py-1.5">
                   +{project.technologies.length - 5} more
                 </Badge>
               )}
@@ -188,8 +188,8 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
         </div>
       </CardContent>
       
-      <CardFooter className="pt-4 glass-card relative">
-        <div className="flex gap-3 w-full">
+      <CardFooter className="pt-5 glass-card relative">
+        <div className="flex gap-4 w-full">
           <Button
             variant="outline"
             size="sm"

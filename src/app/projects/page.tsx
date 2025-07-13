@@ -97,7 +97,7 @@ function OriginalProjectsView({ projects, handleBookmark, handleApply, isLoading
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.id}
@@ -353,21 +353,31 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-        <p className="text-muted-foreground">
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold tracking-tight mb-4">Projects</h1>
+        <p className="text-lg text-muted-foreground">
           Discover and manage freelance opportunities
         </p>
       </div>
       
       <Tabs defaultValue="enhanced" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-2">
-          <TabsTrigger value="original">Simple View</TabsTrigger>
-          <TabsTrigger value="enhanced">Enhanced View</TabsTrigger>
+        <TabsList className="grid w-full max-w-md grid-cols-2 mb-8 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+          <TabsTrigger 
+            value="original"
+            className="rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+          >
+            Simple View
+          </TabsTrigger>
+          <TabsTrigger 
+            value="enhanced"
+            className="rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+          >
+            Enhanced View
+          </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="original" className="mt-6">
+        <TabsContent value="original" className="mt-8">
           <OriginalProjectsView 
             projects={projects}
             handleBookmark={handleBookmark}
@@ -377,7 +387,7 @@ export default function ProjectsPage() {
           />
         </TabsContent>
         
-        <TabsContent value="enhanced" className="mt-6">
+        <TabsContent value="enhanced" className="mt-8">
           <EnhancedProjectsView 
             projects={projects}
             handleBookmark={handleBookmark}

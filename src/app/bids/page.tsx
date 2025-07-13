@@ -343,25 +343,35 @@ export default function BidsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Bids</h1>
-        <p className="text-muted-foreground">
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold tracking-tight mb-4">Bids</h1>
+        <p className="text-lg text-muted-foreground">
           Track and manage your bid submissions
         </p>
       </div>
       
       <Tabs defaultValue="enhanced" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-2">
-          <TabsTrigger value="simple">Simple View</TabsTrigger>
-          <TabsTrigger value="enhanced">Enhanced View</TabsTrigger>
+        <TabsList className="grid w-full max-w-md grid-cols-2 mb-8 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+          <TabsTrigger 
+            value="simple"
+            className="rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+          >
+            Simple View
+          </TabsTrigger>
+          <TabsTrigger 
+            value="enhanced"
+            className="rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+          >
+            Enhanced View
+          </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="simple" className="mt-6">
+        <TabsContent value="simple" className="mt-8">
           <SimpleBidsView bids={bids} onDelete={handleDelete} />
         </TabsContent>
         
-        <TabsContent value="enhanced" className="mt-6">
+        <TabsContent value="enhanced" className="mt-8">
           <EnhancedBidsView bids={bids} onDelete={handleDelete} />
         </TabsContent>
       </Tabs>

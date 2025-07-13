@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
@@ -16,10 +16,15 @@ import {
 } from "@/components/ui/breadcrumb"
 
 const inter = Inter({ subsets: ["latin"] })
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins"
+})
 
 export const metadata: Metadata = {
-  title: "BidMaster - Project Discovery Platform",
-  description: "Discover and manage freelance projects across multiple platforms",
+  title: "BidMaster Hub - Project Discovery Platform",
+  description: "Professional project discovery and bid management platform for freelancers and agencies",
 }
 
 export default function RootLayout({
@@ -29,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${poppins.variable}`}>
         <QueryProvider>
           <SidebarProvider>
             <AppSidebar />
@@ -40,13 +45,13 @@ export default function RootLayout({
                 <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#" className="text-base">
-                        BidMaster
+                      <BreadcrumbLink href="#" className="text-base font-poppins">
+                        BidMaster Hub
                       </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator className="hidden md:block" />
                     <BreadcrumbItem>
-                      <BreadcrumbPage className="text-base font-medium">Dashboard</BreadcrumbPage>
+                      <BreadcrumbPage className="text-base font-medium font-poppins">Dashboard</BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>
