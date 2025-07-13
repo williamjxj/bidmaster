@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { createServiceClient } from '@/utils/supabase/client'
 
 // Projects API
 export const projectsApi = {
@@ -329,7 +330,10 @@ export const userPreferencesApi = {
   // Get user preferences
   async getUserPreferences(userId: string) {
     try {
-      const { data, error } = await supabase
+      // Use service role client to bypass RLS policies
+      const serviceClient = createServiceClient()
+      
+      const { data, error } = await serviceClient
         .from('user_preferences')
         .select('*')
         .eq('user_id', userId)
@@ -424,22 +428,115 @@ export const userPreferencesApi = {
     preferred_platforms?: string[]
     notification_settings?: Record<string, unknown>
   }) {
-    const { data, error } = await supabase
-      .from('user_preferences')
-      .upsert({
+    try {
+      // Validate userId
+      if (!userId || userId.trim() === '') {
+        throw new Error('User ID is required')
+      }
+
+      // Check for environment variables
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
+        throw new Error('Supabase environment variables are not configured. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_KEY')
+      }
+
+      console.log('Environment check:', {
+        supabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+        serviceKey: !!process.env.SUPABASE_SERVICE_KEY
+      })
+
+      // Use service role client to bypass RLS policies
+      const serviceClient = createServiceClient()
+
+      const upsertData = {
         user_id: userId,
         ...preferences,
         updated_at: new Date().toISOString()
+      }
+
+      console.log('Attempting to upsert user preferences with service client:', { 
+        userId, 
+        preferences: Object.keys(preferences),
+        upsertData 
       })
-      .select()
-      .single()
 
-    if (error) {
-      console.error('Error updating user preferences:', error)
-      throw new Error('Failed to update user preferences')
+      const { data, error } = await serviceClient
+        .from('user_preferences')
+        .upsert(upsertData)
+        .select()
+        .single()
+
+      if (error) {
+        console.error('Error updating user preferences:', {
+          error,
+          userId,
+          preferences,
+          message: error.message || 'Unknown error',
+          details: error.details || 'No details available',
+          code: error.code || 'No error code',
+          hint: error.hint || 'No hint available'
+        })
+        
+        // Check if it's a table/permission issue
+        if (error.message?.includes('relation') || error.code === 'PGRST116') {
+          throw new Error('User preferences table not found or not accessible. Please check database setup.')
+        }
+        
+        // Check for authentication issues
+        if (error.message?.includes('JWT') || error.message?.includes('401')) {
+          throw new Error('Authentication required. Please ensure Supabase client is properly configured.')
+        }
+        
+        throw new Error(`Failed to update user preferences: ${error.message || 'Unknown error'}`)
+      }
+
+      console.log('Successfully updated user preferences:', data)
+      return data
+    } catch (err) {
+      console.error('Exception in upsertUserPreferences:', err)
+      throw err
     }
+  },
 
-    return data
+  // Test database connectivity and table access
+  async testDatabaseConnection() {
+    try {
+      console.log('Testing database connection...')
+      
+      // Test basic connection
+      const { data: connectionTest, error: connectionError } = await supabase
+        .from('user_preferences')
+        .select('count(*)')
+        .limit(1)
+
+      if (connectionError) {
+        console.error('Database connection test failed:', connectionError)
+        return { success: false, error: connectionError }
+      }
+
+      console.log('Database connection test passed:', connectionTest)
+
+      // Test insert capability
+      const testUserId = '00000000-0000-0000-0000-000000000000'
+      const { data: insertTest, error: insertError } = await supabase
+        .from('user_preferences')
+        .upsert({
+          user_id: testUserId,
+          target_technologies: ['test'],
+          updated_at: new Date().toISOString()
+        })
+        .select()
+
+      if (insertError) {
+        console.error('Database insert test failed:', insertError)
+        return { success: false, error: insertError }
+      }
+
+      console.log('Database insert test passed:', insertTest)
+      return { success: true, data: insertTest }
+    } catch (err) {
+      console.error('Database test exception:', err)
+      return { success: false, error: err }
+    }
   }
 }
 

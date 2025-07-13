@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -23,209 +24,198 @@ interface Bid {
   notes?: string
 }
 
-export default function BidsPage() {
+// Simple Bids View
+function SimpleBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: string) => void }) {
+  const [searchTerm, setSearchTerm] = useState('')
+  
+  const filteredBids = useMemo(() => {
+    if (!searchTerm) return bids
+    return bids.filter(bid => 
+      bid.projectTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      bid.platform.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }, [bids, searchTerm])
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'submitted': return 'bg-yellow-100 text-yellow-800'
+      case 'accepted': return 'bg-green-100 text-green-800'
+      case 'rejected': return 'bg-red-100 text-red-800'
+      case 'withdrawn': return 'bg-gray-100 text-gray-800'
+      default: return 'bg-blue-100 text-blue-800'
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Simple Search */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Search Bids</CardTitle>
+          <CardDescription>Find your submitted proposals</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              placeholder="Search bids..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Simple Bids List */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            Showing {filteredBids.length} bids
+          </p>
+          <Button size="sm">
+            <Plus className="h-4 w-4 mr-1" />
+            Add Bid
+          </Button>
+        </div>
+
+        {filteredBids.map((bid) => (
+          <Card key={bid.id}>
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold">{bid.projectTitle}</h3>
+                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                    <span className="flex items-center">
+                      <Target className="h-4 w-4 mr-1" />
+                      {bid.platform}
+                    </span>
+                    <span className="flex items-center">
+                      <DollarSign className="h-4 w-4 mr-1" />
+                      ${bid.bidAmount.toLocaleString()}
+                    </span>
+                    <span className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      {formatDate(bid.createdAt)}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge className={getStatusColor(bid.status)}>
+                    {bid.status}
+                  </Badge>
+                  <Button variant="outline" size="sm" onClick={() => onDelete(bid.id)}>
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+
+        {filteredBids.length === 0 && (
+          <div className="text-center py-12">
+            <Target className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium mb-2">No bids found</h3>
+            <p className="text-muted-foreground">
+              Start by creating your first bid proposal.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// Enhanced Bids View (existing complex implementation)
+function EnhancedBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: string) => void }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null)
-
-  // Build filters for API call
-  const filters = useMemo(() => {
-    const result: Record<string, string | string[] | number> = {}
-    
-    if (selectedStatus) {
-      result.status = [selectedStatus]
-    }
-    
-    if (searchTerm) {
-      result.searchTerm = searchTerm
-    }
-    
-    return result
-  }, [selectedStatus, searchTerm])
-
-  // Fetch bids from API
-  const { data: bids = [], error } = useBids(filters)
-  const deleteBidMutation = useDeleteBid()
 
   const statuses = useMemo(() => 
     Array.from(new Set(bids.map((b: Bid) => b.status))) as string[], 
     [bids]
   )
 
+  const filteredBids = useMemo(() => {
+    let filtered = bids
+
+    if (searchTerm) {
+      filtered = filtered.filter(bid => 
+        bid.projectTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        bid.platform.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
+
+    if (selectedStatus) {
+      filtered = filtered.filter(bid => bid.status === selectedStatus)
+    }
+
+    return filtered
+  }, [bids, searchTerm, selectedStatus])
+
   const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'draft':
-        return 'bg-gray-100 text-gray-800'
-      case 'submitted':
-        return 'bg-blue-100 text-blue-800'
-      case 'accepted':
-        return 'bg-green-100 text-green-800'
-      case 'rejected':
-        return 'bg-red-100 text-red-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
+    switch (status.toLowerCase()) {
+      case 'submitted': return 'bg-yellow-100 text-yellow-800'
+      case 'accepted': return 'bg-green-100 text-green-800'
+      case 'rejected': return 'bg-red-100 text-red-800'
+      case 'withdrawn': return 'bg-gray-100 text-gray-800'
+      default: return 'bg-blue-100 text-blue-800'
     }
-  }
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'draft':
-        return <Edit className="h-4 w-4" />
-      case 'submitted':
-        return <Target className="h-4 w-4" />
-      case 'accepted':
-        return <Target className="h-4 w-4" />
-      case 'rejected':
-        return <Trash2 className="h-4 w-4" />
-      default:
-        return <Target className="h-4 w-4" />
-    }
-  }
-
-  const handleDeleteBid = async (bidId: string) => {
-    try {
-      await deleteBidMutation.mutateAsync(bidId)
-    } catch (error) {
-      console.error('Error deleting bid:', error)
-    }
-  }
-
-  const handleEditBid = (bidId: string) => {
-    // TODO: Implement edit functionality
-    console.log('Edit bid:', bidId)
-  }
-
-  const stats = {
-    totalBids: bids.length,
-    submitted: bids.filter((b: Bid) => b.status === 'submitted').length,
-    accepted: bids.filter((b: Bid) => b.status === 'accepted').length,
-    rejected: bids.filter((b: Bid) => b.status === 'rejected').length,
-    drafts: bids.filter((b: Bid) => b.status === 'draft').length
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center py-12">
-          <div className="text-red-500 mb-4">
-            <Target className="h-12 w-12 mx-auto mb-2" />
-            <h3 className="text-lg font-medium mb-2">Error Loading Bids</h3>
-            <p className="text-sm">
-              {error instanceof Error ? error.message : 'Failed to load bids'}
-            </p>
-          </div>
-          <Button onClick={() => window.location.reload()}>
-            Try Again
-          </Button>
-        </div>
-      </div>
-    )
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Bids & Applications</h1>
-        <p className="text-gray-600">
-          Track and manage all your project applications
-        </p>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Bids</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalBids}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Submitted</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{stats.submitted}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Accepted</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.accepted}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Rejected</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-600">{stats.rejected}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Drafts</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-gray-600">{stats.drafts}</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Search and Filters */}
-      <Card className="mb-6">
+    <div className="space-y-6">
+      {/* Advanced Search and Filters */}
+      <Card>
         <CardHeader>
-          <CardTitle>Search & Filter</CardTitle>
-          <CardDescription>Find specific bids or applications</CardDescription>
+          <CardTitle>Search & Filters</CardTitle>
+          <CardDescription>Filter your bids by status and search terms</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  placeholder="Search bids, projects, or platforms..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-            </div>
-            <div className="flex gap-2">
+        <CardContent className="space-y-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              placeholder="Search by project title or platform..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSelectedStatus(null)}
+              className={!selectedStatus ? 'bg-primary text-primary-foreground' : ''}
+            >
+              All Status
+            </Button>
+            {statuses.map((status) => (
               <Button
+                key={status}
                 variant="outline"
                 size="sm"
-                onClick={() => setSelectedStatus(null)}
-                className={selectedStatus === null ? 'bg-primary text-primary-foreground' : ''}
+                onClick={() => setSelectedStatus(status)}
+                className={selectedStatus === status ? 'bg-primary text-primary-foreground' : ''}
               >
-                All Status
+                {status}
               </Button>
-              {statuses.map((status) => (
-                <Button
-                  key={status}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSelectedStatus(status)}
-                  className={selectedStatus === status ? 'bg-primary text-primary-foreground' : ''}
-                >
-                  {status}
-                </Button>
-              ))}
-            </div>
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Results Summary */}
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <p className="text-sm text-gray-600">
-            Showing {bids.length} bids
-          </p>
-        </div>
+      {/* Results and Actions */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          Showing {filteredBids.length} of {bids.length} bids
+        </p>
         <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            Export
+          </Button>
           <Button size="sm">
             <Plus className="h-4 w-4 mr-1" />
             New Bid
@@ -233,83 +223,66 @@ export default function BidsPage() {
         </div>
       </div>
 
-      {/* Bids List */}
-      <div className="space-y-4">
-        {bids.map((bid: Bid) => (
-          <Card key={bid.id}>
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <CardTitle className="text-lg mb-1">{bid.projectTitle}</CardTitle>
-                  <CardDescription className="text-sm text-gray-600 mb-2">
-                    {bid.platform} • {formatDate(bid.createdAt)}
-                  </CardDescription>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge className={getStatusColor(bid.status)}>
-                    {getStatusIcon(bid.status)}
-                    <span className="ml-1">{bid.status}</span>
-                  </Badge>
-                </div>
-              </div>
-            </CardHeader>
-            
-            <CardContent>
+      {/* Enhanced Bids Grid */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {filteredBids.map((bid) => (
+          <Card key={bid.id} className="group hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
               <div className="space-y-4">
-                <div className="flex items-center gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <DollarSign className="h-4 w-4" />
-                    <span>
-                      ${bid.bidAmount.toLocaleString()}
-                      {bid.bidType === 'hourly' && '/hr'}
-                    </span>
+                <div className="flex items-start justify-between">
+                  <Badge className={getStatusColor(bid.status)}>
+                    {bid.status}
+                  </Badge>
+                  <div className="flex opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button variant="ghost" size="sm">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={() => onDelete(bid.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
-                  
-                  {bid.submittedAt && (
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>Submitted {formatDate(bid.submittedAt)}</span>
-                    </div>
-                  )}
                 </div>
-                
+
                 <div>
-                  <p className="text-sm text-gray-700 line-clamp-2 mb-2">{bid.proposalText}</p>
-                  {bid.notes && (
-                    <p className="text-xs text-gray-500 italic">Notes: {bid.notes}</p>
-                  )}
+                  <h3 className="font-semibold text-lg leading-tight mb-2">
+                    {bid.projectTitle}
+                  </h3>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <div className="flex items-center">
+                      <Target className="h-4 w-4 mr-2" />
+                      {bid.platform}
+                    </div>
+                    <div className="flex items-center">
+                      <DollarSign className="h-4 w-4 mr-2" />
+                      ${bid.bidAmount.toLocaleString()}
+                      {bid.bidType && (
+                        <span className="ml-1">({bid.bidType})</span>
+                      )}
+                    </div>
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      {formatDate(bid.createdAt)}
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleEditBid(bid.id)}
-                  >
-                    <Edit className="h-4 w-4 mr-1" />
-                    Edit
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                  >
-                    <a href={bid.projectUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      View Project
-                    </a>
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDeleteBid(bid.id)}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                  >
-                    <Trash2 className="h-4 w-4 mr-1" />
-                    Delete
-                  </Button>
+
+                {bid.proposalText && (
+                  <div className="text-sm">
+                    <p className="line-clamp-3 text-muted-foreground">
+                      {bid.proposalText}
+                    </p>
+                  </div>
+                )}
+
+                <div className="flex justify-between items-center pt-2">
+                  {bid.projectUrl && (
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={bid.projectUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4 mr-1" />
+                        View Project
+                      </a>
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -317,12 +290,15 @@ export default function BidsPage() {
         ))}
       </div>
 
-      {bids.length === 0 && (
+      {filteredBids.length === 0 && (
         <div className="text-center py-12">
-          <Target className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No bids found</h3>
-          <p className="text-gray-600 mb-4">
-            Try adjusting your search terms or filters to find more bids.
+          <Target className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <h3 className="text-lg font-medium mb-2">No bids found</h3>
+          <p className="text-muted-foreground mb-4">
+            {searchTerm || selectedStatus 
+              ? "Try adjusting your search terms or filters."
+              : "Start by creating your first bid proposal."
+            }
           </p>
           <Button>
             <Plus className="h-4 w-4 mr-1" />
@@ -330,6 +306,65 @@ export default function BidsPage() {
           </Button>
         </div>
       )}
+    </div>
+  )
+}
+
+export default function BidsPage() {
+  // Build filters for API call
+  const filters = useMemo(() => {
+    const result: Record<string, string | string[] | number> = {}
+    return result
+  }, [])
+
+  // Fetch bids from API
+  const { data: bids = [], error } = useBids(filters)
+  const deleteBidMutation = useDeleteBid()
+
+  const handleDelete = async (bidId: string) => {
+    if (confirm('Are you sure you want to delete this bid?')) {
+      try {
+        await deleteBidMutation.mutateAsync(bidId)
+      } catch (error) {
+        console.error('Failed to delete bid:', error)
+      }
+    }
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-red-600 mb-2">Error Loading Bids</h2>
+          <p className="text-muted-foreground">{error.message}</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Bids</h1>
+        <p className="text-muted-foreground">
+          Track and manage your bid submissions
+        </p>
+      </div>
+      
+      <Tabs defaultValue="enhanced" className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsTrigger value="simple">Simple View</TabsTrigger>
+          <TabsTrigger value="enhanced">Enhanced View</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="simple" className="mt-6">
+          <SimpleBidsView bids={bids} onDelete={handleDelete} />
+        </TabsContent>
+        
+        <TabsContent value="enhanced" className="mt-6">
+          <EnhancedBidsView bids={bids} onDelete={handleDelete} />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

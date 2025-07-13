@@ -1,52 +1,65 @@
-# 🎯 BidMaster - Freelance Project Management Platform
+# 🎯 BidMaster
 
-BidMaster is a comprehensive web platform that enables developers, agencies, and freelancers to **discover**, **manage**, and **track** software outsourcing opportunities across multiple platforms.
+A modern, comprehensive project bidding management platform designed for freelancers to efficiently discover, track, and manage project opportunities across multiple platforms.
 
 ## ✨ Features
 
-- **🔍 Project Discovery**: Centralized dashboard to browse projects from multiple platforms
-- **📊 Analytics Dashboard**: Track your bidding performance and win rates
-- **🎯 Smart Filtering**: Filter projects by technology, budget, category, and more
-- **📝 Bid Management**: Track all your applications and their status
-- **⚙️ Customizable Preferences**: Set your target technologies and project types
-- **🔄 Real-time Updates**: Stay updated with the latest project opportunities
-- **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
+### Dual-View Architecture
+
+**Simple View**: Clean, minimal interface for quick project browsing and basic management
+
+- Essential project information at a glance
+- Quick bid submission
+- Basic filtering and search
+
+**Enhanced View**: Advanced interface with comprehensive analytics and detailed management
+
+- Interactive charts and visualizations
+- Advanced filtering with multiple criteria
+- Detailed project analytics and trend data
+- Comprehensive bid tracking with status management
+
+### Core Functionality
+
+- 📋 **Project Management**: Track projects from discovery to completion
+- 💰 **Bid Tracking**: Monitor all bid submissions with status updates
+- 📊 **Analytics Dashboard**: Visual insights into bidding performance
+- 🔍 **Smart Filtering**: Find relevant projects with advanced search
+- 🌐 **Multi-Platform**: Support for multiple freelancing platforms
+- 🎨 **Modern UI**: Clean, responsive design with dark/light themes
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Backend**: Supabase (PostgreSQL, Authentication, Real-time)
-- **UI Components**: Custom components with Radix UI primitives
-- **Icons**: Lucide React
-- **Styling**: Tailwind CSS with custom design system
-- **Database**: PostgreSQL (via Supabase)
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Backend**: Next.js API routes, Supabase
+- **Database**: PostgreSQL (Supabase)
+- **Deployment**: Vercel
+- **Charts**: Recharts for data visualization
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- A Supabase account and project
-
-### Installation
+## 🚀 Quick Start
 
 1. **Clone the repository**
+
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/your-username/bidmaster.git
    cd bidmaster
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.local.example .env.local
    ```
-   
+
    Update `.env.local` with your Supabase credentials:
+
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -55,181 +68,165 @@ BidMaster is a comprehensive web platform that enables developers, agencies, and
    ```
 
 4. **Set up the database**
+
    - Go to your Supabase dashboard
    - Navigate to the SQL Editor
    - Run the SQL commands from `database/schema.sql`
 
 5. **Start the development server**
+
    ```bash
    npm run dev
    ```
 
 6. **Open your browser**
+
    Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🤖 Web Scraping Features
-
-BidMaster includes a comprehensive web scraping system to automatically discover new projects:
-
-### ✅ Implemented Features
-- **Multi-Platform Support**: Scrapes from Upwork, Freelancer, and other platforms
-- **Intelligent Fallback**: Uses mock data when real scraping fails (for development)
-- **Scheduled Scraping**: Automatic scraping every 6 hours via Vercel Cron
-- **Manual Scraping**: On-demand scraping through the settings page
-- **Scraping Dashboard**: Monitor performance and statistics
-- **Database Integration**: Automatic deduplication and project storage
-- **Rate Limiting**: Respectful scraping with proper delays
-
-### 🔧 API Endpoints
-- `POST /api/scrape` - Manual scraping with custom search terms
-- `POST /api/scrape/scheduled` - Scheduled scraping (called by cron)
-- `GET /api/scrape/stats` - Scraping statistics and performance metrics
-
-### 📊 Scraping Dashboard
-Access the scraping controls and dashboard through the Settings page:
-- View scraping statistics by platform
-- Monitor success rates and performance
-- Trigger manual scraping jobs
-- Track project discovery over time
 
 ## 📁 Project Structure
 
-```
+```text
 bidmaster/
 ├── src/
-│   ├── app/                 # Next.js app router pages
-│   │   ├── bids/           # Bid management page
-│   │   ├── projects/       # Project discovery page
-│   │   ├── settings/       # User preferences page
-│   │   ├── globals.css     # Global styles
-│   │   ├── layout.tsx      # Root layout
-│   │   └── page.tsx        # Dashboard page
-│   ├── components/         # React components
-│   │   ├── ui/            # Reusable UI components
-│   │   ├── dashboard.tsx   # Dashboard components
-│   │   ├── navigation.tsx  # Navigation bar
-│   │   └── project-card.tsx # Project card component
-│   ├── lib/               # Utility functions
-│   │   ├── scraper.ts     # Web scraping utilities
-│   │   ├── supabase.ts    # Supabase client
-│   │   └── utils.ts       # General utilities
-│   └── types/             # TypeScript type definitions
-│       └── database.ts    # Database types
-├── database/              # Database schema and migrations
-│   └── schema.sql        # Database schema
-├── docs/                 # Project documentation
-│   └── bidding_platform_plan.md # Original project plan
-└── public/               # Static assets
+│   ├── app/                    # Next.js app router pages
+│   │   ├── page.tsx           # Dashboard (tabbed interface)
+│   │   ├── projects/          # Projects management
+│   │   ├── bids/              # Bid tracking
+│   │   ├── settings/          # User preferences
+│   │   └── api/               # API routes
+│   ├── components/            # React components
+│   │   ├── ui/                # shadcn/ui components
+│   │   ├── dashboard-metrics.tsx
+│   │   ├── project-charts.tsx
+│   │   ├── projects-table.tsx
+│   │   └── ...
+│   ├── hooks/                 # Custom React hooks
+│   ├── lib/                   # Utility functions
+│   ├── types/                 # TypeScript type definitions
+│   └── utils/                 # Helper functions
+├── database/                  # Database schema and migrations
+├── docs/                      # Documentation
+├── public/                    # Static assets
+└── tasks/                     # Task management (if applicable)
 ```
 
-## 🎨 Key Components
+## 🎨 UI/UX Design Philosophy
 
-### Dashboard
-- **Statistics Cards**: Overview of your bidding activities
-- **Recent Projects**: Latest opportunities matching your preferences
-- **Recent Activity**: Timeline of your actions
-- **Quick Actions**: Common tasks and shortcuts
+### Dual-View Approach
 
-### Project Discovery
-- **Advanced Search**: Filter by technology, budget, category, and status
-- **Project Cards**: Detailed view of each opportunity
-- **Bulk Actions**: Bookmark or apply to multiple projects
-- **Real-time Updates**: New projects appear automatically
+- **Progressive Enhancement**: Start simple, enhance as needed
+- **User Choice**: Let users pick their preferred complexity level
+- **Consistent Navigation**: Unified tabbed interface across all pages
+- **Performance**: Simple views load faster for quick tasks
 
-### Bid Management
-- **Application Tracking**: Monitor all your bids and their status
-- **Proposal Management**: Store and reuse proposal templates
-- **Performance Analytics**: Track win rates and success metrics
-- **Notes & Reminders**: Keep track of important details
+### Design Principles
 
-### Settings
-- **Technology Preferences**: Set your target tech stack
-- **Budget Filters**: Define your preferred project budget range
-- **Platform Integration**: Configure which platforms to monitor
-- **Notification Settings**: Control how you receive updates
+- **Clean & Modern**: Minimalist design with focus on functionality
+- **Responsive**: Mobile-first approach with desktop enhancements
+- **Accessible**: ARIA labels, keyboard navigation, and screen reader support
+- **Consistent**: Unified color scheme and component patterns
 
-## 🔧 Configuration
+## 🔧 Core Components
 
-### Environment Variables
+### Dashboard Components
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous key | Yes |
-| `SUPABASE_SERVICE_KEY` | Your Supabase service role key | Yes |
-| `NEXT_PUBLIC_APP_URL` | Your app URL | Yes |
+- `DashboardStats`: Original simple stats cards
+- `DashboardMetrics`: Enhanced metrics with trend indicators
+- `ProjectCharts`: Interactive project data visualization
 
-### Database Setup
+### Project Components
 
-The application uses Supabase PostgreSQL with the following main tables:
+- `ProjectCard`: Individual project display card
+- `ProjectsTable`: Advanced data table with sorting/filtering
+- `ProjectCharts`: Platform distribution and trend charts
 
-- **projects**: Stores project information from various platforms
-- **bids**: Tracks your applications and their status
-- **sources**: Manages platform configurations
-- **user_preferences**: Stores user settings and preferences
+### UI Components
 
-## 🚀 Deployment
+- All shadcn/ui components (Button, Card, Table, Tabs, etc.)
+- Custom chart components for data visualization
+- Responsive layout components
 
-### Vercel (Recommended)
+## 📊 Data Management
 
-1. **Push your code to GitHub**
-2. **Connect to Vercel**
-3. **Set environment variables in Vercel dashboard**
-4. **Deploy automatically**
+### API Integration
 
-### Other Platforms
+- RESTful API design with Next.js API routes
+- Supabase integration for real-time data
+- Type-safe API calls with custom hooks
 
-The app can be deployed on any platform that supports Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
+### Database Schema
 
-## 🛣️ Roadmap
+- **Projects**: Project listings from various platforms
+- **Bids**: User bid submissions and tracking
+- **User Preferences**: Customizable settings and filters
+- **Sources**: Platform configurations and scraping settings
 
-### Phase 1: MVP (Current)
-- [x] Basic project discovery and filtering
-- [x] Bid tracking and management
-- [x] User preferences and settings
-- [x] Dashboard with analytics
-- [x] Responsive design
+## 🚦 Development Workflow
 
-### Phase 2: Enhanced Features
-- [x] Real web scraping implementation
-- [x] Scheduled scraping with cron jobs
-- [x] Scraping dashboard and statistics
-- [ ] User authentication with Supabase Auth
-- [ ] Email notifications
+### Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # TypeScript type checking
+```
+
+### Key Development Notes
+
+- **Type Safety**: Full TypeScript implementation with strict mode
+- **Component Library**: Built on shadcn/ui for consistency
+- **Performance**: Optimized with Next.js 15 and React 19
+- **Clean Code**: ESLint and Prettier configuration
+
+## 🎯 Feature Roadmap
+
+### Completed ✅
+
+- [x] Dual-view tabbed interface for all major pages
+- [x] Advanced project filtering and search
+- [x] Interactive dashboard with charts and metrics
+- [x] Comprehensive bid tracking and management
+- [x] Responsive design and mobile optimization
+- [x] Type-safe API integration
+- [x] Modern UI with shadcn/ui components
+
+### In Progress 🔄
+
+- [ ] User authentication and profiles
+- [ ] Real-time notifications
 - [ ] Advanced analytics and reporting
-- [ ] Proposal templates and auto-fill
+- [ ] Multi-platform scraping automation
 
-### Phase 3: Advanced Capabilities
-- [ ] AI-powered project matching
-- [ ] Automated bidding workflows
+### Planned 📋
+
 - [ ] Team collaboration features
-- [ ] API for third-party integrations
-- [ ] Mobile app (React Native)
+- [ ] Advanced bid proposal templates
+- [ ] Calendar integration for deadlines
+- [ ] Export functionality for reports
+- [ ] Dark mode theme support
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- [Next.js](https://nextjs.org/) for the React framework
-- [Supabase](https://supabase.com/) for the backend infrastructure
-- [Tailwind CSS](https://tailwindcss.com/) for styling
-- [Lucide](https://lucide.dev/) for icons
-- [Radix UI](https://www.radix-ui.com/) for accessible components
+- [Next.js](https://nextjs.org/) - The React framework
+- [Supabase](https://supabase.com/) - Backend as a Service
+- [shadcn/ui](https://ui.shadcn.com/) - UI component library
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Lucide](https://lucide.dev/) - Beautiful icons
 
 ---
 
-**Happy bidding!** 🎯
+Built with ❤️ for the freelance developer community
