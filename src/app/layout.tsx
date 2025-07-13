@@ -2,18 +2,9 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-import { Separator } from "@/components/ui/separator"
 import QueryProvider from "@/components/query-provider"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { AuthProvider } from "@/hooks/useAuth"
+import { LayoutWrapper } from "@/components/layout-wrapper"
 
 const inter = Inter({ subsets: ["latin"] })
 const poppins = Poppins({ 
@@ -36,29 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${poppins.variable}`}>
         <QueryProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>
-              <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-6">
-                <SidebarTrigger className="-ml-1" />
-                <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#" className="text-base font-poppins">
-                        BidMaster Hub
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage className="text-base font-medium font-poppins">Dashboard</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-              </header>
-              <main className="flex-1 overflow-auto bg-gray-50/50">{children}</main>
-            </SidebarInset>
-          </SidebarProvider>
+          <AuthProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

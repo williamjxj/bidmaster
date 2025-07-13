@@ -12,6 +12,17 @@ interface BidWithProject extends Bid {
 export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient()
+    
+    // Get authenticated user
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+    
     const { searchParams } = new URL(request.url)
     
     // Parse query parameters
@@ -29,6 +40,7 @@ export async function GET(request: NextRequest) {
           source_url
         )
       `)
+      .eq('user_id', user.id) // Only get bids for the authenticated user
       .order('created_at', { ascending: false })
 
     // Apply filters
@@ -88,13 +100,24 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
+    
+    // Get authenticated user
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+    
     const body = await request.json()
 
     const { data: bid, error } = await supabase
       .from('bids')
       .insert({
         project_id: body.projectId,
-        user_id: '00000000-0000-0000-0000-000000000000', // TODO: Get from auth
+        user_id: user.id, // Use authenticated user's ID
         bid_amount: body.bidAmount,
         proposal: body.proposalText,
         status: body.status || 'draft',

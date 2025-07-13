@@ -10,6 +10,17 @@ export async function GET(
 ) {
   try {
     const supabase = await createClient()
+    
+    // Get authenticated user
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+    
     const { id } = await params
 
     const { data: bid, error } = await supabase
@@ -23,6 +34,7 @@ export async function GET(
         )
       `)
       .eq('id', id)
+      .eq('user_id', user.id) // Only allow access to user's own bids
       .single()
 
     if (error) {
