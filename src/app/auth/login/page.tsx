@@ -43,6 +43,11 @@ export default function LoginPage() {
     }
   }
 
+  const fillDemoAccount = () => {
+    setEmail('demo@example.com')
+    setPassword('123456')
+  }
+
   const handleSocialLogin = async (provider: 'google' | 'github') => {
     setLoading(true)
     setError(null)
@@ -75,6 +80,33 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Demo Account Info */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <div className="flex items-start space-x-2">
+              <div className="flex-shrink-0">
+                <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span className="text-blue-600 text-xs font-bold">i</span>
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-blue-900">Try the demo account</p>
+                <p className="text-xs text-blue-700 mt-1">
+                  Email: <span className="font-mono">demo@example.com</span><br />
+                  Password: <span className="font-mono">123456</span>
+                </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={fillDemoAccount}
+                  className="mt-2 text-xs bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                >
+                  Fill Demo Credentials
+                </Button>
+              </div>
+            </div>
+          </div>
+
           {error && (
             <Alert variant="destructive">
               <AlertDescription>{error}</AlertDescription>

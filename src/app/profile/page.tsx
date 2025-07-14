@@ -11,7 +11,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Label } from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Separator } from '@/components/ui/separator'
-import { User, Mail, Shield, Key } from 'lucide-react'
+import { User, Mail, Shield, Key, Globe } from 'lucide-react'
+import { ActiveWebsitesList } from '@/components/active-websites-list'
 
 export default function ProfilePage() {
   const { user } = useAuth()
@@ -152,6 +153,10 @@ export default function ProfilePage() {
           <TabsTrigger value="security" className="flex items-center gap-2">
             <Shield className="h-4 w-4" />
             Security
+          </TabsTrigger>
+          <TabsTrigger value="websites" className="flex items-center gap-2">
+            <Globe className="h-4 w-4" />
+            Websites
           </TabsTrigger>
         </TabsList>
 
@@ -314,6 +319,20 @@ export default function ProfilePage() {
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        <TabsContent value="websites">
+          <Card>
+            <CardHeader>
+              <CardTitle>Active Websites Portfolio</CardTitle>
+              <CardDescription>
+                Explore all live websites and applications in my portfolio
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ActiveWebsitesList />
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

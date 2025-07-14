@@ -83,6 +83,35 @@ A modern, comprehensive project bidding management platform designed for freelan
 
    Navigate to [http://localhost:3000](http://localhost:3000)
 
+## 🧪 Demo Account
+
+For quick testing and exploration, use the demo account:
+
+- **Email**: `demo@example.com`
+- **Password**: `123456`
+
+### Creating the Demo Account
+
+The demo account can be created using the provided script:
+
+```bash
+npm run create-demo
+```
+
+Or manually run:
+
+```bash
+node scripts/create-demo-account.js
+```
+
+This script will:
+
+- Create a demo user in Supabase Auth
+- Set up default user preferences
+- Configure sample data for testing
+
+> **Note**: The demo account is automatically created with email confirmation enabled, so no email verification is required.
+
 ## 📁 Project Structure
 
 ```text
