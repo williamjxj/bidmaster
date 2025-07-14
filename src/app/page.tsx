@@ -137,100 +137,100 @@ const mockStats = {
 // Dashboard for authenticated users
 function AuthenticatedDashboard() {
   return (
-    <div className="p-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600">Welcome back! Here&apos;s your project overview.</p>
+    <div className="page-container">
+      <div className="page-header">
+        <h1 className="page-title">Dashboard</h1>
+        <p className="page-description">Welcome back! Here&apos;s your project overview.</p>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-8">
-        {/* Enhanced Tab Navigation */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-2">
-          <TabsList className="grid w-full grid-cols-3 bg-gray-50 rounded-lg p-1 h-14">
-            <TabsTrigger 
-              value="overview" 
-              className="text-sm font-semibold transition-all duration-200 hover:bg-white hover:shadow-sm data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-blue-600 data-[state=active]:border data-[state=active]:border-blue-200 rounded-md py-3 px-4"
-            >
-              📊 Overview
-            </TabsTrigger>
-            <TabsTrigger 
-              value="metrics" 
-              className="text-sm font-semibold transition-all duration-200 hover:bg-white hover:shadow-sm data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-green-600 data-[state=active]:border data-[state=active]:border-green-200 rounded-md py-3 px-4"
-            >
-              📈 Metrics
-            </TabsTrigger>
-            <TabsTrigger 
-              value="charts" 
-              className="text-sm font-semibold transition-all duration-200 hover:bg-white hover:shadow-sm data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-purple-600 data-[state=active]:border data-[state=active]:border-purple-200 rounded-md py-3 px-4"
-            >
-              📊 Analytics
-            </TabsTrigger>
-          </TabsList>
-        </div>
-
-        <TabsContent value="overview" className="space-y-6 animate-in fade-in-0 duration-200">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-100">
-            <h2 className="text-lg font-semibold text-blue-900 mb-2">📊 Dashboard Overview</h2>
-            <p className="text-blue-700 text-sm">Get a comprehensive view of your project activities and recent updates.</p>
+      <div className="tabs-container">
+        <Tabs defaultValue="overview" className="w-full">
+          <div className="tabs-header">
+            <TabsList className="tabs-nav w-full">
+              <TabsTrigger value="overview" className="tabs-trigger flex-1">
+                📊 Overview
+              </TabsTrigger>
+              <TabsTrigger value="metrics" className="tabs-trigger flex-1">
+                📈 Metrics
+              </TabsTrigger>
+              <TabsTrigger value="charts" className="tabs-trigger flex-1">
+                📊 Analytics
+              </TabsTrigger>
+            </TabsList>
           </div>
-          <DashboardStats stats={mockStats} />
-          
-          {/* Simple Activity Feed */}
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-lg border p-4">
-              <h3 className="text-lg font-semibold mb-3">Recent Activity</h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between py-2 border-b">
-                  <span className="text-sm">Applied to &ldquo;React Developer&rdquo; project</span>
-                  <span className="text-xs text-muted-foreground">2 hours ago</span>
-                </div>
-                <div className="flex items-center justify-between py-2 border-b">
-                  <span className="text-sm">Bookmarked &ldquo;Full Stack Position&rdquo;</span>
-                  <span className="text-xs text-muted-foreground">5 hours ago</span>
-                </div>
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-sm">Won &ldquo;WordPress Plugin&rdquo; project</span>
-                  <span className="text-xs text-muted-foreground">1 day ago</span>
-                </div>
-              </div>
+
+          <TabsContent value="overview" className="tabs-content space-y-6">
+            <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
+              <h2 className="text-lg font-semibold text-primary mb-2">📊 Dashboard Overview</h2>
+              <p className="text-primary/80 text-sm">Get a comprehensive view of your project activities and recent updates.</p>
             </div>
+            <DashboardStats stats={mockStats} />
             
-            <div className="rounded-lg border p-4">
-              <h3 className="text-lg font-semibold mb-3">Quick Stats</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">This Week</span>
-                  <span className="text-sm font-medium">12 applications</span>
+            {/* Simple Activity Feed */}
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="panel-container">
+                <div className="panel-header">
+                  <h3 className="panel-title">Recent Activity</h3>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Response Rate</span>
-                  <span className="text-sm font-medium">32%</span>
+                <div className="panel-content">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between py-2 border-b border-border">
+                      <span className="text-sm">Applied to &ldquo;React Developer&rdquo; project</span>
+                      <span className="text-xs text-muted-foreground">2 hours ago</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-border">
+                      <span className="text-sm">Bookmarked &ldquo;Full Stack Position&rdquo;</span>
+                      <span className="text-xs text-muted-foreground">5 hours ago</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-sm">Won &ldquo;WordPress Plugin&rdquo; project</span>
+                      <span className="text-xs text-muted-foreground">1 day ago</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Avg. Bid Amount</span>
-                  <span className="text-sm font-medium">$2,450</span>
+              </div>
+              
+              <div className="panel-container">
+                <div className="panel-header">
+                  <h3 className="panel-title">Quick Stats</h3>
+                </div>
+                <div className="panel-content">
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">This Week</span>
+                      <span className="text-sm font-medium">12 applications</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Response Rate</span>
+                      <span className="text-sm font-medium">32%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Avg. Bid Amount</span>
+                      <span className="text-sm font-medium">$2,450</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </TabsContent>
+          </TabsContent>
 
-        <TabsContent value="metrics" className="space-y-6 animate-in fade-in-0 duration-200">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border border-green-100">
-            <h2 className="text-lg font-semibold text-green-900 mb-2">📈 Performance Metrics</h2>
-            <p className="text-green-700 text-sm">Track your key performance indicators and success metrics.</p>
-          </div>
-          <DashboardMetrics />
-        </TabsContent>
+          <TabsContent value="metrics" className="tabs-content space-y-6">
+            <div className="bg-success/5 rounded-lg p-4 border border-success/10">
+              <h2 className="text-lg font-semibold text-success mb-2">📈 Performance Metrics</h2>
+              <p className="text-success/80 text-sm">Track your key performance indicators and success metrics.</p>
+            </div>
+            <DashboardMetrics />
+          </TabsContent>
 
-        <TabsContent value="charts" className="space-y-6 animate-in fade-in-0 duration-200">
-          <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-4 border border-purple-100">
-            <h2 className="text-lg font-semibold text-purple-900 mb-2">📊 Analytics & Charts</h2>
-            <p className="text-purple-700 text-sm">Visualize your project data with detailed charts and trends.</p>
-          </div>
-          <ProjectCharts />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="charts" className="tabs-content space-y-6">
+            <div className="bg-accent/5 rounded-lg p-4 border border-accent/10">
+              <h2 className="text-lg font-semibold text-accent mb-2">📊 Analytics & Charts</h2>
+              <p className="text-accent/80 text-sm">Visualize your project data with detailed charts and trends.</p>
+            </div>
+            <ProjectCharts />
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }

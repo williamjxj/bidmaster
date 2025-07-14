@@ -58,34 +58,36 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       {statCards.map((stat) => {
         const Icon = stat.icon
         return (
-          <Card key={stat.title} className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <CardTitle className="text-base font-medium text-gray-600">{stat.title}</CardTitle>
-              <div className={`p-3 rounded-xl ${stat.bgColor}`}>
-                <Icon className={`h-5 w-5 ${stat.color}`} />
+          <Card key={stat.title} className="relative overflow-hidden border-border/40 hover:border-border/60 transition-all duration-200 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">{stat.title}</CardTitle>
+              <div className={`p-2 rounded-lg ${stat.bgColor} ring-1 ring-inset ring-white/10`}>
+                <Icon className={`h-4 w-4 ${stat.color}`} />
               </div>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
                 <div
-                  className={`flex items-center gap-1 text-base font-medium ${
-                    stat.changeType === "positive" ? "text-emerald-600" : "text-red-600"
+                  className={`flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-full ${
+                    stat.changeType === "positive" 
+                      ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-400" 
+                      : "text-red-600 bg-red-50 dark:bg-red-500/10 dark:text-red-400"
                   }`}
                 >
                   {stat.changeType === "positive" ? (
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-3 h-3" />
                   ) : (
-                    <ArrowDownRight className="w-4 h-4" />
+                    <ArrowDownRight className="w-3 h-3" />
                   )}
                   {stat.change}
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">{stat.description}</p>
+              <p className="text-xs text-muted-foreground mt-1">{stat.description}</p>
             </CardContent>
           </Card>
         )

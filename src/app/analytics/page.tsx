@@ -128,12 +128,12 @@ export default function AnalyticsPage() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
+    <div className="page-container">
+      <div className="page-header">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Analytics Dashboard</h1>
-            <p className="text-gray-600">Performance insights and trends</p>
+            <h1 className="page-title">Analytics Dashboard</h1>
+            <p className="page-description">Performance insights and trends</p>
           </div>
           <div className="flex gap-2">
             {timeRangeOptions.map((option) => (
@@ -148,16 +148,20 @@ export default function AnalyticsPage() {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="tabs-container">
 
         {/* Key Performance Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {performanceMetrics.map((metric) => {
-            const Icon = metric.icon
-            return (
-              <Card key={metric.title} className="border-0 shadow-sm hover:shadow-md transition-shadow duration-200">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-base font-medium text-gray-600">{metric.title}</CardTitle>
-                  <div className={`p-3 rounded-xl ${metric.bgColor}`}>
+        <div className="panel-container">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {performanceMetrics.map((metric) => {
+              const Icon = metric.icon
+              return (
+                <Card key={metric.title} className="stat-card">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-base font-medium text-gray-600">{metric.title}</CardTitle>
+                    <div className={`p-3 rounded-xl ${metric.bgColor}`}>
                     <Icon className={`h-5 w-5 ${metric.color}`} />
                   </div>
                 </CardHeader>
@@ -306,6 +310,7 @@ export default function AnalyticsPage() {
             </CardContent>
           </Card>
         </div>
+      </div>
       </div>
     </div>
   )

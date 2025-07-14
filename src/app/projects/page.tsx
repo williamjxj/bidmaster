@@ -353,51 +353,47 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">Projects</h1>
-        <p className="text-lg text-muted-foreground">
-          Discover and manage freelance opportunities
-        </p>
+    <div className="page-container">
+      <div className="page-header">
+        <h1 className="page-title">Projects</h1>
+        <p className="page-description">Discover and manage freelance opportunities</p>
       </div>
       
-      <Tabs defaultValue="enhanced" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-2 mb-8 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-          <TabsTrigger 
-            value="original"
-            className="rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 data-[state=active]:bg-white data-[state=active]:shadow-sm"
-          >
-            Simple View
-          </TabsTrigger>
-          <TabsTrigger 
-            value="enhanced"
-            className="rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 data-[state=active]:bg-white data-[state=active]:shadow-sm"
-          >
-            Enhanced View
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="original" className="mt-8">
-          <OriginalProjectsView 
-            projects={projects}
-            handleBookmark={handleBookmark}
-            handleApply={handleApply}
-            isLoading={isLoading}
-            error={error}
-          />
-        </TabsContent>
-        
-        <TabsContent value="enhanced" className="mt-8">
-          <EnhancedProjectsView 
-            projects={projects}
-            handleBookmark={handleBookmark}
-            handleApply={handleApply}
-            isLoading={isLoading}
-            error={error}
-            tableProjects={tableProjects}
-          />
-        </TabsContent>
-      </Tabs>
+      <div className="tabs-container">
+        <Tabs defaultValue="enhanced" className="w-full">
+          <div className="tabs-header">
+            <TabsList className="tabs-nav w-full max-w-md">
+              <TabsTrigger value="original" className="tabs-trigger flex-1">
+                Simple View
+              </TabsTrigger>
+              <TabsTrigger value="enhanced" className="tabs-trigger flex-1">
+                Enhanced View
+              </TabsTrigger>
+            </TabsList>
+          </div>
+          
+          <TabsContent value="original" className="tabs-content">
+            <OriginalProjectsView 
+              projects={projects}
+              handleBookmark={handleBookmark}
+              handleApply={handleApply}
+              isLoading={isLoading}
+              error={error}
+            />
+          </TabsContent>
+          
+          <TabsContent value="enhanced" className="tabs-content">
+            <EnhancedProjectsView 
+              projects={projects}
+              handleBookmark={handleBookmark}
+              handleApply={handleApply}
+              isLoading={isLoading}
+              error={error}
+              tableProjects={tableProjects}
+            />
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }

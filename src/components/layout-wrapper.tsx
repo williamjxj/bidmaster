@@ -45,20 +45,20 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 justify-between border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 px-6">
+        <header className="flex h-16 shrink-0 items-center gap-2 justify-between border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 shadow-sm">
           <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
+            <SidebarTrigger className="-ml-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md transition-colors" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/" className="text-base font-poppins">
+                  <BreadcrumbLink href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                     BidMaster Hub
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage className="text-base font-medium font-poppins">
+                  <BreadcrumbPage className="text-sm font-medium text-foreground">
                     {getPageTitle(pathname)}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
@@ -67,7 +67,7 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
           </div>
           <UserNav />
         </header>
-        <main className="flex-1 overflow-auto bg-gray-50/50">{children}</main>
+        <main className="flex-1 overflow-auto bg-muted/40">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   )

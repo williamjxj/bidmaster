@@ -125,20 +125,23 @@ export default function CalendarPage() {
     .slice(0, 5)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
+    <div className="page-container">
+      <div className="page-header">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Calendar</h1>
-            <p className="text-gray-600">Track deadlines, meetings, and important dates</p>
+            <h1 className="page-title">Calendar</h1>
+            <p className="page-description">Track deadlines, meetings, and important dates</p>
           </div>
           <Button className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
             Add Event
           </Button>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="tabs-container">
+        <div className="panel-container">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendar */}
           <Card className="lg:col-span-2">
             <CardHeader>
@@ -309,6 +312,7 @@ export default function CalendarPage() {
               <p className="text-sm text-gray-600">Proposal Due</p>
             </CardContent>
           </Card>
+        </div>
         </div>
       </div>
     </div>
