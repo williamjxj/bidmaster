@@ -96,28 +96,36 @@ export default function Loading() {
       
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
-            animate={{
-              x: [0, Math.random() * 100, 0],
-              y: [0, Math.random() * 100, 0],
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * 2
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
+        {[...Array(20)].map((_, i) => {
+          // Use stable values based on index for SSR
+          const baseX = (i * 30) % 100
+          const baseY = (i * 40) % 100
+          const duration = 3 + (i % 3)
+          const delay = i * 0.2
+          
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
+              animate={{
+                x: [0, baseX, 0],
+                y: [0, baseY, 0],
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.8, 0.3]
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay
+              }}
+              style={{
+                left: `${(i * 15) % 100}%`,
+                top: `${(i * 20) % 100}%`,
+              }}
+            />
+          )
+        })}
       </div>
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-6">

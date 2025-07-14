@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -16,7 +16,17 @@ import {
 } from 'lucide-react'
 
 export default function CalendarPage() {
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [currentDate, setCurrentDate] = useState(() => {
+    // Use a stable date for SSR, will be updated on client
+    return new Date(2025, 0, 1) // January 1, 2025
+  })
+  const [isClient, setIsClient] = useState(false)
+
+  // Update to actual current date on client side
+  useEffect(() => {
+    setIsClient(true)
+    setCurrentDate(new Date())
+  }, [])
   
   // Mock calendar events
   const events = [
@@ -120,7 +130,7 @@ export default function CalendarPage() {
   const firstDay = getFirstDayOfMonth(currentDate)
 
   const upcomingEvents = events
-    .filter(event => event.date >= new Date())
+    .filter(event => isClient ? event.date >= new Date() : event.date >= currentDate)
     .sort((a, b) => a.date.getTime() - b.date.getTime())
     .slice(0, 5)
 
@@ -193,7 +203,7 @@ export default function CalendarPage() {
                 {Array.from({ length: daysInMonth }, (_, i) => {
                   const day = i + 1
                   const dayEvents = getEventsForDay(day)
-                  const isToday = new Date().toDateString() === new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString()
+                  const isToday = isClient && new Date().toDateString() === new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString()
                   
                   return (
                     <div

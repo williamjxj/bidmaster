@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${poppins.variable}`}>
+      <body className={`${inter.className} ${poppins.variable}`} suppressHydrationWarning={true}>
         <QueryProvider>
           <AuthProvider>
             <LayoutWrapper>{children}</LayoutWrapper>
