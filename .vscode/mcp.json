@@ -12,6 +12,19 @@
 				"DEEPSEER_API_KEY": "sk-c9c65c8d1f9d400998a645c380ac4d50"
 			},
 			"type": "stdio"
+		},
+		"supabase": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@supabase/mcp-server-supabase@latest",
+				"--read-only",
+				"--project-ref=qjzarzdnunujmheotzvu"
+			],
+			"env": {
+				"SUPABASE_ACCESS_TOKEN": "sbp_57e5f84bad240c14e6d8555f7ad43068bf7f2e1d"
+			},
+			"type": "stdio"
 		}
 	},
 }
