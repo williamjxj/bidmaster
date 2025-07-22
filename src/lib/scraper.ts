@@ -1,6 +1,7 @@
 // Web scraper utility for freelance job platforms
 // Uses Puppeteer for real web scraping with proper error handling and rate limiting
 import { createClient } from '@/utils/supabase/server'
+import { errorHandler, ErrorType, ErrorSeverity, FALLBACK_DATA } from './crawler-error-handler'
 
 export interface ScrapedProject {
   title: string
@@ -85,32 +86,88 @@ export class ProjectScraper {
   }
 
   async scrapeProjects(searchTerm: string, maxResults: number = 20): Promise<ScrapedProject[]> {
-    const projects: ScrapedProject[] = []
+    return await errorHandler.executeWithRetry(
+      async () => {
+        const projects: ScrapedProject[] = []
 
-    try {
-      // Try real scraping first, fallback to mock data if it fails
-      const realProjects = await this.performRealScraping(searchTerm)
-      if (realProjects.length > 0) {
-        projects.push(...realProjects)
-      } else {
-        // Fallback to mock data for development/testing
-        console.log(`No real data found for ${this.config.platform}, using mock data`)
-        const mockProjects = this.generateMockProjects(searchTerm, maxResults)
-        projects.push(...mockProjects)
-      }
+        try {
+          // Try real scraping first, fallback to mock data if it fails
+          const realProjects = await this.performRealScraping(searchTerm)
+          if (realProjects.length > 0) {
+            projects.push(...realProjects)
+          } else {
+            // Fallback to mock data for development/testing
+            console.log(`No real data found for ${this.config.platform}, using mock data`)
+            const mockProjects = this.generateMockProjects(searchTerm, maxResults)
+            projects.push(...mockProjects)
+          }
 
-      // Respect rate limits
-      await this.sleep(this.config.rateLimit)
+          // Respect rate limits
+          await this.sleep(this.config.rateLimit)
 
-    } catch (error) {
-      console.error(`Error scraping ${this.config.platform}:`, error)
-      // Fallback to mock data on error
-      console.log(`Falling back to mock data for ${this.config.platform}`)
-      const mockProjects = this.generateMockProjects(searchTerm, Math.min(maxResults, 5))
-      projects.push(...mockProjects)
+        } catch (error) {
+          console.error(`Error scraping ${this.config.platform}:`, error)
+          
+          // Log error with context
+          await errorHandler.logError({
+            type: this.classifyScrapingError(error as Error),
+            severity: ErrorSeverity.MEDIUM,
+            message: `Scraping failed for ${this.config.platform}: ${(error as Error).message}`,
+            platform: this.config.platform,
+            searchTerm,
+            context: { maxResults, realScraping: process.env.ENABLE_REAL_SCRAPING === 'true' }
+          })
+          
+          // Use fallback data if available
+          const fallbackProjects = FALLBACK_DATA[this.config.platform.toLowerCase() as keyof typeof FALLBACK_DATA]
+          if (fallbackProjects && fallbackProjects.length > 0) {
+            console.log(`Using fallback data for ${this.config.platform}`)
+            // Convert fallback data to match ScrapedProject interface
+            const convertedFallback = fallbackProjects.slice(0, Math.min(maxResults, 5)).map(project => ({
+              ...project,
+              budget: parseFloat(project.budget.replace(/[$,]/g, '')) || undefined,
+              budgetType: (project.budgetType === 'fixed' || project.budgetType === 'hourly') 
+                ? project.budgetType as 'fixed' | 'hourly' 
+                : 'fixed' as const,
+              postedDate: project.postedDate.toISOString()
+            }))
+            projects.push(...convertedFallback)
+          } else {
+            // Generate mock data as last resort
+            console.log(`Falling back to mock data for ${this.config.platform}`)
+            const mockProjects = this.generateMockProjects(searchTerm, Math.min(maxResults, 5))
+            projects.push(...mockProjects)
+          }
+        }
+
+        return projects
+      },
+      this.config.platform,
+      { maxRetries: 2, baseDelay: 2000 },
+      { searchTerm, maxResults }
+    )
+  }
+
+  private classifyScrapingError(error: Error): ErrorType {
+    const message = error.message.toLowerCase()
+    
+    if (message.includes('timeout') || message.includes('timed out')) {
+      return ErrorType.TIMEOUT_ERROR
     }
-
-    return projects
+    if (message.includes('network') || message.includes('connection')) {
+      return ErrorType.NETWORK_ERROR
+    }
+    if (message.includes('captcha') || message.includes('challenge')) {
+      return ErrorType.CAPTCHA_ERROR
+    }
+    if (message.includes('rate limit') || message.includes('too many requests')) {
+      return ErrorType.RATE_LIMIT_ERROR
+    }
+    if (message.includes('selector') || message.includes('element not found')) {
+      return ErrorType.PARSING_ERROR
+    }
+    
+    return ErrorType.UNKNOWN_ERROR
   }
 
   private async performRealScraping(searchTerm: string): Promise<ScrapedProject[]> {

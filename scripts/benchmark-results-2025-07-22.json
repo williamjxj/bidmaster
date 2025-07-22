@@ -1,0 +1,1365 @@
+{
+  "config": {
+    "iterations": 10,
+    "concurrency": 3,
+    "platforms": [
+      "upwork",
+      "freelancer"
+    ],
+    "searchTerms": [
+      "react",
+      "node.js",
+      "python",
+      "typescript"
+    ],
+    "maxResults": 5,
+    "enableMockMode": true
+  },
+  "metrics": [
+    {
+      "startTime": 180.146292,
+      "endTime": 907.482625,
+      "duration": 727.336333,
+      "memoryUsage": {
+        "rss": 105103360,
+        "heapTotal": 12894208,
+        "heapUsed": 7581816,
+        "external": 2467787,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 907.866375,
+      "endTime": 1789.684292,
+      "duration": 881.817917,
+      "memoryUsage": {
+        "rss": 105316352,
+        "heapTotal": 12894208,
+        "heapUsed": 7594272,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 1789.828542,
+      "endTime": 2887.296084,
+      "duration": 1097.467542,
+      "memoryUsage": {
+        "rss": 105578496,
+        "heapTotal": 12894208,
+        "heapUsed": 7609008,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 2887.535125,
+      "endTime": 3804.67,
+      "duration": 917.1348750000002,
+      "memoryUsage": {
+        "rss": 105693184,
+        "heapTotal": 12894208,
+        "heapUsed": 7614984,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 3805.223584,
+      "endTime": 4707.876667,
+      "duration": 902.6530830000006,
+      "memoryUsage": {
+        "rss": 105758720,
+        "heapTotal": 12894208,
+        "heapUsed": 7637952,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 4708.173334,
+      "endTime": 5670.438959,
+      "duration": 962.265625,
+      "memoryUsage": {
+        "rss": 105840640,
+        "heapTotal": 12894208,
+        "heapUsed": 7642984,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 5670.525084,
+      "endTime": 6756.939917,
+      "duration": 1086.4148329999998,
+      "memoryUsage": {
+        "rss": 105906176,
+        "heapTotal": 12894208,
+        "heapUsed": 7648120,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 6757.125709,
+      "endTime": 7614.6005,
+      "duration": 857.4747909999996,
+      "memoryUsage": {
+        "rss": 105906176,
+        "heapTotal": 12894208,
+        "heapUsed": 7653152,
+        "external": 2467827,
+        "arrayBuffers": 111093
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 7614.755875,
+      "endTime": 8296.464125,
+      "duration": 681.7082500000006,
+      "memoryUsage": {
+        "rss": 99926016,
+        "heapTotal": 9486336,
+        "heapUsed": 6732424,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 8297.520375,
+      "endTime": 9145.808209,
+      "duration": 848.2878340000007,
+      "memoryUsage": {
+        "rss": 94306304,
+        "heapTotal": 8962048,
+        "heapUsed": 6742488,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 9146.306792,
+      "endTime": 9988.183834,
+      "duration": 841.8770420000001,
+      "memoryUsage": {
+        "rss": 94322688,
+        "heapTotal": 8962048,
+        "heapUsed": 6748536,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 9988.540959,
+      "endTime": 10937.075209,
+      "duration": 948.5342500000006,
+      "memoryUsage": {
+        "rss": 94339072,
+        "heapTotal": 8962048,
+        "heapUsed": 6753992,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 10937.2175,
+      "endTime": 11757.303292,
+      "duration": 820.0857919999999,
+      "memoryUsage": {
+        "rss": 94371840,
+        "heapTotal": 8962048,
+        "heapUsed": 6759200,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 11757.427125,
+      "endTime": 12614.220084,
+      "duration": 856.7929590000003,
+      "memoryUsage": {
+        "rss": 94371840,
+        "heapTotal": 8962048,
+        "heapUsed": 6764952,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 12614.350667,
+      "endTime": 13400.173417,
+      "duration": 785.8227499999994,
+      "memoryUsage": {
+        "rss": 94388224,
+        "heapTotal": 8962048,
+        "heapUsed": 6770272,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 13400.267084,
+      "endTime": 14104.563417,
+      "duration": 704.2963330000002,
+      "memoryUsage": {
+        "rss": 94388224,
+        "heapTotal": 8962048,
+        "heapUsed": 6775352,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 14104.689709,
+      "endTime": 14792.038584,
+      "duration": 687.3488749999997,
+      "memoryUsage": {
+        "rss": 94388224,
+        "heapTotal": 8962048,
+        "heapUsed": 6780784,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 14792.174709,
+      "endTime": 15469.667834,
+      "duration": 677.493124999999,
+      "memoryUsage": {
+        "rss": 94437376,
+        "heapTotal": 8962048,
+        "heapUsed": 6785864,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 15469.832,
+      "endTime": 16403.204417,
+      "duration": 933.3724170000005,
+      "memoryUsage": {
+        "rss": 93880320,
+        "heapTotal": 8962048,
+        "heapUsed": 6791304,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 16403.342167,
+      "endTime": 17514.182834,
+      "duration": 1110.8406670000004,
+      "memoryUsage": {
+        "rss": 82853888,
+        "heapTotal": 8962048,
+        "heapUsed": 6796384,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 17514.368584,
+      "endTime": 18407.411417,
+      "duration": 893.0428329999995,
+      "memoryUsage": {
+        "rss": 77365248,
+        "heapTotal": 8962048,
+        "heapUsed": 6801592,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 18407.611792,
+      "endTime": 19508.12525,
+      "duration": 1100.5134580000013,
+      "memoryUsage": {
+        "rss": 75923456,
+        "heapTotal": 8962048,
+        "heapUsed": 6806672,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 19508.291917,
+      "endTime": 20134.857042,
+      "duration": 626.565125000001,
+      "memoryUsage": {
+        "rss": 75497472,
+        "heapTotal": 8962048,
+        "heapUsed": 6811752,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 20134.958709,
+      "endTime": 21148.13325,
+      "duration": 1013.1745410000003,
+      "memoryUsage": {
+        "rss": 75284480,
+        "heapTotal": 8962048,
+        "heapUsed": 6816832,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 21148.306834,
+      "endTime": 21836.752834,
+      "duration": 688.4459999999999,
+      "memoryUsage": {
+        "rss": 75317248,
+        "heapTotal": 8962048,
+        "heapUsed": 6822136,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 21836.934209,
+      "endTime": 22843.316625,
+      "duration": 1006.3824160000004,
+      "memoryUsage": {
+        "rss": 75366400,
+        "heapTotal": 8962048,
+        "heapUsed": 6827216,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 22843.491792,
+      "endTime": 23785.084042,
+      "duration": 941.5922499999979,
+      "memoryUsage": {
+        "rss": 75350016,
+        "heapTotal": 8962048,
+        "heapUsed": 6832296,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 23785.253959,
+      "endTime": 24905.073084,
+      "duration": 1119.8191249999982,
+      "memoryUsage": {
+        "rss": 75366400,
+        "heapTotal": 8962048,
+        "heapUsed": 6837376,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 24905.497167,
+      "endTime": 25785.079375,
+      "duration": 879.5822079999998,
+      "memoryUsage": {
+        "rss": 75366400,
+        "heapTotal": 8962048,
+        "heapUsed": 6842584,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 25785.218334,
+      "endTime": 26590.703,
+      "duration": 805.4846660000003,
+      "memoryUsage": {
+        "rss": 75399168,
+        "heapTotal": 8962048,
+        "heapUsed": 6847664,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 26590.869667,
+      "endTime": 27433.643125,
+      "duration": 842.7734579999997,
+      "memoryUsage": {
+        "rss": 75464704,
+        "heapTotal": 8962048,
+        "heapUsed": 6852744,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 27433.83,
+      "endTime": 28341.32325,
+      "duration": 907.4932499999995,
+      "memoryUsage": {
+        "rss": 75464704,
+        "heapTotal": 8962048,
+        "heapUsed": 6857824,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 28341.528,
+      "endTime": 29361.949084,
+      "duration": 1020.4210840000014,
+      "memoryUsage": {
+        "rss": 75497472,
+        "heapTotal": 8962048,
+        "heapUsed": 6863128,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 29362.107375,
+      "endTime": 30258.369875,
+      "duration": 896.2625000000007,
+      "memoryUsage": {
+        "rss": 75513856,
+        "heapTotal": 8962048,
+        "heapUsed": 6868208,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 30258.603292,
+      "endTime": 31464.946167,
+      "duration": 1206.3428749999985,
+      "memoryUsage": {
+        "rss": 75530240,
+        "heapTotal": 8962048,
+        "heapUsed": 6873288,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 31465.138209,
+      "endTime": 32696.636584,
+      "duration": 1231.4983749999992,
+      "memoryUsage": {
+        "rss": 75530240,
+        "heapTotal": 8962048,
+        "heapUsed": 6878368,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 32696.760875,
+      "endTime": 33323.948125,
+      "duration": 627.1872500000027,
+      "memoryUsage": {
+        "rss": 75579392,
+        "heapTotal": 8962048,
+        "heapUsed": 6883576,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 33324.109,
+      "endTime": 34040.25725,
+      "duration": 716.1482500000056,
+      "memoryUsage": {
+        "rss": 75579392,
+        "heapTotal": 8962048,
+        "heapUsed": 6888656,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 34040.382042,
+      "endTime": 34640.649709,
+      "duration": 600.2676670000001,
+      "memoryUsage": {
+        "rss": 75579392,
+        "heapTotal": 8962048,
+        "heapUsed": 6893736,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 34640.783084,
+      "endTime": 35341.548125,
+      "duration": 700.7650409999987,
+      "memoryUsage": {
+        "rss": 75612160,
+        "heapTotal": 8962048,
+        "heapUsed": 6898816,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 35341.70375,
+      "endTime": 36070.099917,
+      "duration": 728.396166999999,
+      "memoryUsage": {
+        "rss": 75612160,
+        "heapTotal": 8962048,
+        "heapUsed": 6904120,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 36070.221584,
+      "endTime": 36894.219792,
+      "duration": 823.9982080000045,
+      "memoryUsage": {
+        "rss": 75628544,
+        "heapTotal": 8962048,
+        "heapUsed": 6909200,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 36894.361042,
+      "endTime": 37941.429959,
+      "duration": 1047.0689170000041,
+      "memoryUsage": {
+        "rss": 75661312,
+        "heapTotal": 8962048,
+        "heapUsed": 6914280,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 37941.5735,
+      "endTime": 39047.604167,
+      "duration": 1106.030666999999,
+      "memoryUsage": {
+        "rss": 75677696,
+        "heapTotal": 8962048,
+        "heapUsed": 6919360,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 39047.756667,
+      "endTime": 39838.32075,
+      "duration": 790.5640829999975,
+      "memoryUsage": {
+        "rss": 75677696,
+        "heapTotal": 8962048,
+        "heapUsed": 6925240,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 39838.529334,
+      "endTime": 40847.878292,
+      "duration": 1009.3489580000023,
+      "memoryUsage": {
+        "rss": 75710464,
+        "heapTotal": 8962048,
+        "heapUsed": 6930320,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 40848.0335,
+      "endTime": 41949.330875,
+      "duration": 1101.297375000002,
+      "memoryUsage": {
+        "rss": 75857920,
+        "heapTotal": 8962048,
+        "heapUsed": 6936784,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 41949.621584,
+      "endTime": 42634.991917,
+      "duration": 685.3703329999989,
+      "memoryUsage": {
+        "rss": 44580864,
+        "heapTotal": 8962048,
+        "heapUsed": 6941864,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 42635.128917,
+      "endTime": 43343.645375,
+      "duration": 708.5164579999982,
+      "memoryUsage": {
+        "rss": 44580864,
+        "heapTotal": 8962048,
+        "heapUsed": 6947168,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 43343.804375,
+      "endTime": 44122.833167,
+      "duration": 779.0287919999973,
+      "memoryUsage": {
+        "rss": 44597248,
+        "heapTotal": 8962048,
+        "heapUsed": 6952248,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 44123.017917,
+      "endTime": 44955.9035,
+      "duration": 832.885583000003,
+      "memoryUsage": {
+        "rss": 44630016,
+        "heapTotal": 8962048,
+        "heapUsed": 6957328,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 44956.03825,
+      "endTime": 45717.3185,
+      "duration": 761.2802500000034,
+      "memoryUsage": {
+        "rss": 44630016,
+        "heapTotal": 8962048,
+        "heapUsed": 6962408,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 45717.438,
+      "endTime": 46676.594917,
+      "duration": 959.1569170000002,
+      "memoryUsage": {
+        "rss": 44646400,
+        "heapTotal": 8962048,
+        "heapUsed": 6967616,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 46676.805959,
+      "endTime": 47638.669959,
+      "duration": 961.8640000000014,
+      "memoryUsage": {
+        "rss": 44646400,
+        "heapTotal": 8962048,
+        "heapUsed": 6972696,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 47639.524167,
+      "endTime": 48471.171917,
+      "duration": 831.6477499999964,
+      "memoryUsage": {
+        "rss": 44711936,
+        "heapTotal": 8962048,
+        "heapUsed": 6977776,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 48471.332084,
+      "endTime": 49348.795917,
+      "duration": 877.4638330000016,
+      "memoryUsage": {
+        "rss": 45613056,
+        "heapTotal": 8962048,
+        "heapUsed": 6982856,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 49348.895167,
+      "endTime": 50123.212417,
+      "duration": 774.3172500000001,
+      "memoryUsage": {
+        "rss": 45613056,
+        "heapTotal": 8962048,
+        "heapUsed": 6988160,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 50123.3425,
+      "endTime": 51166.452042,
+      "duration": 1043.1095419999983,
+      "memoryUsage": {
+        "rss": 45301760,
+        "heapTotal": 8962048,
+        "heapUsed": 6993240,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 51166.613042,
+      "endTime": 52273.55325,
+      "duration": 1106.940208,
+      "memoryUsage": {
+        "rss": 45531136,
+        "heapTotal": 8962048,
+        "heapUsed": 6998424,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 52273.738667,
+      "endTime": 53275.22575,
+      "duration": 1001.487083,
+      "memoryUsage": {
+        "rss": 45531136,
+        "heapTotal": 8962048,
+        "heapUsed": 7003504,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 53275.385334,
+      "endTime": 53880.945375,
+      "duration": 605.5600410000043,
+      "memoryUsage": {
+        "rss": 45531136,
+        "heapTotal": 8962048,
+        "heapUsed": 7008712,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 53881.1045,
+      "endTime": 54588.850417,
+      "duration": 707.7459170000002,
+      "memoryUsage": {
+        "rss": 45531136,
+        "heapTotal": 8962048,
+        "heapUsed": 7013792,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 54589.247084,
+      "endTime": 55306.713875,
+      "duration": 717.4667909999989,
+      "memoryUsage": {
+        "rss": 45580288,
+        "heapTotal": 8962048,
+        "heapUsed": 7018872,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 55306.902167,
+      "endTime": 56123.307,
+      "duration": 816.4048330000005,
+      "memoryUsage": {
+        "rss": 45580288,
+        "heapTotal": 8962048,
+        "heapUsed": 7023952,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 56123.489292,
+      "endTime": 57084.313292,
+      "duration": 960.8240000000005,
+      "memoryUsage": {
+        "rss": 45580288,
+        "heapTotal": 8962048,
+        "heapUsed": 7029256,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 57084.504334,
+      "endTime": 58137.888459,
+      "duration": 1053.3841250000041,
+      "memoryUsage": {
+        "rss": 45465600,
+        "heapTotal": 8962048,
+        "heapUsed": 7034336,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 58138.010959,
+      "endTime": 59162.113292,
+      "duration": 1024.1023330000025,
+      "memoryUsage": {
+        "rss": 45137920,
+        "heapTotal": 8962048,
+        "heapUsed": 7039416,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 59162.294209,
+      "endTime": 60242.835709,
+      "duration": 1080.5414999999994,
+      "memoryUsage": {
+        "rss": 45137920,
+        "heapTotal": 8962048,
+        "heapUsed": 7044496,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 60242.966834,
+      "endTime": 61070.326792,
+      "duration": 827.3599580000009,
+      "memoryUsage": {
+        "rss": 45154304,
+        "heapTotal": 8962048,
+        "heapUsed": 7049704,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 61070.464459,
+      "endTime": 61775.874584,
+      "duration": 705.4101249999949,
+      "memoryUsage": {
+        "rss": 45154304,
+        "heapTotal": 8962048,
+        "heapUsed": 7054784,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 61775.986625,
+      "endTime": 62622.964209,
+      "duration": 846.9775840000002,
+      "memoryUsage": {
+        "rss": 45187072,
+        "heapTotal": 8962048,
+        "heapUsed": 7059864,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 62623.387,
+      "endTime": 63305.933792,
+      "duration": 682.546792000001,
+      "memoryUsage": {
+        "rss": 45170688,
+        "heapTotal": 8962048,
+        "heapUsed": 7070752,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 63306.053167,
+      "endTime": 64316.612917,
+      "duration": 1010.5597500000003,
+      "memoryUsage": {
+        "rss": 45170688,
+        "heapTotal": 8962048,
+        "heapUsed": 7076056,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 64316.741792,
+      "endTime": 65194.295209,
+      "duration": 877.5534170000028,
+      "memoryUsage": {
+        "rss": 45072384,
+        "heapTotal": 8962048,
+        "heapUsed": 7081104,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 65194.441959,
+      "endTime": 66092.270875,
+      "duration": 897.8289159999986,
+      "memoryUsage": {
+        "rss": 45154304,
+        "heapTotal": 8962048,
+        "heapUsed": 7086152,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 66092.457584,
+      "endTime": 67061.943542,
+      "duration": 969.4859579999902,
+      "memoryUsage": {
+        "rss": 45203456,
+        "heapTotal": 8962048,
+        "heapUsed": 7091200,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 4,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 67062.10675,
+      "endTime": 67847.477542,
+      "duration": 785.370791999987,
+      "memoryUsage": {
+        "rss": 45203456,
+        "heapTotal": 8962048,
+        "heapUsed": 7096376,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 2,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 67847.797125,
+      "endTime": 68624.14675,
+      "duration": 776.3496250000026,
+      "memoryUsage": {
+        "rss": 45203456,
+        "heapTotal": 8962048,
+        "heapUsed": 7101424,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 68624.348584,
+      "endTime": 69531.5545,
+      "duration": 907.2059159999917,
+      "memoryUsage": {
+        "rss": 45252608,
+        "heapTotal": 8962048,
+        "heapUsed": 7106472,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "python"
+    },
+    {
+      "startTime": 69531.740834,
+      "endTime": 70435.300375,
+      "duration": 903.5595410000096,
+      "memoryUsage": {
+        "rss": 45252608,
+        "heapTotal": 8962048,
+        "heapUsed": 7111520,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 1,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "typescript"
+    },
+    {
+      "startTime": 70437.187959,
+      "endTime": 71238.909375,
+      "duration": 801.7214160000003,
+      "memoryUsage": {
+        "rss": 46678016,
+        "heapTotal": 8962048,
+        "heapUsed": 7142160,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "react"
+    },
+    {
+      "startTime": 70437.268417,
+      "endTime": 71228.486834,
+      "duration": 791.2184169999964,
+      "memoryUsage": {
+        "rss": 46579712,
+        "heapTotal": 8962048,
+        "heapUsed": 7141328,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 5,
+      "errors": [],
+      "platform": "freelancer",
+      "searchTerm": "node.js"
+    },
+    {
+      "startTime": 70437.359334,
+      "endTime": 71083.186917,
+      "duration": 645.8275830000057,
+      "memoryUsage": {
+        "rss": 46759936,
+        "heapTotal": 8962048,
+        "heapUsed": 7140496,
+        "external": 2373641,
+        "arrayBuffers": 16899
+      },
+      "resultsCount": 3,
+      "errors": [],
+      "platform": "upwork",
+      "searchTerm": "python"
+    }
+  ],
+  "summary": {
+    "totalDuration": 72477.565369,
+    "averageDuration": 873.2236791445783,
+    "minDuration": 600.2676670000001,
+    "maxDuration": 1231.4983749999992,
+    "successRate": 100,
+    "totalResults": 259,
+    "averageResults": 3.1204819277108435,
+    "memoryStats": {
+      "averageHeapUsed": 6998736.385542168,
+      "peakHeapUsed": 7653152,
+      "averageExternal": 2382718.686746988
+    },
+    "errorRate": 0,
+    "throughput": 3.5909125960349235
+  },
+  "timestamp": "2025-07-22T01:54:16.795Z"
+}

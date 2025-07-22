@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { scrapeAllPlatforms, saveScrapedProjects } from '@/lib/scraper'
+import { enhancedScraper } from '@/lib/enhanced-scraper'
 import { createClient } from '@/utils/supabase/server'
 
 export async function POST(request: NextRequest) {
@@ -26,29 +26,37 @@ export async function POST(request: NextRequest) {
       activePlatforms = sources?.map(s => s.name.toLowerCase()) || ['upwork', 'freelancer']
     }
 
-    // Scrape projects from specified platforms
-    const scrapedProjects = await scrapeAllPlatforms(
-      searchTerm, 
-      activePlatforms, 
-      maxResults || 20
+    // Scrape projects using enhanced scraper with error handling
+    const scrapingResult = await enhancedScraper.scrapeProjects(
+      searchTerm,
+      activePlatforms,
+      maxResults || 5
     )
-
-    // Save to database
-    await saveScrapedProjects(scrapedProjects)
 
     return NextResponse.json({
       success: true,
-      message: `Successfully scraped ${scrapedProjects.length} projects`,
-      projects: scrapedProjects,
-      platforms: activePlatforms
+      message: `Successfully scraped ${scrapingResult.results.length} projects`,
+      projects: scrapingResult.results,
+      platforms: activePlatforms,
+      sessions: scrapingResult.sessions,
+      health_status: scrapingResult.healthStatus,
+      statistics: {
+        total_results: scrapingResult.results.length,
+        successful_platforms: scrapingResult.sessions.filter(s => s.status === 'completed').length,
+        failed_platforms: scrapingResult.sessions.filter(s => s.status === 'failed').length,
+        average_response_time: scrapingResult.sessions.length > 0
+          ? scrapingResult.sessions.reduce((sum, s) => sum + (s.responseTime || 0), 0) / scrapingResult.sessions.length
+          : 0
+      }
     })
 
   } catch (error) {
-    console.error('Scraping API error:', error)
-    return NextResponse.json(
-      { error: 'Failed to scrape projects' },
-      { status: 500 }
-    )
+    console.error('Enhanced scraping API error:', error)
+    return NextResponse.json({
+      success: false,
+      error: 'Failed to scrape projects',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
 
@@ -57,22 +65,39 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const platform = searchParams.get('platform')
     const searchTerm = searchParams.get('q') || 'web development'
-    const maxResults = parseInt(searchParams.get('limit') || '10')
+    const maxResults = parseInt(searchParams.get('limit') || '5')
 
     const platforms = platform ? [platform] : ['upwork', 'freelancer']
-    const scrapedProjects = await scrapeAllPlatforms(searchTerm, platforms, maxResults)
+    
+    // Use enhanced scraper for GET requests too
+    const scrapingResult = await enhancedScraper.scrapeProjects(
+      searchTerm, 
+      platforms, 
+      maxResults
+    )
 
     return NextResponse.json({
       success: true,
-      projects: scrapedProjects,
-      count: scrapedProjects.length
+      projects: scrapingResult.results,
+      count: scrapingResult.results.length,
+      health_status: scrapingResult.healthStatus.map(h => ({
+        platform: h.platform,
+        status: h.status,
+        error_rate: h.errorRate
+      })),
+      performance: {
+        total_response_time: scrapingResult.sessions.reduce((sum, s) => sum + (s.responseTime || 0), 0),
+        successful_sessions: scrapingResult.sessions.filter(s => s.status === 'completed').length,
+        failed_sessions: scrapingResult.sessions.filter(s => s.status === 'failed').length
+      }
     })
 
   } catch (error) {
-    console.error('Scraping API error:', error)
-    return NextResponse.json(
-      { error: 'Failed to scrape projects' },
-      { status: 500 }
-    )
+    console.error('Enhanced scraping API error:', error)
+    return NextResponse.json({
+      success: false,
+      error: 'Failed to scrape projects',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
