@@ -137,101 +137,98 @@ const mockStats = {
 // Dashboard for authenticated users
 function AuthenticatedDashboard() {
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h1 className="page-title">Dashboard</h1>
-        <p className="page-description">Welcome back! Here&apos;s your project overview.</p>
+    <main className="flex-1 space-y-8 p-8 bg-background">
+      <div className="flex items-center justify-between space-y-2">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground">
+            Welcome back! Here&apos;s a summary of your bidding activity.
+          </p>
+        </div>
       </div>
 
-      <div className="tabs-container">
-        <Tabs defaultValue="overview" className="w-full">
-          <div className="tabs-header">
-            <TabsList className="tabs-nav w-full">
-              <TabsTrigger value="overview" className="tabs-trigger flex-1">
-                📊 Overview
-              </TabsTrigger>
-              <TabsTrigger value="metrics" className="tabs-trigger flex-1">
-                📈 Metrics
-              </TabsTrigger>
-              <TabsTrigger value="charts" className="tabs-trigger flex-1">
-                📊 Analytics
-              </TabsTrigger>
-            </TabsList>
+      <Tabs defaultValue="overview" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="metrics">Metrics</TabsTrigger>
+          <TabsTrigger value="charts">Analytics</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="space-y-6">
+          <DashboardStats stats={mockStats} />
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>A log of your recent bidding actions.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <p>Applied to &quot;React Developer&quot;</p>
+                    <p className="text-sm text-muted-foreground">2 hours ago</p>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p>Bookmarked &quot;Full Stack Position&quot;</p>
+                    <p className="text-sm text-muted-foreground">5 hours ago</p>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p>Won &quot;WordPress Plugin&quot;</p>
+                    <p className="text-sm text-muted-foreground">1 day ago</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Quick Stats</CardTitle>
+                <CardDescription>Your key metrics at a glance.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between">
+                  <p className="text-muted-foreground">This Week</p>
+                  <span className="text-sm font-medium">12 applications</span>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-muted-foreground">Win Rate</p>
+                  <span className="text-sm font-medium">25%</span>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-muted-foreground">Avg. Response Time</p>
+                  <span className="text-sm font-medium">24 hours</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
+        </TabsContent>
 
-          <TabsContent value="overview" className="tabs-content space-y-6">
-            <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-              <h2 className="text-lg font-semibold text-primary mb-2">📊 Dashboard Overview</h2>
-              <p className="text-primary/80 text-sm">Get a comprehensive view of your project activities and recent updates.</p>
-            </div>
-            <DashboardStats stats={mockStats} />
-            
-            {/* Simple Activity Feed */}
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="panel-container">
-                <div className="panel-header">
-                  <h3 className="panel-title">Recent Activity</h3>
-                </div>
-                <div className="panel-content">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between py-2 border-b border-border">
-                      <span className="text-sm">Applied to &ldquo;React Developer&rdquo; project</span>
-                      <span className="text-xs text-muted-foreground">2 hours ago</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2 border-b border-border">
-                      <span className="text-sm">Bookmarked &ldquo;Full Stack Position&rdquo;</span>
-                      <span className="text-xs text-muted-foreground">5 hours ago</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-sm">Won &ldquo;WordPress Plugin&rdquo; project</span>
-                      <span className="text-xs text-muted-foreground">1 day ago</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="panel-container">
-                <div className="panel-header">
-                  <h3 className="panel-title">Quick Stats</h3>
-                </div>
-                <div className="panel-content">
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">This Week</span>
-                      <span className="text-sm font-medium">12 applications</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Response Rate</span>
-                      <span className="text-sm font-medium">32%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Avg. Bid Amount</span>
-                      <span className="text-sm font-medium">$2,450</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
+        <TabsContent value="metrics">
+          <Card>
+            <CardHeader>
+              <CardTitle>Performance Metrics</CardTitle>
+              <CardDescription>Detailed metrics on your bidding performance.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <DashboardMetrics />
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-          <TabsContent value="metrics" className="tabs-content space-y-6">
-            <div className="bg-success/5 rounded-lg p-4 border border-success/10">
-              <h2 className="text-lg font-semibold text-success mb-2">📈 Performance Metrics</h2>
-              <p className="text-success/80 text-sm">Track your key performance indicators and success metrics.</p>
-            </div>
-            <DashboardMetrics />
-          </TabsContent>
-
-          <TabsContent value="charts" className="tabs-content space-y-6">
-            <div className="bg-accent/5 rounded-lg p-4 border border-accent/10">
-              <h2 className="text-lg font-semibold text-accent mb-2">📊 Analytics & Charts</h2>
-              <p className="text-accent/80 text-sm">Visualize your project data with detailed charts and trends.</p>
-            </div>
-            <ProjectCharts />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </div>
+        <TabsContent value="charts">
+          <Card>
+            <CardHeader>
+              <CardTitle>Analytics & Charts</CardTitle>
+              <CardDescription>Visualize your project data and trends.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ProjectCharts />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </main>
   )
 }
 
