@@ -58,36 +58,36 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
       {statCards.map((stat) => {
         const Icon = stat.icon
         return (
-          <Card key={stat.title} className="relative overflow-hidden border-border/40 hover:border-border/60 transition-all duration-200 hover:shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">{stat.title}</CardTitle>
-              <div className={`p-2 rounded-lg ${stat.bgColor} ring-1 ring-inset ring-white/10`}>
-                <Icon className={`h-4 w-4 ${stat.color}`} />
+          <Card key={stat.title} className="relative overflow-hidden border-border/50 hover:border-border/80 transition-all duration-300 hover:shadow-xl shadow-sm">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{stat.title}</CardTitle>
+              <div className={`p-3 rounded-xl ${stat.bgColor} ring-1 ring-inset ring-white/20 shadow-sm`}>
+                <Icon className={`h-5 w-5 ${stat.color}`} />
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <div className="flex items-center justify-between">
-                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                <div className="text-3xl font-bold text-foreground">{stat.value}</div>
                 <div
-                  className={`flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-full ${
+                  className={`flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-full ${
                     stat.changeType === "positive" 
                       ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-400" 
                       : "text-red-600 bg-red-50 dark:bg-red-500/10 dark:text-red-400"
                   }`}
                 >
                   {stat.changeType === "positive" ? (
-                    <ArrowUpRight className="w-3 h-3" />
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   ) : (
-                    <ArrowDownRight className="w-3 h-3" />
+                    <ArrowDownRight className="w-3.5 h-3.5" />
                   )}
                   {stat.change}
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">{stat.description}</p>
+              <p className="text-sm text-muted-foreground mt-3 font-medium">{stat.description}</p>
             </CardContent>
           </Card>
         )
@@ -137,31 +137,31 @@ export function RecentActivity({ activities }: RecentActivityProps) {
   }
 
   return (
-    <Card className="border-0 shadow-sm">
-      <CardHeader>
-        <CardTitle className="text-xl font-semibold">Recent Activity</CardTitle>
+    <Card className="border-border/50 shadow-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-xl font-bold">Recent Activity</CardTitle>
         <CardDescription className="text-base">Your latest project activities</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-5">
+        <div className="space-y-6">
           {activities.length === 0 ? (
-            <p className="text-base text-gray-500 text-center py-6">No recent activity</p>
+            <p className="text-base text-gray-500 text-center py-8">No recent activity</p>
           ) : (
             activities.map((activity) => (
               <div
                 key={activity.id}
-                className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200"
+                className="flex items-start space-x-5 p-5 rounded-xl hover:bg-gray-50/80 transition-colors duration-200 border border-transparent hover:border-border/30"
               >
                 <div className="text-2xl">{getActivityIcon(activity.type)}</div>
-                <div className="flex-1 space-y-2 min-w-0">
+                <div className="flex-1 space-y-3 min-w-0">
                   <div className="flex items-center gap-3">
-                    <Badge className={`text-sm px-3 py-1 ${getActivityColor(activity.type)}`}>
+                    <Badge className={`text-sm px-4 py-1.5 font-medium ${getActivityColor(activity.type)}`}>
                       {activity.type.replace("_", " ")}
                     </Badge>
                   </div>
-                  <p className="text-base font-medium text-gray-900">{activity.title}</p>
+                  <p className="text-base font-semibold text-gray-900">{activity.title}</p>
                   <p className="text-base text-gray-600">{activity.description}</p>
-                  <p className="text-sm text-gray-500">{activity.timestamp}</p>
+                  <p className="text-sm text-gray-500 font-medium">{activity.timestamp}</p>
                 </div>
               </div>
             ))

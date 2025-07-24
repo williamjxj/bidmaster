@@ -45,10 +45,10 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 justify-between border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 shadow-sm">
-          <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md transition-colors" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+        <header className="flex h-20 shrink-0 items-center gap-4 justify-between border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-8 shadow-sm">
+          <div className="flex items-center gap-4">
+            <SidebarTrigger className="-ml-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-lg transition-colors p-2" />
+            <Separator orientation="vertical" className="mr-2 h-6" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
@@ -58,7 +58,7 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage className="text-sm font-medium text-foreground">
+                  <BreadcrumbPage className="text-sm font-semibold text-foreground">
                     {getPageTitle(pathname)}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
@@ -67,7 +67,7 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
           </div>
           <UserNav />
         </header>
-        <main className="flex-1 overflow-auto bg-muted/40">{children}</main>
+        <main className="flex-1 overflow-auto bg-muted/30 p-8">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   )

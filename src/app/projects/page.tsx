@@ -353,20 +353,22 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h1 className="page-title">Projects</h1>
-        <p className="page-description">Discover and manage freelance opportunities</p>
+    <div className="flex-1 space-y-8 bg-background min-h-full">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Projects</h1>
+          <p className="text-lg text-muted-foreground mt-2">Discover and manage freelance opportunities</p>
+        </div>
       </div>
       
-      <div className="tabs-container">
+      <div className="space-y-6">
         <Tabs defaultValue="enhanced" className="w-full">
-          <div className="tabs-header">
-            <TabsList className="tabs-nav w-full max-w-md">
-              <TabsTrigger value="original" className="tabs-trigger flex-1">
+          <div className="flex items-center justify-between mb-6">
+            <TabsList className="w-full max-w-md">
+              <TabsTrigger value="original" className="flex-1">
                 Simple View
               </TabsTrigger>
-              <TabsTrigger value="enhanced" className="tabs-trigger flex-1">
+              <TabsTrigger value="enhanced" className="flex-1">
                 Enhanced View
               </TabsTrigger>
             </TabsList>

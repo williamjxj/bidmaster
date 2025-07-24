@@ -187,48 +187,51 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h1 className="page-title">Settings</h1>
-        <p className="page-description">
-          Configure your preferences and platform integrations
-        </p>
+    <div className="flex-1 space-y-8 bg-background min-h-full">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Settings</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Configure your preferences and platform integrations
+          </p>
+        </div>
       </div>
 
-      <div className="tabs-container">
-        <div className="panel-container">
-          <div className="space-y-6">
+      <div className="space-y-8">
+        <div className="space-y-8">
+          <div className="space-y-8">
             {/* Target Technologies */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Target Technologies</CardTitle>
-                <CardDescription>
+            <Card className="shadow-sm border-border/50">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-semibold">Target Technologies</CardTitle>
+                <CardDescription className="text-base">
                   Specify the technologies you want to work with
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex flex-wrap gap-2">
+                <div className="space-y-6">
+                  <div className="flex flex-wrap gap-3">
                     {localPreferences.target_technologies.map((tech: string) => (
-                      <Badge key={tech} variant="secondary" className="flex items-center gap-1">
+                      <Badge key={tech} variant="secondary" className="flex items-center gap-2 px-3 py-1.5 text-sm">
                         {tech}
                         <button
                           onClick={() => handleRemoveTechnology(tech)}
-                          className="ml-1 hover:text-red-500"
+                          className="ml-1 hover:text-red-500 transition-colors"
                         >
                           <Trash2 className="h-3 w-3" />
                         </button>
                       </Badge>
                     ))}
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-3">
                     <Input
                       placeholder="Add technology (e.g. React, Node.js)"
                       value={newTechnology}
                       onChange={(e) => setNewTechnology(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleAddTechnology()}
+                      className="flex-1"
                     />
-                    <Button onClick={handleAddTechnology} size="sm">
+                    <Button onClick={handleAddTechnology} size="sm" variant="outline">
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
@@ -237,15 +240,15 @@ export default function SettingsPage() {
             </Card>
 
             {/* Target Categories */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Target Categories</CardTitle>
-                <CardDescription>
+            <Card className="shadow-sm border-border/50">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-semibold">Target Categories</CardTitle>
+                <CardDescription className="text-base">
                   Specify the project categories you are interested in
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="flex flex-wrap gap-2">
                     {localPreferences.target_categories.map((category: string) => (
                       <Badge key={category} variant="secondary" className="flex items-center gap-1">

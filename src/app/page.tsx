@@ -137,67 +137,67 @@ const mockStats = {
 // Dashboard for authenticated users
 function AuthenticatedDashboard() {
   return (
-    <main className="flex-1 space-y-8 p-8 bg-background">
+    <div className="flex-1 space-y-8 bg-background min-h-full">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Dashboard</h1>
+          <p className="text-lg text-muted-foreground mt-2">
             Welcome back! Here&apos;s a summary of your bidding activity.
           </p>
         </div>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-6">
+      <Tabs defaultValue="overview" className="space-y-8">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="metrics">Metrics</TabsTrigger>
           <TabsTrigger value="charts">Analytics</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-6">
+        <TabsContent value="overview" className="space-y-8">
           <DashboardStats stats={mockStats} />
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>A log of your recent bidding actions.</CardDescription>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <Card className="lg:col-span-2 shadow-sm border-border/50">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-semibold">Recent Activity</CardTitle>
+                <CardDescription className="text-base">A log of your recent bidding actions.</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <p>Applied to &quot;React Developer&quot;</p>
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:border-border/60 transition-colors">
+                    <p className="font-medium">Applied to &quot;React Developer&quot;</p>
                     <p className="text-sm text-muted-foreground">2 hours ago</p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <p>Bookmarked &quot;Full Stack Position&quot;</p>
+                  <div className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:border-border/60 transition-colors">
+                    <p className="font-medium">Bookmarked &quot;Full Stack Position&quot;</p>
                     <p className="text-sm text-muted-foreground">5 hours ago</p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <p>Won &quot;WordPress Plugin&quot;</p>
+                  <div className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:border-border/60 transition-colors">
+                    <p className="font-medium">Won &quot;WordPress Plugin&quot;</p>
                     <p className="text-sm text-muted-foreground">1 day ago</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Stats</CardTitle>
-                <CardDescription>Your key metrics at a glance.</CardDescription>
+            <Card className="shadow-sm border-border/50">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-semibold">Quick Stats</CardTitle>
+                <CardDescription className="text-base">Your key metrics at a glance.</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between">
-                  <p className="text-muted-foreground">This Week</p>
-                  <span className="text-sm font-medium">12 applications</span>
+              <CardContent className="space-y-6">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
+                  <p className="text-muted-foreground font-medium">This Week</p>
+                  <span className="text-sm font-bold">12 applications</span>
                 </div>
-                <div className="flex justify-between">
-                  <p className="text-muted-foreground">Win Rate</p>
-                  <span className="text-sm font-medium">25%</span>
+                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
+                  <p className="text-muted-foreground font-medium">Win Rate</p>
+                  <span className="text-sm font-bold">25%</span>
                 </div>
-                <div className="flex justify-between">
-                  <p className="text-muted-foreground">Avg. Response Time</p>
-                  <span className="text-sm font-medium">24 hours</span>
+                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
+                  <p className="text-muted-foreground font-medium">Avg. Response Time</p>
+                  <span className="text-sm font-bold">24 hours</span>
                 </div>
               </CardContent>
             </Card>
@@ -217,10 +217,10 @@ function AuthenticatedDashboard() {
         </TabsContent>
 
         <TabsContent value="charts">
-          <Card>
-            <CardHeader>
-              <CardTitle>Analytics & Charts</CardTitle>
-              <CardDescription>Visualize your project data and trends.</CardDescription>
+          <Card className="shadow-sm border-border/50">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-semibold">Analytics & Charts</CardTitle>
+              <CardDescription className="text-base">Visualize your project data and trends.</CardDescription>
             </CardHeader>
             <CardContent>
               <ProjectCharts />
@@ -228,7 +228,7 @@ function AuthenticatedDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
-    </main>
+    </div>
   )
 }
 
