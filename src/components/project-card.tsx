@@ -69,13 +69,13 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
   const isHighBudget = project.budget && project.budget > 5000
 
   return (
-    <Card className="h-full group card-floating hover-lift-strong border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden animate-slide-up">
+    <Card className="h-full group border border-border bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       {/* Modern glass background */}
-      <div className="absolute inset-0 glass-card opacity-30" />
+      <div className="absolute inset-0 bg-white/30 dark:bg-black/10" />
       
       {/* Urgent indicator with enhanced animation */}
       {isUrgent && (
-        <div className="absolute top-3 right-3 w-4 h-4 bg-red-500 rounded-full animate-heartbeat" />
+        <div className="absolute top-3 right-3 w-4 h-4 bg-red-500 rounded-full animate-pulse" />
       )}
       
       {/* Modern floating elements with blur */}
@@ -89,7 +89,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
               {project.title}
             </CardTitle>
             <div className="flex items-center gap-4 mb-4">
-              <Badge className={`${getPlatformColor(project.source_platform)} font-semibold hover-lift-gentle animate-scale-in px-3 py-1`}>
+              <Badge className={`${getPlatformColor(project.source_platform)} font-semibold hover:-translate-y-0.5 transition-all duration-200 px-3 py-1`}>
                 {project.source_platform}
               </Badge>
               {isHighBudget && (
@@ -116,7 +116,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
             {project.budget && (
-              <div className="neo-card bg-green-50 dark:bg-green-900/20 p-3 hover-glow-primary">
+              <div className="bg-card border border-border rounded-lg bg-green-50 dark:bg-green-900/20 p-3 hover:shadow-md transition-all duration-200">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-green-500/20 rounded-xl animate-breathe">
                     <DollarSign className="h-4 w-4 text-green-600" />
@@ -129,7 +129,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
               </div>
             )}
             
-            <div className="neo-card bg-blue-50 dark:bg-blue-900/20 p-3 hover-glow-accent">
+            <div className="bg-card border border-border rounded-lg bg-blue-50 dark:bg-blue-900/20 p-3 hover:shadow-md transition-all duration-200">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-blue-500/20 rounded-xl animate-breathe">
                   <Calendar className="h-4 w-4 text-blue-600" />
@@ -141,7 +141,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
             </div>
             
             {project.location && (
-              <div className="neo-card bg-purple-50 dark:bg-purple-900/20 p-3 hover-lift-gentle">
+              <div className="bg-card border border-border rounded-lg bg-purple-50 dark:bg-purple-900/20 p-3 hover:-translate-y-0.5 transition-all duration-200">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-purple-500/20 rounded-xl animate-breathe">
                     <MapPin className="h-4 w-4 text-purple-600" />
@@ -154,7 +154,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
             )}
 
             {project.deadline && (
-              <div className={`neo-card p-3 ${isUrgent ? 'bg-red-50 dark:bg-red-900/20 hover-glow-primary' : 'bg-orange-50 dark:bg-orange-900/20 hover-glow-accent'}`}>
+              <div className={`bg-card border border-border rounded-lg p-3 transition-all duration-200 ${isUrgent ? 'bg-red-50 dark:bg-red-900/20 hover:shadow-lg' : 'bg-orange-50 dark:bg-orange-900/20 hover:shadow-md'}`}>
                 <div className="flex items-center gap-3">
                   <div className={`p-2 rounded-xl animate-breathe ${isUrgent ? 'bg-red-500/20' : 'bg-orange-500/20'}`}>
                     <Clock className={`h-4 w-4 ${isUrgent ? 'text-red-600' : 'text-orange-600'}`} />
@@ -172,14 +172,14 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
               {project.technologies.slice(0, 5).map((tech, index) => (
                 <Badge 
                   key={tech} 
-                  className="text-xs btn-glass hover-lift-gentle animate-scale-in font-medium px-3 py-1.5" 
+                  className="text-xs bg-secondary/80 backdrop-blur-sm border-secondary/50 hover:bg-secondary hover:-translate-y-0.5 transition-all duration-200 font-medium px-3 py-1.5" 
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
                   {tech}
                 </Badge>
               ))}
               {project.technologies.length > 5 && (
-                <Badge className="text-xs btn-gradient animate-scale-in font-medium px-3 py-1.5">
+                <Badge className="text-xs bg-gradient-to-r from-primary to-accent text-primary-foreground font-medium px-3 py-1.5">
                   +{project.technologies.length - 5} more
                 </Badge>
               )}
@@ -188,13 +188,13 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
         </div>
       </CardContent>
       
-      <CardFooter className="pt-5 glass-card relative">
+      <CardFooter className="pt-5 bg-card/50 backdrop-blur-sm relative">
         <div className="flex gap-4 w-full">
           <Button
             variant="outline"
             size="sm"
             onClick={() => onBookmark?.(project.id)}
-            className="flex-1 btn-glass hover-glow-accent hover-lift-gentle transition-all duration-300"
+            className="flex-1 bg-background/80 backdrop-blur-sm border-border/50 hover:bg-accent hover:-translate-y-0.5 transition-all duration-300"
           >
             <Bookmark className="h-4 w-4 mr-2" />
             Bookmark
@@ -204,7 +204,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
             variant="outline"
             size="sm"
             asChild
-            className="flex-1 btn-glass hover-glow-primary hover-lift-gentle transition-all duration-300"
+            className="flex-1 bg-background/80 backdrop-blur-sm border-border/50 hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 transition-all duration-300"
           >
             <a href={project.source_url} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="h-4 w-4 mr-2" />
@@ -215,7 +215,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
           <Button
             size="sm"
             onClick={() => onApply?.(project.id)}
-            className="flex-1 btn-gradient hover-lift-gentle animate-glow font-semibold"
+            className="flex-1 bg-gradient-to-r from-primary to-accent text-primary-foreground hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 font-semibold"
           >
             <TrendingUp className="h-4 w-4 mr-2" />
             Apply

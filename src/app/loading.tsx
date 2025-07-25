@@ -232,7 +232,7 @@ export default function Loading() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="card-floating p-4 hover-lift-gentle">
+                  <Card className="bg-card border border-border p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-lg ${stat.bgClass}`}>
                         {showContent ? (
@@ -269,7 +269,7 @@ export default function Loading() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
                 >
-                  <Card className="neo-card p-6 hover-lift-strong">
+                  <Card className="bg-card border border-border rounded-lg p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     <div className="space-y-4">
                       {/* Project Header */}
                       <div className="flex items-center justify-between">
