@@ -6,36 +6,73 @@ import { DashboardMetrics } from "@/components/dashboard-metrics"
 import { ProjectCharts } from "@/components/project-charts"
 import { DashboardStats } from "@/components/dashboard"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
-import { ArrowRight, BarChart3, Search, Target } from "lucide-react"
+import { ArrowRight, BarChart3, Search, Target, Zap } from "lucide-react"
 
 // Landing page for non-authenticated users
 function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-blue-950 dark:to-purple-950">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Master Your Bidding Game with{' '}
-              <span className="text-indigo-600">BidMaster</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Discover, track, and win more projects across multiple platforms. 
-              Your all-in-one solution for freelance project management.
-            </p>
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl animate-pulse" />
+          <div className="absolute top-32 right-20 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-300" />
+          <div className="absolute bottom-20 left-20 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl animate-pulse delay-700" />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+          <div className="text-center space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold border border-primary/20">
+                <Zap className="w-4 h-4" />
+                Power Up Your Freelancing Game
+              </div>
+              
+              <h1 className="text-4xl md:text-7xl font-black text-foreground mb-6 tracking-tight">
+                Crush Your{' '}
+                <span className="text-gradient bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Freelance Goals
+                </span>
+                {' '}with BidMaster
+              </h1>
+              
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-4xl mx-auto font-medium leading-relaxed">
+                Track projects like fitness goals, optimize your bid performance, and achieve freelance success. 
+                Your all-in-one platform for dominating multiple freelance platforms.
+              </p>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="text-lg px-8 py-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
                 <Link href="/auth/signup" className="flex items-center">
-                  Get Started Free
+                  <Zap className="mr-2 h-5 w-5" />
+                  Start Your Journey
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button variant="outline" size="lg" asChild className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-accent/50 transition-all duration-300">
                 <Link href="/auth/login">Sign In</Link>
               </Button>
+            </div>
+            
+            {/* Stats preview */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
+              <div className="text-center space-y-2">
+                <div className="text-3xl font-black text-primary">15K+</div>
+                <div className="text-sm font-medium text-muted-foreground">Projects Tracked</div>
+              </div>
+              <div className="text-center space-y-2">
+                <div className="text-3xl font-black text-secondary">92%</div>
+                <div className="text-sm font-medium text-muted-foreground">Success Rate</div>
+              </div>
+              <div className="text-center space-y-2">
+                <div className="text-3xl font-black text-amber-500">$2M+</div>
+                <div className="text-sm font-medium text-muted-foreground">Total Earnings</div>
+              </div>
             </div>
           </div>
         </div>
@@ -138,12 +175,57 @@ const mockStats = {
 function AuthenticatedDashboard() {
   return (
     <div className="flex-1 space-y-8 bg-background min-h-full">
-      <div className="flex items-center justify-between space-y-2">
-        <div>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground">Dashboard</h1>
-          <p className="text-lg text-muted-foreground mt-2">
-            Welcome back! Here&apos;s a summary of your bidding activity.
-          </p>
+      {/* Hero Dashboard Header */}
+      <div className="relative overflow-hidden rounded-3xl p-8 border border-slate-200 shadow-lg" style={{
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(248, 250, 252, 1) 100%)'
+      }}>
+        {/* Animated background elements */}
+        <div className="absolute top-4 right-4 w-20 h-20 rounded-full blur-xl animate-pulse" style={{
+          background: 'rgba(59, 130, 246, 0.1)'
+        }} />
+        <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full blur-lg animate-pulse" style={{
+          background: 'rgba(16, 185, 129, 0.1)',
+          animationDelay: '500ms'
+        }} />
+        
+        <div className="relative">
+          <div className="flex items-start justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-xl shadow-lg" style={{
+                background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)'
+              }}>
+                  <Zap className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-black tracking-tight text-gradient">
+                    Performance Dashboard
+                  </h1>
+                  <p className="text-base text-muted-foreground font-medium">
+                    Track your freelancing journey and smash your goals! 💪
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <Badge className="px-4 py-2 text-sm font-bold text-white border-0 shadow-md" style={{
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+              }}>
+                  <Target className="w-4 h-4 mr-2" />
+                  On Track
+                </Badge>
+                <Badge variant="outline" className="px-4 py-2 text-sm font-bold">
+                  🔥 Hot Streak: 5 days
+                </Badge>
+              </div>
+            </div>
+            
+            {/* Quick action button */}
+            <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3">
+              <Search className="w-4 h-4 mr-2" />
+              Find Projects
+            </Button>
+          </div>
         </div>
       </div>
 

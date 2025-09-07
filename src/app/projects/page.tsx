@@ -4,9 +4,10 @@ import { useState, useMemo } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProjectsTable, Project as TableProject } from '@/components/projects-table'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Search, Plus, SortAsc, Loader2, LayoutGrid, List } from 'lucide-react'
+import { Search, Plus, SortAsc, Loader2, LayoutGrid, List, Target } from 'lucide-react'
 import { useProjects, useUpdateProject } from '@/hooks/useApi'
 import { ProjectCard } from '@/components/project-card'
 
@@ -354,22 +355,50 @@ export default function ProjectsPage() {
 
   return (
     <div className="flex-1 space-y-8 bg-background min-h-full">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground">Projects</h1>
-          <p className="text-lg text-muted-foreground mt-2">Discover and manage freelance opportunities</p>
+      {/* Fitness-style header */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-background rounded-3xl p-8 border border-border/50">
+        {/* Animated background elements */}
+        <div className="absolute top-4 right-4 w-20 h-20 bg-primary/5 rounded-full blur-xl animate-pulse" />
+        <div className="absolute bottom-4 left-4 w-16 h-16 bg-secondary/5 rounded-full blur-lg animate-pulse delay-500" />
+        
+        <div className="relative flex items-center justify-between">
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-2xl bg-gradient-to-r from-primary to-secondary shadow-xl">
+                <Search className="h-7 w-7 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
+                  Project Discovery
+                </h1>
+                <p className="text-base text-muted-foreground font-medium">
+                  Find your next opportunity and level up! 🚀
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <Badge className="px-4 py-2 text-sm font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-0 shadow-md">
+                <Target className="w-4 h-4 mr-2" />
+                {projects?.length || 0} Opportunities
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2 text-sm font-bold">
+                🔥 Updated: Live
+              </Badge>
+            </div>
+          </div>
         </div>
       </div>
       
       <div className="space-y-6">
         <Tabs defaultValue="enhanced" className="w-full">
-          <div className="flex items-center justify-between mb-6">
-            <TabsList className="w-full max-w-md">
-              <TabsTrigger value="original" className="flex-1">
-                Simple View
+          <div className="flex items-center justify-between mb-8">
+            <TabsList className="w-full max-w-lg bg-muted/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-2xl p-1">
+              <TabsTrigger value="original" className="flex-1 rounded-xl font-bold text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
+                🚀 Quick View
               </TabsTrigger>
-              <TabsTrigger value="enhanced" className="flex-1">
-                Enhanced View
+              <TabsTrigger value="enhanced" className="flex-1 rounded-xl font-bold text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
+                💪 Power View
               </TabsTrigger>
             </TabsList>
           </div>

@@ -2,7 +2,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Target, Search, TrendingUp, DollarSign, ArrowUpRight, ArrowDownRight } from "lucide-react"
+// import { Progress } from "@/components/ui/progress"
+import { Target, Search, TrendingUp, DollarSign, ArrowUpRight, ArrowDownRight, Zap, Trophy, Activity } from "lucide-react"
 
 interface DashboardStatsProps {
   stats: {
@@ -16,78 +17,141 @@ interface DashboardStatsProps {
 export function DashboardStats({ stats }: DashboardStatsProps) {
   const statCards = [
     {
-      title: "Total Projects",
+      title: "Projects Discovered",
       value: stats.totalProjects.toLocaleString(),
       icon: Search,
-      description: "Projects tracked",
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
+      description: "Projects tracked across platforms",
+      gradient: "from-blue-500 to-blue-600",
+      glowColor: "shadow-blue-500/25",
       change: "+12%",
       changeType: "positive" as const,
+      progress: 85,
     },
     {
-      title: "Active Applications",
+      title: "Active Bids",
       value: stats.activeApplications,
-      icon: Target,
-      description: "Bids in progress",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
+      icon: Zap,
+      description: "Proposals in progress",
+      gradient: "from-purple-500 to-purple-600",
+      glowColor: "shadow-purple-500/25",
       change: "+5",
       changeType: "positive" as const,
+      progress: 67,
     },
     {
       title: "Win Rate",
       value: `${stats.winRate}%`,
-      icon: TrendingUp,
-      description: "Success rate",
-      color: "text-emerald-600",
-      bgColor: "bg-emerald-50",
+      icon: Trophy,
+      description: "Success achievement rate",
+      gradient: "from-emerald-500 to-emerald-600",
+      glowColor: "shadow-emerald-500/25",
       change: "-2.1%",
       changeType: "negative" as const,
+      progress: stats.winRate,
     },
     {
-      title: "Total Earnings",
+      title: "Total Revenue",
       value: `$${stats.totalEarnings.toLocaleString()}`,
       icon: DollarSign,
-      description: "From won projects",
-      color: "text-emerald-600",
-      bgColor: "bg-emerald-50",
+      description: "Earnings from completed projects",
+      gradient: "from-amber-500 to-amber-600",
+      glowColor: "shadow-amber-500/25",
       change: "+18.3%",
       changeType: "positive" as const,
+      progress: 92,
     },
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {statCards.map((stat) => {
         const Icon = stat.icon
         return (
-          <Card key={stat.title} className="relative overflow-hidden border-border/50 hover:border-border/80 transition-all duration-300 hover:shadow-xl shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{stat.title}</CardTitle>
-              <div className={`p-3 rounded-xl ${stat.bgColor} ring-1 ring-inset ring-white/20 shadow-sm`}>
-                <Icon className={`h-5 w-5 ${stat.color}`} />
-              </div>
-            </CardHeader>
-            <CardContent className="pt-0">
+          <Card key={stat.title} className="fitness-card relative overflow-hidden group">
+            {/* Gradient accent bar */}
+            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
+            
+            <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <div className="text-3xl font-bold text-foreground">{stat.value}</div>
-                <div
-                  className={`flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-full ${
-                    stat.changeType === "positive" 
-                      ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-400" 
-                      : "text-red-600 bg-red-50 dark:bg-red-500/10 dark:text-red-400"
-                  }`}
-                >
-                  {stat.changeType === "positive" ? (
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  ) : (
-                    <ArrowDownRight className="w-3.5 h-3.5" />
-                  )}
-                  {stat.change}
+                <CardTitle className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+                  {stat.title}
+                </CardTitle>
+                <div className={`p-3 rounded-2xl bg-gradient-to-r ${stat.gradient} ${stat.glowColor} shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+                  <Icon className="h-5 w-5 text-white" />
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground mt-3 font-medium">{stat.description}</p>
+            </CardHeader>
+            
+            <CardContent className="pt-0 space-y-4">
+              <div className="flex items-end justify-between">
+                <div className="space-y-1">
+                  <div className="text-3xl font-black text-foreground tracking-tight">
+                    {stat.value}
+                  </div>
+                  <div
+                    className={`flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full ${
+                      stat.changeType === "positive" 
+                        ? "text-emerald-700 bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400" 
+                        : "text-red-700 bg-red-100 dark:bg-red-500/10 dark:text-red-400"
+                    }`}
+                  >
+                    {stat.changeType === "positive" ? (
+                      <ArrowUpRight className="w-3 h-3" />
+                    ) : (
+                      <ArrowDownRight className="w-3 h-3" />
+                    )}
+                    {stat.change}
+                  </div>
+                </div>
+                
+                {/* Progress ring visual */}
+                <div className="relative w-16 h-16">
+                  <svg className="w-16 h-16 -rotate-90" viewBox="0 0 64 64">
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="28"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                      className="text-muted/20"
+                    />
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="28"
+                      stroke="url(#gradient)"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeDasharray={`${stat.progress * 1.76} 176`}
+                      className="transition-all duration-1000 ease-out"
+                    />
+                    <defs>
+                      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" className="text-primary" />
+                        <stop offset="100%" className="text-secondary" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-xs font-bold text-muted-foreground">
+                      {stat.progress}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground font-medium">
+                  {stat.description}
+                </p>
+                <div className="w-full bg-muted/30 rounded-full h-2">
+                  <div 
+                    className={`h-2 bg-gradient-to-r ${stat.gradient} rounded-full transition-all duration-1000`}
+                    style={{ width: `${stat.progress}%` }}
+                  />
+                </div>
+              </div>
             </CardContent>
           </Card>
         )
@@ -110,61 +174,117 @@ interface RecentActivityProps {
 }
 
 export function RecentActivity({ activities }: RecentActivityProps) {
-  const getActivityColor = (type: string) => {
+  const getActivityConfig = (type: string) => {
     switch (type) {
       case "application":
-        return "bg-blue-50 text-blue-700 border-blue-200"
+        return {
+          gradient: "from-blue-500 to-blue-600",
+          bgColor: "bg-blue-50 dark:bg-blue-950/20",
+          textColor: "text-blue-700 dark:text-blue-400",
+          borderColor: "border-blue-200 dark:border-blue-800",
+          icon: Target,
+          emoji: "🎯"
+        }
       case "win":
-        return "bg-emerald-50 text-emerald-700 border-emerald-200"
+        return {
+          gradient: "from-emerald-500 to-emerald-600",
+          bgColor: "bg-emerald-50 dark:bg-emerald-950/20",
+          textColor: "text-emerald-700 dark:text-emerald-400",
+          borderColor: "border-emerald-200 dark:border-emerald-800",
+          icon: Trophy,
+          emoji: "🏆"
+        }
       case "new_project":
-        return "bg-purple-50 text-purple-700 border-purple-200"
+        return {
+          gradient: "from-purple-500 to-purple-600",
+          bgColor: "bg-purple-50 dark:bg-purple-950/20",
+          textColor: "text-purple-700 dark:text-purple-400",
+          borderColor: "border-purple-200 dark:border-purple-800",
+          icon: Zap,
+          emoji: "⚡"
+        }
       default:
-        return "bg-gray-50 text-gray-700 border-gray-200"
-    }
-  }
-
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case "application":
-        return "📝"
-      case "win":
-        return "🎉"
-      case "new_project":
-        return "🚀"
-      default:
-        return "📋"
+        return {
+          gradient: "from-gray-500 to-gray-600",
+          bgColor: "bg-gray-50 dark:bg-gray-950/20",
+          textColor: "text-gray-700 dark:text-gray-400",
+          borderColor: "border-gray-200 dark:border-gray-800",
+          icon: Activity,
+          emoji: "📋"
+        }
     }
   }
 
   return (
-    <Card className="border-border/50 shadow-sm">
-      <CardHeader className="pb-4">
-        <CardTitle className="text-xl font-bold">Recent Activity</CardTitle>
-        <CardDescription className="text-base">Your latest project activities</CardDescription>
+    <Card className="fitness-card">
+      <CardHeader className="pb-6">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-gradient-to-r from-primary to-secondary shadow-lg">
+            <Activity className="h-5 w-5 text-white" />
+          </div>
+          <div>
+            <CardTitle className="text-xl font-bold">Recent Activity</CardTitle>
+            <CardDescription className="text-sm font-medium">Your latest project activities</CardDescription>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-6">
+        <div className="space-y-4">
           {activities.length === 0 ? (
-            <p className="text-base text-gray-500 text-center py-8">No recent activity</p>
-          ) : (
-            activities.map((activity) => (
-              <div
-                key={activity.id}
-                className="flex items-start space-x-5 p-5 rounded-xl hover:bg-gray-50/80 transition-colors duration-200 border border-transparent hover:border-border/30"
-              >
-                <div className="text-2xl">{getActivityIcon(activity.type)}</div>
-                <div className="flex-1 space-y-3 min-w-0">
-                  <div className="flex items-center gap-3">
-                    <Badge className={`text-sm px-4 py-1.5 font-medium ${getActivityColor(activity.type)}`}>
-                      {activity.type.replace("_", " ")}
-                    </Badge>
-                  </div>
-                  <p className="text-base font-semibold text-gray-900">{activity.title}</p>
-                  <p className="text-base text-gray-600">{activity.description}</p>
-                  <p className="text-sm text-gray-500 font-medium">{activity.timestamp}</p>
-                </div>
+            <div className="text-center py-12 space-y-3">
+              <div className="w-16 h-16 mx-auto rounded-full bg-muted/50 flex items-center justify-center">
+                <Activity className="h-8 w-8 text-muted-foreground" />
               </div>
-            ))
+              <p className="text-sm text-muted-foreground font-medium">No recent activity</p>
+            </div>
+          ) : (
+            activities.map((activity) => {
+              const config = getActivityConfig(activity.type)
+              const IconComponent = config.icon
+              
+              return (
+                <div
+                  key={activity.id}
+                  className="group relative p-4 rounded-xl hover:bg-accent/50 transition-all duration-300 border border-border/20 hover:border-primary/20 hover:shadow-md"
+                >
+                  {/* Gradient accent line */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${config.gradient} rounded-l-xl`} />
+                  
+                  <div className="flex items-start gap-4 ml-2">
+                    <div className={`p-3 rounded-xl ${config.bgColor} ${config.borderColor} border shadow-sm`}>
+                      <IconComponent className={`h-5 w-5 ${config.textColor}`} />
+                    </div>
+                    
+                    <div className="flex-1 space-y-2 min-w-0">
+                      <div className="flex items-center gap-3">
+                        <Badge className={`text-xs px-3 py-1 font-bold ${config.bgColor} ${config.textColor} ${config.borderColor} border`}>
+                          {config.emoji} {activity.type.replace("_", " ")}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground font-medium">
+                          {activity.timestamp}
+                        </span>
+                      </div>
+                      
+                      <h4 className="text-sm font-bold text-foreground leading-tight">
+                        {activity.title}
+                      </h4>
+                      
+                      <p className="text-xs text-muted-foreground font-medium leading-relaxed">
+                        {activity.description}
+                      </p>
+                      
+                      {activity.status && (
+                        <div className="pt-2">
+                          <Badge variant="outline" className="text-xs">
+                            {activity.status}
+                          </Badge>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )
+            })
           )}
         </div>
       </CardContent>

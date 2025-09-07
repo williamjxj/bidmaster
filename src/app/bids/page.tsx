@@ -36,13 +36,48 @@ function SimpleBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: string
     )
   }, [bids, searchTerm])
 
-  const getStatusColor = (status: string) => {
+  const getStatusConfig = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'submitted': return 'bg-yellow-100 text-yellow-800'
-      case 'accepted': return 'bg-green-100 text-green-800'
-      case 'rejected': return 'bg-red-100 text-red-800'
-      case 'withdrawn': return 'bg-gray-100 text-gray-800'
-      default: return 'bg-blue-100 text-blue-800'
+      case 'submitted': 
+        return {
+          gradient: 'from-amber-500 to-orange-500',
+          bg: 'bg-amber-50 dark:bg-amber-950/20',
+          text: 'text-amber-700 dark:text-amber-400',
+          border: 'border-amber-200 dark:border-amber-800',
+          emoji: '🚀'
+        }
+      case 'accepted': 
+        return {
+          gradient: 'from-emerald-500 to-green-500',
+          bg: 'bg-emerald-50 dark:bg-emerald-950/20',
+          text: 'text-emerald-700 dark:text-emerald-400',
+          border: 'border-emerald-200 dark:border-emerald-800',
+          emoji: '🏆'
+        }
+      case 'rejected': 
+        return {
+          gradient: 'from-red-500 to-rose-500',
+          bg: 'bg-red-50 dark:bg-red-950/20',
+          text: 'text-red-700 dark:text-red-400',
+          border: 'border-red-200 dark:border-red-800',
+          emoji: '💪'
+        }
+      case 'withdrawn': 
+        return {
+          gradient: 'from-gray-500 to-slate-500',
+          bg: 'bg-gray-50 dark:bg-gray-950/20',
+          text: 'text-gray-700 dark:text-gray-400',
+          border: 'border-gray-200 dark:border-gray-800',
+          emoji: '⏸️'
+        }
+      default: 
+        return {
+          gradient: 'from-blue-500 to-indigo-500',
+          bg: 'bg-blue-50 dark:bg-blue-950/20',
+          text: 'text-blue-700 dark:text-blue-400',
+          border: 'border-blue-200 dark:border-blue-800',
+          emoji: '⚡'
+        }
     }
   }
 
@@ -101,10 +136,15 @@ function SimpleBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: string
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Badge className={getStatusColor(bid.status)}>
-                    {bid.status}
-                  </Badge>
-                  <Button variant="outline" size="sm" onClick={() => onDelete(bid.id)}>
+                  {(() => {
+                    const config = getStatusConfig(bid.status)
+                    return (
+                      <Badge className={`${config.bg} ${config.text} ${config.border} border font-black px-3 py-1.5 shadow-sm`}>
+                        {config.emoji} {bid.status}
+                      </Badge>
+                    )
+                  })()}
+                  <Button variant="outline" size="sm" onClick={() => onDelete(bid.id)} className="hover:bg-red-50 hover:text-red-600 hover:border-red-200">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -154,13 +194,48 @@ function EnhancedBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: stri
     return filtered
   }, [bids, searchTerm, selectedStatus])
 
-  const getStatusColor = (status: string) => {
+  const getStatusConfig = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'submitted': return 'bg-yellow-100 text-yellow-800'
-      case 'accepted': return 'bg-green-100 text-green-800'
-      case 'rejected': return 'bg-red-100 text-red-800'
-      case 'withdrawn': return 'bg-gray-100 text-gray-800'
-      default: return 'bg-blue-100 text-blue-800'
+      case 'submitted': 
+        return {
+          gradient: 'from-amber-500 to-orange-500',
+          bg: 'bg-amber-50 dark:bg-amber-950/20',
+          text: 'text-amber-700 dark:text-amber-400',
+          border: 'border-amber-200 dark:border-amber-800',
+          emoji: '🚀'
+        }
+      case 'accepted': 
+        return {
+          gradient: 'from-emerald-500 to-green-500',
+          bg: 'bg-emerald-50 dark:bg-emerald-950/20',
+          text: 'text-emerald-700 dark:text-emerald-400',
+          border: 'border-emerald-200 dark:border-emerald-800',
+          emoji: '🏆'
+        }
+      case 'rejected': 
+        return {
+          gradient: 'from-red-500 to-rose-500',
+          bg: 'bg-red-50 dark:bg-red-950/20',
+          text: 'text-red-700 dark:text-red-400',
+          border: 'border-red-200 dark:border-red-800',
+          emoji: '💪'
+        }
+      case 'withdrawn': 
+        return {
+          gradient: 'from-gray-500 to-slate-500',
+          bg: 'bg-gray-50 dark:bg-gray-950/20',
+          text: 'text-gray-700 dark:text-gray-400',
+          border: 'border-gray-200 dark:border-gray-800',
+          emoji: '⏸️'
+        }
+      default: 
+        return {
+          gradient: 'from-blue-500 to-indigo-500',
+          bg: 'bg-blue-50 dark:bg-blue-950/20',
+          text: 'text-blue-700 dark:text-blue-400',
+          border: 'border-blue-200 dark:border-blue-800',
+          emoji: '⚡'
+        }
     }
   }
 
@@ -225,23 +300,28 @@ function EnhancedBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: stri
 
       {/* Enhanced Bids Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredBids.map((bid) => (
-          <Card key={bid.id} className="group hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-start justify-between">
-                  <Badge className={getStatusColor(bid.status)}>
-                    {bid.status}
-                  </Badge>
-                  <div className="flex opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button variant="ghost" size="sm">
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={() => onDelete(bid.id)}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+        {filteredBids.map((bid) => {
+          const statusConfig = getStatusConfig(bid.status)
+          return (
+            <Card key={bid.id} className="fitness-card group relative overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+              {/* Gradient accent bar */}
+              <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${statusConfig.gradient}`} />
+              
+              <CardContent className="p-6 pt-8">
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between">
+                    <Badge className={`${statusConfig.bg} ${statusConfig.text} ${statusConfig.border} border font-black px-4 py-2 shadow-lg`}>
+                      {statusConfig.emoji} {bid.status}
+                    </Badge>
+                    <div className="flex opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <Button variant="ghost" size="sm" className="hover:bg-primary/10 hover:text-primary">
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" onClick={() => onDelete(bid.id)} className="hover:bg-red-50 hover:text-red-600">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
-                </div>
 
                 <div>
                   <h3 className="font-semibold text-lg leading-tight mb-2">
@@ -343,21 +423,51 @@ export default function BidsPage() {
   }
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h1 className="page-title">Bids</h1>
-        <p className="page-description">Track and manage your bid submissions</p>
+    <div className="flex-1 space-y-8 bg-background min-h-full">
+      {/* Fitness-style header */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-background rounded-3xl p-8 border border-border/50">
+        {/* Animated background elements */}
+        <div className="absolute top-4 right-4 w-20 h-20 bg-primary/5 rounded-full blur-xl animate-pulse" />
+        <div className="absolute bottom-4 left-4 w-16 h-16 bg-secondary/5 rounded-full blur-lg animate-pulse delay-500" />
+        
+        <div className="relative flex items-center justify-between">
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-2xl bg-gradient-to-r from-primary to-secondary shadow-xl">
+                <Target className="h-7 w-7 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
+                  Bid Tracker
+                </h1>
+                <p className="text-base text-muted-foreground font-medium">
+                  Track your proposals and crush your goals! 🎯
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <Badge className="px-4 py-2 text-sm font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-0 shadow-md">
+                <Target className="w-4 h-4 mr-2" />
+                {bids?.length || 0} Active Bids
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2 text-sm font-bold">
+                🔥 Performance Mode: ON
+              </Badge>
+            </div>
+          </div>
+        </div>
       </div>
       
-      <div className="tabs-container">
+      <div className="space-y-6">
         <Tabs defaultValue="enhanced" className="w-full">
-          <div className="tabs-header">
-            <TabsList className="tabs-nav w-full max-w-md">
-              <TabsTrigger value="simple" className="tabs-trigger flex-1">
-                Simple View
+          <div className="flex items-center justify-between mb-8">
+            <TabsList className="w-full max-w-lg bg-muted/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-2xl p-1">
+              <TabsTrigger value="simple" className="flex-1 rounded-xl font-bold text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
+                🎯 Quick Track
               </TabsTrigger>
-              <TabsTrigger value="enhanced" className="tabs-trigger flex-1">
-                Enhanced View
+              <TabsTrigger value="enhanced" className="flex-1 rounded-xl font-bold text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
+                💪 Power Track
               </TabsTrigger>
             </TabsList>
           </div>

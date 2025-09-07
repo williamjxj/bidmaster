@@ -69,40 +69,54 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
   const isHighBudget = project.budget && project.budget > 5000
 
   return (
-    <Card className="h-full group border border-border bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-      {/* Modern glass background */}
-      <div className="absolute inset-0 bg-white/30 dark:bg-black/10" />
+    <Card className="fitness-card h-full group relative overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.03] hover:rotate-1">
+      {/* Fitness-style gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30" />
       
-      {/* Urgent indicator with enhanced animation */}
+      {/* Energy indicator */}
       {isUrgent && (
-        <div className="absolute top-3 right-3 w-4 h-4 bg-red-500 rounded-full animate-pulse" />
+        <div className="absolute top-4 right-4 z-20">
+          <div className="w-3 h-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-full pulse-glow" />
+          <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500/20 rounded-full animate-ping" />
+        </div>
       )}
       
-      {/* Modern floating elements with blur */}
-      <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full animate-morph backdrop-blur-sm"></div>
-      <div className="absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full animate-breathe backdrop-blur-sm" style={{animationDelay: '1s'}}></div>
+      {/* Fitness-style floating elements */}
+      <div className="absolute top-6 right-6 w-16 h-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-sm animate-pulse" />
+      <div className="absolute bottom-6 left-6 w-12 h-12 bg-gradient-to-br from-secondary/10 to-amber-500/10 rounded-full blur-sm animate-pulse" style={{animationDelay: '1.5s'}} />
       
-      <CardHeader className="pb-5 relative z-10">
-        <div className="flex items-start justify-between mb-1">
-          <div className="flex-1">
-            <CardTitle className="text-xl leading-7 mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300 font-bold">
-              {project.title}
-            </CardTitle>
-            <div className="flex items-center gap-4 mb-4">
-              <Badge className={`${getPlatformColor(project.source_platform)} font-semibold hover:-translate-y-0.5 transition-all duration-200 px-3 py-1`}>
-                {project.source_platform}
-              </Badge>
-              {isHighBudget && (
-                <Badge className="neo-card bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-none animate-glow px-3 py-1">
-                  <Star className="w-3 h-3 mr-1 animate-wiggle" />
-                  Premium
-                </Badge>
-              )}
+      {/* Gradient accent bar */}
+      <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-secondary to-amber-500" />
+      
+      <CardHeader className="pb-6 relative z-10 pt-8">
+        <div className="space-y-4">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <CardTitle className="text-lg md:text-xl font-black tracking-tight leading-tight mb-3 group-hover:text-gradient group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary group-hover:bg-clip-text transition-all duration-500">
+                {project.title}
+              </CardTitle>
             </div>
+            <Badge className={`${getStatusColor(project.status)} font-black text-xs px-3 py-2 shadow-lg`}>
+              {project.status}
+            </Badge>
           </div>
-          <Badge className={`${getStatusColor(project.status)} font-semibold animate-pulse px-3 py-1`}>
-            {project.status}
-          </Badge>
+          
+          <div className="flex items-center gap-3 flex-wrap">
+            <Badge className={`${getPlatformColor(project.source_platform)} font-black text-xs px-4 py-2 hover:scale-105 transition-all duration-200 shadow-md border-0`}>
+              💼 {project.source_platform}
+            </Badge>
+            {isHighBudget && (
+              <Badge className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-black text-xs px-4 py-2 shadow-lg border-0 pulse-glow">
+                <Star className="w-3 h-3 mr-1.5" />
+                PREMIUM
+              </Badge>
+            )}
+            {project.category && (
+              <Badge variant="outline" className="font-bold text-xs px-3 py-1.5 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm">
+                {project.category}
+              </Badge>
+            )}
+          </div>
         </div>
       </CardHeader>
       
