@@ -69,7 +69,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
   const isHighBudget = project.budget && project.budget > 5000
 
   return (
-    <Card className="fitness-card h-full group relative overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.03] hover:rotate-1">
+    <Card className="fitness-card h-full group relative overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.03] hover:rotate-1 hover-lift animate-fade-in">
       {/* Fitness-style gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30" />
       
@@ -82,8 +82,8 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
       )}
       
       {/* Fitness-style floating elements */}
-      <div className="absolute top-6 right-6 w-16 h-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-sm animate-pulse" />
-      <div className="absolute bottom-6 left-6 w-12 h-12 bg-gradient-to-br from-secondary/10 to-amber-500/10 rounded-full blur-sm animate-pulse" style={{animationDelay: '1.5s'}} />
+      <div className="absolute top-6 right-6 w-16 h-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-sm animate-float" />
+      <div className="absolute bottom-6 left-6 w-12 h-12 bg-gradient-to-br from-secondary/10 to-amber-500/10 rounded-full blur-sm animate-float" style={{animationDelay: '1.5s'}} />
       
       {/* Gradient accent bar */}
       <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-secondary to-amber-500" />
@@ -229,7 +229,7 @@ export function ProjectCard({ project, onBookmark, onApply }: ProjectCardProps) 
           <Button
             size="sm"
             onClick={() => onApply?.(project.id)}
-            className="flex-1 bg-gradient-to-r from-primary to-accent text-primary-foreground hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 font-semibold"
+            className="flex-1 bg-gradient-to-r from-primary to-accent text-primary-foreground hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 font-semibold animate-button-press hover-glow"
           >
             <TrendingUp className="h-4 w-4 mr-2" />
             Apply

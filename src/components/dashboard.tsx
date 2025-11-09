@@ -63,21 +63,21 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {statCards.map((stat) => {
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {statCards.map((stat, index) => {
         const Icon = stat.icon
         return (
-          <Card key={stat.title} className="fitness-card relative overflow-hidden group">
+          <Card key={stat.title} className="fitness-card relative overflow-hidden group hover-lift animate-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
             {/* Gradient accent bar */}
             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
             
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+                <CardTitle className="text-xs md:text-sm font-bold text-muted-foreground uppercase tracking-wider">
                   {stat.title}
                 </CardTitle>
-                <div className={`p-3 rounded-2xl bg-gradient-to-r ${stat.gradient} ${stat.glowColor} shadow-lg group-hover:shadow-xl transition-all duration-300`}>
-                  <Icon className="h-5 w-5 text-white" />
+                <div className={`p-2 md:p-3 rounded-xl md:rounded-2xl bg-gradient-to-r ${stat.gradient} ${stat.glowColor} shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+                  <Icon className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 </div>
               </div>
             </CardHeader>
@@ -85,11 +85,11 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
             <CardContent className="pt-0 space-y-4">
               <div className="flex items-end justify-between">
                 <div className="space-y-1">
-                  <div className="text-3xl font-black text-foreground tracking-tight">
+                  <div className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
                     {stat.value}
                   </div>
                   <div
-                    className={`flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full ${
+                    className={`flex items-center gap-1 md:gap-2 text-xs font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full ${
                       stat.changeType === "positive" 
                         ? "text-emerald-700 bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400" 
                         : "text-red-700 bg-red-100 dark:bg-red-500/10 dark:text-red-400"
@@ -105,8 +105,8 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
                 </div>
                 
                 {/* Progress ring visual */}
-                <div className="relative w-16 h-16">
-                  <svg className="w-16 h-16 -rotate-90" viewBox="0 0 64 64">
+                <div className="relative w-12 h-12 md:w-16 md:h-16">
+                  <svg className="w-12 h-12 md:w-16 md:h-16 -rotate-90" viewBox="0 0 64 64">
                     <circle
                       cx="32"
                       cy="32"

@@ -27,7 +27,7 @@ function LandingPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
           <div className="text-center space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold border border-primary/20">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold border border-primary/20 hover:bg-primary/20 transition-all duration-300">
                 <Zap className="w-4 h-4" />
                 Power Up Your Freelancing Game
               </div>
@@ -47,14 +47,14 @@ function LandingPage() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8 py-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button asChild size="lg" className="text-lg px-8 py-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 <Link href="/auth/signup" className="flex items-center">
                   <Zap className="mr-2 h-5 w-5" />
                   Start Your Journey
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-accent/50 transition-all duration-300">
+              <Button variant="outline" size="lg" asChild className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-accent/50 transition-all duration-300 transform hover:scale-105">
                 <Link href="/auth/login">Sign In</Link>
               </Button>
             </div>
@@ -79,60 +79,66 @@ function LandingPage() {
       </div>
 
       {/* Features Section */}
-      <div className="py-24 bg-white">
+      <div className="py-24 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Everything you need to succeed
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               Powerful tools to help you find, track, and win more projects
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
+            <Card className="fitness-card hover:shadow-lg transition-all duration-300 hover-lift animate-fade-in">
               <CardHeader>
-                <Search className="h-10 w-10 text-indigo-600 mb-4" />
-                <CardTitle>Project Discovery</CardTitle>
-                <CardDescription>
+                <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 w-fit mb-4 animate-breathe">
+                  <Search className="h-8 w-8 text-white" />
+                </div>
+                <CardTitle className="text-xl font-bold">Project Discovery</CardTitle>
+                <CardDescription className="text-base">
                   Aggregate projects from multiple platforms in one dashboard
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   Search and filter through thousands of opportunities from 
                   Upwork, Freelancer, Toptal, and more.
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="fitness-card hover:shadow-lg transition-all duration-300 hover-lift animate-fade-in" style={{animationDelay: '0.2s'}}>
               <CardHeader>
-                <Target className="h-10 w-10 text-indigo-600 mb-4" />
-                <CardTitle>Bid Management</CardTitle>
-                <CardDescription>
+                <div className="p-3 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 w-fit mb-4 animate-breathe">
+                  <Target className="h-8 w-8 text-white" />
+                </div>
+                <CardTitle className="text-xl font-bold">Bid Management</CardTitle>
+                <CardDescription className="text-base">
                   Track your proposals and manage your bidding pipeline
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   Organize your bids, set reminders, and track your success 
                   rate across all platforms.
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="fitness-card hover:shadow-lg transition-all duration-300 hover-lift animate-fade-in" style={{animationDelay: '0.4s'}}>
               <CardHeader>
-                <BarChart3 className="h-10 w-10 text-indigo-600 mb-4" />
-                <CardTitle>Analytics & Insights</CardTitle>
-                <CardDescription>
+                <div className="p-3 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 w-fit mb-4 animate-breathe">
+                  <BarChart3 className="h-8 w-8 text-white" />
+                </div>
+                <CardTitle className="text-xl font-bold">Analytics & Insights</CardTitle>
+                <CardDescription className="text-base">
                   Get insights to improve your bidding strategy
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   Track win rates, analyze trends, and optimize your 
                   approach with detailed analytics.
                 </p>
@@ -143,15 +149,16 @@ function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-indigo-600 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to win more projects?
           </h2>
-          <p className="text-xl text-indigo-100 mb-8">
+          <p className="text-xl text-blue-100 mb-8">
             Join thousands of freelancers already using BidMaster
           </p>
-          <Button size="lg" variant="secondary" asChild>
+          <Button size="lg" variant="secondary" asChild className="bg-white text-blue-600 hover:bg-gray-100 transform hover:scale-105 transition-all duration-300">
             <Link href="/auth/signup" className="flex items-center">
               Start Your Free Trial
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -176,7 +183,7 @@ function AuthenticatedDashboard() {
   return (
     <div className="flex-1 space-y-8 bg-background min-h-full">
       {/* Hero Dashboard Header */}
-      <div className="relative overflow-hidden rounded-3xl p-8 border border-slate-200 shadow-lg" style={{
+      <div className="relative overflow-hidden rounded-3xl p-6 md:p-8 border border-slate-200 shadow-lg" style={{
         background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(248, 250, 252, 1) 100%)'
       }}>
         {/* Animated background elements */}
@@ -189,7 +196,7 @@ function AuthenticatedDashboard() {
         }} />
         
         <div className="relative">
-          <div className="flex items-start justify-between">
+          <div className="flex flex-col md:flex-row items-start justify-between gap-6">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl shadow-lg" style={{
@@ -198,16 +205,16 @@ function AuthenticatedDashboard() {
                   <Zap className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-3xl md:text-4xl font-black tracking-tight text-gradient">
+                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-gradient">
                     Performance Dashboard
                   </h1>
-                  <p className="text-base text-muted-foreground font-medium">
+                  <p className="text-sm md:text-base text-muted-foreground font-medium">
                     Track your freelancing journey and smash your goals! 💪
                   </p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 <Badge className="px-4 py-2 text-sm font-bold text-white border-0 shadow-md" style={{
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
               }}>
@@ -221,7 +228,7 @@ function AuthenticatedDashboard() {
             </div>
             
             {/* Quick action button */}
-            <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3">
+            <Button className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3">
               <Search className="w-4 h-4 mr-2" />
               Find Projects
             </Button>

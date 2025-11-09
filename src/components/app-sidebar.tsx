@@ -164,23 +164,23 @@ export function AppSidebar() {
   return (
     <TooltipProvider>
       <Sidebar className="border-r border-sidebar-border bg-sidebar">
-        <SidebarHeader className="border-b border-sidebar-border px-6 py-6">
+        <SidebarHeader className="border-b border-sidebar-border px-4 md:px-6 py-4 md:py-6">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
                 size="lg"
                 asChild
-                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 p-4 rounded-2xl group"
+                className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 p-3 md:p-4 rounded-2xl group"
               >
                 <Link href="/">
-                  <div className="flex aspect-square size-14 items-center justify-center rounded-2xl bg-gradient-to-r from-primary to-secondary text-white shadow-xl group-hover:shadow-2xl transition-all duration-300">
-                    <Zap className="size-7" />
+                  <div className="flex aspect-square size-12 md:size-14 items-center justify-center rounded-2xl bg-gradient-to-r from-primary to-secondary text-white shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                    <Zap className="size-6 md:size-7" />
                   </div>
-                  <div className="grid flex-1 text-left leading-tight ml-4">
-                    <span className="truncate font-black text-xl text-sidebar-foreground tracking-tight">
+                  <div className="grid flex-1 text-left leading-tight ml-3 md:ml-4">
+                    <span className="truncate font-black text-lg md:text-xl text-sidebar-foreground tracking-tight">
                       BidMaster
                     </span>
-                    <span className="truncate text-sm text-muted-foreground font-bold">
+                    <span className="truncate text-xs md:text-sm text-muted-foreground font-bold">
                       💪 Freelance Fitness
                     </span>
                   </div>
@@ -195,7 +195,7 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent className="px-6 py-8">
+        <SidebarContent className="px-4 md:px-6 py-6 md:py-8">
           {/* Main Navigation */}
           <SidebarGroup>
             <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-6 px-4 flex items-center gap-2">
@@ -211,7 +211,7 @@ export function AppSidebar() {
                       <SidebarMenuButton
                         asChild
                         className={cn(
-                          "group relative flex items-center justify-between rounded-2xl px-4 py-4 text-sm font-bold transition-all duration-300",
+                          "group relative flex items-center justify-between rounded-2xl px-3 md:px-4 py-3 md:py-4 text-sm font-bold transition-all duration-300",
                           "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-lg hover:scale-[1.02]",
                           "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                           isActive 
@@ -219,15 +219,15 @@ export function AppSidebar() {
                             : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                         )}
                       >
-                        <Link href={item.url} className="flex items-center min-w-0 flex-1 gap-4">
+                        <Link href={item.url} className="flex items-center min-w-0 flex-1 gap-3 md:gap-4">
                           {/* Icon with gradient background */}
                           <div className={cn(
-                            "flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 shadow-sm",
+                            "flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-xl transition-all duration-300 shadow-sm",
                             isActive 
                               ? `bg-gradient-to-r ${item.gradient} text-white shadow-md` 
                               : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
                           )}>
-                            <item.icon className="w-5 h-5" />
+                            <item.icon className="w-4 h-4 md:w-5 md:h-5" />
                           </div>
                           
                           <div className="min-w-0 flex-1">

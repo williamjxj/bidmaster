@@ -98,7 +98,7 @@ function OriginalProjectsView({ projects, handleBookmark, handleApply, isLoading
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.id}
@@ -275,7 +275,7 @@ function EnhancedProjectsView({ projects, handleBookmark, handleApply, isLoading
           {viewMode === 'table' ? (
             <ProjectsTable data={tableProjects} />
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {projects.map((project: APIProject) => (
                 <ProjectCard
                   key={project.id}
@@ -356,28 +356,28 @@ export default function ProjectsPage() {
   return (
     <div className="flex-1 space-y-8 bg-background min-h-full">
       {/* Fitness-style header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-background rounded-3xl p-8 border border-border/50">
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-background rounded-3xl p-6 md:p-8 border border-border/50">
         {/* Animated background elements */}
         <div className="absolute top-4 right-4 w-20 h-20 bg-primary/5 rounded-full blur-xl animate-pulse" />
         <div className="absolute bottom-4 left-4 w-16 h-16 bg-secondary/5 rounded-full blur-lg animate-pulse delay-500" />
         
-        <div className="relative flex items-center justify-between">
+        <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-4">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
               <div className="p-3 rounded-2xl bg-gradient-to-r from-primary to-secondary shadow-xl">
-                <Search className="h-7 w-7 text-white" />
+                <Search className="h-6 w-6 md:h-7 md:w-7 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-foreground">
                   Project Discovery
                 </h1>
-                <p className="text-base text-muted-foreground font-medium">
+                <p className="text-sm md:text-base text-muted-foreground font-medium">
                   Find your next opportunity and level up! 🚀
                 </p>
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <Badge className="px-4 py-2 text-sm font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-0 shadow-md">
                 <Target className="w-4 h-4 mr-2" />
                 {projects?.length || 0} Opportunities
@@ -392,12 +392,12 @@ export default function ProjectsPage() {
       
       <div className="space-y-6">
         <Tabs defaultValue="enhanced" className="w-full">
-          <div className="flex items-center justify-between mb-8">
-            <TabsList className="w-full max-w-lg bg-muted/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-2xl p-1">
-              <TabsTrigger value="original" className="flex-1 rounded-xl font-bold text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
+          <div className="flex items-center justify-center mb-8">
+            <TabsList className="w-full max-w-md bg-muted/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-2xl p-1">
+              <TabsTrigger value="original" className="flex-1 rounded-xl font-bold text-xs md:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
                 🚀 Quick View
               </TabsTrigger>
-              <TabsTrigger value="enhanced" className="flex-1 rounded-xl font-bold text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
+              <TabsTrigger value="enhanced" className="flex-1 rounded-xl font-bold text-xs md:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg">
                 💪 Power View
               </TabsTrigger>
             </TabsList>

@@ -4,9 +4,10 @@
 /* ========================================
    BIDMASTER HUB - FITNESS DESIGN SYSTEM
    Modern Fitness App using shadcn/ui + Tailwind CSS v4
+   Enhanced for mobile-first responsive design
 ========================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 :root {
   /* Core shadcn/ui variables - Fitness Theme */
@@ -17,12 +18,12 @@
   --popover: 255 255 255;
   --popover-foreground: 15 23 42;
   
-  /* Primary: Energetic Orange-Red Gradient */
-  --primary: 14 165 233; /* Sky Blue for primary actions */
+  /* Primary: Energetic Blue - Modern Fitness App */
+  --primary: 59 130 246; /* Vibrant blue for primary actions */
   --primary-foreground: 255 255 255;
   
-  /* Secondary: Fresh Green */
-  --secondary: 34 197 94; /* Emerald green for success states */
+  /* Secondary: Success Green - Achievement color */
+  --secondary: 16 185 129; /* Emerald green for success states */
   --secondary-foreground: 255 255 255;
   
   --muted: 248 250 252;
@@ -42,11 +43,15 @@
   --error: 239 68 68; /* Red */
   --info: 59 130 246; /* Blue */
   
-  /* Gradient Colors for Fitness Aesthetic */
+  /* Enhanced Gradient Colors for Modern Fitness App */
   --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   --gradient-secondary: linear-gradient(135deg, #10b981 0%, #059669 100%);
   --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
 
   /* Sidebar variables - Fitness Theme */
   --sidebar: 255 255 255;
@@ -128,12 +133,21 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: var(--font-poppins), "Inter", sans-serif;
+  font-family: var(--font-poppins), "Inter", "Space Grotesk", sans-serif;
   font-feature-settings: "rlig" 1, "calt" 1;
   font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Mobile-first responsive improvements */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
 }
 
 /* Fitness-inspired gradient text */
@@ -169,19 +183,49 @@ body {
   background: var(--gradient-hero);
 }
 
-/* Fitness-style card with subtle shadow and hover effect */
+/* Enhanced Fitness-style card with modern aesthetics */
 .fitness-card {
   background-color: hsl(var(--card));
   border: 1px solid hsl(var(--border) / 0.5);
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.fitness-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .fitness-card:hover {
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  transform: scale(1.02);
-  border-color: hsl(var(--primary) / 0.2);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  transform: translateY(-2px) scale(1.01);
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+.fitness-card:hover::before {
+  opacity: 1;
+}
+
+/* Mobile responsive cards */
+@media (max-width: 768px) {
+  .fitness-card {
+    border-radius: 1rem;
+    margin: 0.5rem;
+  }
+  
+  .fitness-card:hover {
+    transform: translateY(-1px) scale(1.005);
+  }
 }
 
 .fitness-card-hover {
@@ -402,4 +446,348 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Modern Fitness App Utility Classes */
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced gradient backgrounds */
+.bg-gradient-success { background: var(--gradient-success); }
+.bg-gradient-warning { background: var(--gradient-warning); }
+.bg-gradient-danger { background: var(--gradient-danger); }
+.bg-gradient-purple { background: var(--gradient-purple); }
+
+/* Modern button styles */
+.btn-fitness {
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.btn-fitness:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.btn-fitness:active {
+  transform: translateY(0);
+}
+
+/* Modern input styles */
+.input-fitness {
+  border-radius: 0.75rem;
+  border: 2px solid hsl(var(--border));
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  background: hsl(var(--background));
+}
+
+.input-fitness:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  outline: none;
+}
+
+/* Progress bar enhancements */
+.progress-fitness {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: hsl(var(--muted));
+  overflow: hidden;
+}
+
+.progress-fitness-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+/* Modern badge styles */
+.badge-fitness {
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-fitness-primary {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.badge-fitness-success {
+  background: var(--gradient-success);
+  color: white;
+}
+
+.badge-fitness-warning {
+  background: var(--gradient-warning);
+  color: white;
+}
+
+.badge-fitness-danger {
+  background: var(--gradient-danger);
+  color: white;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 640px) {
+  .mobile-padding {
+    padding: 1rem;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 641px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+/* Touch-friendly interactive elements */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modern spacing utilities */
+.space-fitness > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-fitness-sm > * + * {
+  margin-top: 1rem;
+}
+
+.space-fitness-lg > * + * {
+  margin-top: 2rem;
+}
+
+/* Enhanced focus states for accessibility */
+.focus-fitness:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Modern loading states */
+.loading-fitness {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-fitness::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Enhanced Fitness App Animations */
+
+/* Breathe animation for interactive elements */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* Floating animation for background elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient shift animation */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Success pulse animation */
+@keyframes success-pulse {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    transform: scale(1);
+  }
+  70% { 
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    transform: scale(1.05);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    transform: scale(1);
+  }
+}
+
+.animate-success-pulse {
+  animation: success-pulse 2s infinite;
+}
+
+/* Card hover lift animation */
+@keyframes card-lift {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.02); }
+}
+
+.card-hover-lift:hover {
+  animation: card-lift 0.3s ease-out forwards;
+}
+
+/* Button press animation */
+@keyframes button-press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.animate-button-press:active {
+  animation: button-press 0.1s ease-out;
+}
+
+/* Progress bar fill animation */
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: var(--progress-width, 100%); }
+}
+
+.animate-progress-fill {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+/* Icon spin animation for loading states */
+@keyframes icon-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-icon-spin {
+  animation: icon-spin 1s linear infinite;
+}
+
+/* Slide up animation for modals and dropdowns */
+@keyframes slide-up {
+  0% { 
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Scale in animation */
+@keyframes scale-in {
+  0% { 
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out;
+}
+
+/* Modern hover effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Mobile-specific animations */
+@media (max-width: 768px) {
+  .mobile-bounce {
+    animation: bounce-light 0.6s ease-in-out;
+  }
+  
+  .mobile-slide-in {
+    animation: slide-in-up 0.4s ease-out;
+  }
 }
