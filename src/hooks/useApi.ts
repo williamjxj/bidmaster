@@ -9,7 +9,7 @@ export const useProjects = (filters?: Parameters<typeof projectsApi.getProjects>
   })
 }
 
-export const useProject = (id: string) => {
+const useProject = (id: string) => {
   return useQuery({
     queryKey: ['projects', id],
     queryFn: () => projectsApi.getProject(id),
@@ -17,7 +17,7 @@ export const useProject = (id: string) => {
   })
 }
 
-export const useCreateProject = () => {
+const useCreateProject = () => {
   const queryClient = useQueryClient()
   
   return useMutation({
@@ -43,7 +43,7 @@ export const useUpdateProject = () => {
   })
 }
 
-export const useDeleteProject = () => {
+const useDeleteProject = () => {
   const queryClient = useQueryClient()
   
   return useMutation({
@@ -63,7 +63,7 @@ export const useBids = (filters?: Parameters<typeof bidsApi.getBids>[0]) => {
   })
 }
 
-export const useBid = (id: string) => {
+const useBid = (id: string) => {
   return useQuery({
     queryKey: ['bids', id],
     queryFn: () => bidsApi.getBid(id),
@@ -71,7 +71,7 @@ export const useBid = (id: string) => {
   })
 }
 
-export const useCreateBid = () => {
+const useCreateBid = () => {
   const queryClient = useQueryClient()
   
   return useMutation({
@@ -83,7 +83,7 @@ export const useCreateBid = () => {
   })
 }
 
-export const useUpdateBid = () => {
+const useUpdateBid = () => {
   const queryClient = useQueryClient()
   
   return useMutation({
@@ -152,7 +152,7 @@ export const useDeleteSource = () => {
 }
 
 // Dashboard hook
-export const useDashboard = () => {
+const useDashboard = () => {
   return useQuery({
     queryKey: ['dashboard'],
     queryFn: getDashboardData,

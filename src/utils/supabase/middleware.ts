@@ -37,7 +37,7 @@ export const createClient = (request: NextRequest) => {
 };
 
 // Helper function for session management (optional)
-export async function updateSession(request: NextRequest) {
+async function updateSession(request: NextRequest) {
   const { supabase, response } = createClient(request);
 
   // Refresh the user's session if needed

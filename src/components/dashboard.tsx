@@ -173,7 +173,7 @@ interface RecentActivityProps {
   activities: RecentActivity[]
 }
 
-export function RecentActivity({ activities }: RecentActivityProps) {
+function RecentActivity({ activities }: RecentActivityProps) {
   const getActivityConfig = (type: string) => {
     switch (type) {
       case "application":

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ExternalLink, Bookmark, DollarSign, Calendar, MapPin, Star, TrendingUp, Clock } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
-export interface Project {
+interface Project {
   id: string
   title: string
   description: string | null

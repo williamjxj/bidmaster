@@ -48,6 +48,38 @@ cp .env.example .env.local
 
 # Run development server
 npm run dev
+```
+
+### Project Analysis & Cleanup
+
+The project includes analysis scripts to audit codebase structure, dependencies, and unused files:
+
+```bash
+# Run full project analysis (structure, dependencies, unused files, recommendations)
+npm run analyze:project
+
+# Review generated reports in docs/analysis/
+# - structure-summary.md
+# - dependency-report.md
+# - unused-files-report.md
+# - improvement-recommendations.md
+
+# Preview cleanup operations (dry-run, safe)
+npm run cleanup:dry-run
+
+# Execute cleanup (after reviewing dry-run results)
+npm run cleanup:execute
+```
+
+**Analysis Features:**
+- Project structure analysis (directory hierarchy, architectural patterns)
+- Dependency audit (outdated packages, security issues, deprecated packages)
+- Unused file detection (backup files, empty directories, unreferenced code)
+- Improvement recommendations (performance, security, code quality, architecture)
+
+**Expected Duration:** <5 minutes for full analysis
+
+For detailed usage, see `specs/001-project-analysis/quickstart.md`
 
 # Open http://localhost:3000
 ```

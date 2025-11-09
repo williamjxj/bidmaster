@@ -367,7 +367,8 @@ function EnhancedBidsView({ bids, onDelete }: { bids: Bid[], onDelete: (id: stri
               </div>
             </CardContent>
           </Card>
-        ))}
+          )
+        })}
       </div>
 
       {filteredBids.length === 0 && (

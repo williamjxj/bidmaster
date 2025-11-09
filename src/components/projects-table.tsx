@@ -48,7 +48,7 @@ export type Project = {
   status: "new" | "applied" | "in_progress" | "completed"
 }
 
-export const columns: ColumnDef<Project>[] = [
+const columns: ColumnDef<Project>[] = [
   {
     id: "select",
     header: ({ table }) => (

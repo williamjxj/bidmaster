@@ -19,6 +19,6 @@ export function toast({ title, description, variant = 'default' }: ToastProps) {
   }
 }
 
-export function useToast() {
+function useToast() {
   return { toast }
 }
