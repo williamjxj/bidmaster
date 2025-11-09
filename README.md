@@ -163,7 +163,12 @@ curl -X POST http://localhost:3000/api/scrape/cleanup \
 - **TypeScript**: Type-safe development
 - **TailwindCSS**: Utility-first styling
 - **shadcn/ui**: Modern component library
+- **TweakCN Ocean Breeze Theme**: Beautiful, accessible theme for consistent UI design
 - **React Query**: State management and data fetching
+
+#### Design System
+- **Theme**: Ocean Breeze (via TweakCN)
+- **Theme Updates**: See [Theme Update Workflow](docs/theme-updates.md) for instructions on updating or customizing the theme
 
 #### Backend & Database
 - **Supabase**: PostgreSQL database and authentication

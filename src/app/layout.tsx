@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Poppins, Space_Grotesk } from "next/font/google"
+import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
 import QueryProvider from "@/components/query-provider"
 import { AuthProvider } from "@/hooks/useAuth"
@@ -11,11 +11,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins"
-})
-const spaceGrotesk = Space_Grotesk({ 
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk"
 })
 
 export const metadata: Metadata = {
@@ -30,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${poppins.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning={true}>
+      <body className={`${inter.className} ${poppins.variable}`} suppressHydrationWarning={true}>
         <QueryProvider>
           <AuthProvider>
             <LayoutWrapper>{children}</LayoutWrapper>

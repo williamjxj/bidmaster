@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+
+The current UI is cluttered and poorly structured — it lacks proper spacing, margins, and visual hierarchy. The layout and CSS design need a complete overhaul.
+
+Please redesign and modernize the interface to make it visually appealing, balanced, and consistent. Focus on improving spacing, alignment, and responsive layout using shadcn/ui, TailwindCSS, and best practices from @Next.js-docs, @TailwindCSS-docs, and @Shadcn-docs.
+
+Incorporate subtle motion and interactivity inspired by @Framer Motion and @CSS Text Animations to create an engaging, professional feel. Use color theory and typography from @Color Fonts for a modern, readable aesthetic.
+
+Test and refine the new design using Playwright MCP to ensure consistent rendering and responsive behavior across devices.
+
+Refactor and modernize UI — fix margins, spacing, and layout using shadcn/ui + TailwindCSS. Add Framer Motion animations and color font improvements. Validate visually via Playwright MCP.
