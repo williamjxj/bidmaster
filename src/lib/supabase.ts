@@ -3,8 +3,8 @@
 import { createClient } from '@/utils/supabase/client'
 export const supabase = createClient()
 
-// Legacy function for backward compatibility
+// Legacy function for backward compatibility - kept for future use
 // Prefer using createClient() directly from '@/utils/supabase/client'
-const createSupabaseClient = () => {
-  return createClient()
-}
+// const createSupabaseClient = () => {
+//   return createClient()
+// }

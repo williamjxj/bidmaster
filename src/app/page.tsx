@@ -1,15 +1,15 @@
 'use client'
 
 import { useAuth } from '@/hooks/useAuth'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { DashboardMetrics } from "@/components/dashboard-metrics"
-import { ProjectCharts } from "@/components/project-charts"
-import { DashboardStats } from "@/components/dashboard"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { DashboardSummaryCards } from '@/components/dashboard-summary-cards'
+import { ProjectDistributionChart } from '@/components/project-distribution-chart'
+import { DashboardActivity } from '@/components/dashboard-activity'
+import { DashboardFundingCard } from '@/components/dashboard-funding-card'
+import { DashboardOptionsCard } from '@/components/dashboard-options-card'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { X, Eye, Zap, ArrowRight, Search, Target, BarChart3 } from "lucide-react"
 import Link from "next/link"
-import { ArrowRight, BarChart3, Search, Target, Zap } from "lucide-react"
 
 // Landing page for non-authenticated users
 function LandingPage() {
@@ -170,153 +170,50 @@ function LandingPage() {
   )
 }
 
-// Mock data for demonstration
-const mockStats = {
-  totalProjects: 142,
-  activeApplications: 8,
-  winRate: 24,
-  totalEarnings: 15600
-}
-
-// Dashboard for authenticated users
+// Dashboard for authenticated users - Cake Equity style
 function AuthenticatedDashboard() {
   return (
-    <div className="flex-1 space-y-8 bg-background min-h-full">
-      {/* Hero Dashboard Header */}
-      <div className="relative overflow-hidden rounded-3xl p-6 md:p-8 border border-slate-200 shadow-lg" style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(248, 250, 252, 1) 100%)'
-      }}>
-        {/* Animated background elements */}
-        <div className="absolute top-4 right-4 w-20 h-20 rounded-full blur-xl animate-pulse" style={{
-          background: 'rgba(59, 130, 246, 0.1)'
-        }} />
-        <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full blur-lg animate-pulse" style={{
-          background: 'rgba(16, 185, 129, 0.1)',
-          animationDelay: '500ms'
-        }} />
-        
-        <div className="relative">
-          <div className="flex flex-col md:flex-row items-start justify-between gap-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 rounded-xl shadow-lg" style={{
-                background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)'
-              }}>
-                  <Zap className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-gradient">
-                    Performance Dashboard
-                  </h1>
-                  <p className="text-sm md:text-base text-muted-foreground font-medium">
-                    Track your freelancing journey and smash your goals! 💪
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                <Badge className="px-4 py-2 text-sm font-bold text-white border-0 shadow-md" style={{
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
-              }}>
-                  <Target className="w-4 h-4 mr-2" />
-                  On Track
-                </Badge>
-                <Badge variant="outline" className="px-4 py-2 text-sm font-bold">
-                  🔥 Hot Streak: 5 days
-                </Badge>
-              </div>
-            </div>
-            
-            {/* Quick action button */}
-            <Button className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3">
-              <Search className="w-4 h-4 mr-2" />
-              Find Projects
+    <div className="flex-1 bg-background min-h-full">
+      {/* Main container with consistent padding */}
+      <div className="p-8 md:p-10 lg:p-12 xl:p-14 space-y-10 md:space-y-12 lg:space-y-14">
+        {/* Top Banner */}
+        <div className="bg-primary/10 border border-primary/20 rounded-xl p-5 md:p-6 lg:p-7 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Eye className="h-5 w-5 text-primary" />
+            <span className="text-sm md:text-base font-medium">Have your say on the new BidMaster Dashboard.</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button size="sm" variant="outline">Check it out</Button>
+            <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+              <X className="h-4 w-4" />
             </Button>
           </div>
         </div>
-      </div>
 
-      <Tabs defaultValue="overview" className="space-y-8">
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="metrics">Metrics</TabsTrigger>
-          <TabsTrigger value="charts">Analytics</TabsTrigger>
-        </TabsList>
+        {/* Summary Statistics Cards */}
+        <div className="space-y-8">
+          <DashboardSummaryCards />
+        </div>
 
-        <TabsContent value="overview" className="space-y-8">
-          <DashboardStats stats={mockStats} />
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="lg:col-span-2 shadow-sm border-border/50">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-semibold">Recent Activity</CardTitle>
-                <CardDescription className="text-base">A log of your recent bidding actions.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:border-border/60 transition-colors">
-                    <p className="font-medium">Applied to &quot;React Developer&quot;</p>
-                    <p className="text-sm text-muted-foreground">2 hours ago</p>
-                  </div>
-                  <div className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:border-border/60 transition-colors">
-                    <p className="font-medium">Bookmarked &quot;Full Stack Position&quot;</p>
-                    <p className="text-sm text-muted-foreground">5 hours ago</p>
-                  </div>
-                  <div className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:border-border/60 transition-colors">
-                    <p className="font-medium">Won &quot;WordPress Plugin&quot;</p>
-                    <p className="text-sm text-muted-foreground">1 day ago</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-sm border-border/50">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-semibold">Quick Stats</CardTitle>
-                <CardDescription className="text-base">Your key metrics at a glance.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <p className="text-muted-foreground font-medium">This Week</p>
-                  <span className="text-sm font-bold">12 applications</span>
-                </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <p className="text-muted-foreground font-medium">Win Rate</p>
-                  <span className="text-sm font-bold">25%</span>
-                </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <p className="text-muted-foreground font-medium">Avg. Response Time</p>
-                  <span className="text-sm font-bold">24 hours</span>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Main Content Grid */}
+        <div className="grid gap-8 md:gap-10 lg:gap-12 lg:grid-cols-3">
+          {/* Left: Project Distribution Chart */}
+          <div className="lg:col-span-2">
+            <ProjectDistributionChart />
           </div>
-        </TabsContent>
 
-        <TabsContent value="metrics">
-          <Card>
-            <CardHeader>
-              <CardTitle>Performance Metrics</CardTitle>
-              <CardDescription>Detailed metrics on your bidding performance.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <DashboardMetrics />
-            </CardContent>
-          </Card>
-        </TabsContent>
+          {/* Right: Activity Feed */}
+          <div>
+            <DashboardActivity />
+          </div>
+        </div>
 
-        <TabsContent value="charts">
-          <Card className="shadow-sm border-border/50">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl font-semibold">Analytics & Charts</CardTitle>
-              <CardDescription className="text-base">Visualize your project data and trends.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ProjectCharts />
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+        {/* Bottom Row: Additional Cards */}
+        <div className="grid gap-8 md:gap-10 lg:gap-12 lg:grid-cols-2">
+          <DashboardFundingCard />
+          <DashboardOptionsCard />
+        </div>
+      </div>
     </div>
   )
 }

@@ -6,7 +6,6 @@ import {
   Inbox,
   Search,
   Settings,
-  Command,
   MoreHorizontal,
   Target,
   Activity,
@@ -15,7 +14,6 @@ import {
   Zap,
   Bell,
   Star,
-  Info,
 } from "lucide-react"
 import {
   Sidebar,
@@ -31,7 +29,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -195,15 +193,15 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent className="px-4 md:px-6 py-6 md:py-8">
+        <SidebarContent className="px-5 md:px-7" style={{ paddingTop: '0.2rem', paddingBottom: '0.2rem' }}>
           {/* Main Navigation */}
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-6 px-4 flex items-center gap-2">
+          <SidebarGroup className="bg-card border border-border rounded-xl p-5 md:p-6 shadow-sm">
+            <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-5 md:mb-6 flex items-center gap-2">
               <Target className="w-4 h-4" />
               Your Journey
             </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="space-y-3">
+              <SidebarMenu className="space-y-1">
                 {navMain.map((item) => {
                   const isActive = pathname === item.url
                   return (
@@ -211,7 +209,7 @@ export function AppSidebar() {
                       <SidebarMenuButton
                         asChild
                         className={cn(
-                          "group relative flex items-center justify-between rounded-2xl px-3 md:px-4 py-3 md:py-4 text-sm font-bold transition-all duration-300",
+                          "group relative flex items-center justify-between rounded-2xl px-4 md:px-5 py-2 md:py-3 text-sm font-bold transition-all duration-300 min-h-[3rem]",
                           "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-lg hover:scale-[1.02]",
                           "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                           isActive 
@@ -219,24 +217,24 @@ export function AppSidebar() {
                             : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                         )}
                       >
-                        <Link href={item.url} className="flex items-center min-w-0 flex-1 gap-3 md:gap-4">
+                        <Link href={item.url} className="flex items-center min-w-0 flex-1 gap-4 md:gap-5">
                           {/* Icon with gradient background */}
                           <div className={cn(
-                            "flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-xl transition-all duration-300 shadow-sm",
+                            "flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl transition-all duration-300 shadow-sm flex-shrink-0",
                             isActive 
                               ? `bg-gradient-to-r ${item.gradient} text-white shadow-md` 
                               : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
                           )}>
-                            <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                            <item.icon className="w-5 h-5 md:w-6 md:h-6" />
                           </div>
                           
                           <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-xs opacity-60 font-black">
+                            <div className="flex items-center gap-2.5 mb-1.5">
+                              <span className="text-sm opacity-60 font-black">
                                 {item.emoji}
                               </span>
                               <span className={cn(
-                                "truncate transition-colors duration-200 font-black text-sm tracking-wide",
+                                "truncate transition-colors duration-200 font-black text-base tracking-wide",
                                 isActive
                                   ? "text-foreground"
                                   : "text-sidebar-foreground group-hover:text-sidebar-accent-foreground",
@@ -246,7 +244,7 @@ export function AppSidebar() {
                               {item.badge && (
                                 <Badge
                                   className={cn(
-                                    "text-xs h-5 px-2 font-black shadow-sm",
+                                    "text-xs h-6 px-2.5 font-black shadow-sm",
                                     isActive 
                                       ? `bg-gradient-to-r ${item.gradient} text-white border-0` 
                                       : "bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary border-0"
@@ -256,13 +254,13 @@ export function AppSidebar() {
                                 </Badge>
                               )}
                             </div>
-                            <div className="text-xs text-muted-foreground font-medium opacity-80">
+                            <div className="text-sm text-muted-foreground font-medium opacity-80">
                               {item.description}
                             </div>
                           </div>
                           
                           {isActive && (
-                            <div className={`w-1 h-8 rounded-full bg-gradient-to-b ${item.gradient} shadow-lg`} />
+                            <div className={`w-1 h-10 rounded-full bg-gradient-to-b ${item.gradient} shadow-lg flex-shrink-0`} />
                           )}
                         </Link>
                       </SidebarMenuButton>
@@ -274,20 +272,21 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Platform Status */}
-          <SidebarGroup className="mt-8">
-            <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-6 flex items-center gap-2 px-4">
+          <SidebarGroup className="mt-10 bg-card border border-border rounded-xl shadow-sm">
+            <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-5 md:mb-6 flex items-center gap-2 px-6 md:px-7 lg:px-8 pt-5 md:pt-6">
               <Zap className="w-4 h-4" />
               💡 Active Platforms
             </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <div className="space-y-3">
+            <SidebarGroupContent className="px-6 md:px-7 lg:px-8 pb-5 md:pb-6">
+              <div className="space-y-2">
                 {platforms.map((platform) => (
                   <div
                     key={platform.name}
-                    className="flex items-center justify-between p-4 rounded-xl hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group"
+                    className="flex items-center justify-between py-2 md:py-3 rounded-xl hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group min-h-[3rem]"
+                    style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
                   >
-                    <div className="flex items-center min-w-0 flex-1">
-                      <div className="relative">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="relative flex-shrink-0">
                         <div className={cn("w-3 h-3 rounded-full", platform.color, platform.pulse && "animate-pulse")} />
                         {platform.status === "active" && (
                           <div
@@ -299,15 +298,15 @@ export function AppSidebar() {
                           />
                         )}
                       </div>
-                      <span className="ml-4 text-sm font-semibold text-sidebar-foreground truncate">
+                      <span className="text-sm font-semibold text-sidebar-foreground truncate">
                         {platform.name}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       {platform.trend !== "0" && (
                         <span
                           className={cn(
-                            "text-xs font-medium px-2 py-1 rounded-full",
+                            "text-xs font-medium px-1.5 py-0.5 rounded-full whitespace-nowrap",
                             platform.trend.startsWith("+")
                               ? "text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-900/20"
                               : "text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-900/20",
@@ -316,7 +315,7 @@ export function AppSidebar() {
                           {platform.trend}
                         </span>
                       )}
-                      <Badge variant="outline" className="text-xs h-6 px-3 bg-muted font-medium border-border/50">
+                      <Badge variant="outline" className="text-xs h-6 px-2.5 bg-muted font-medium border-border/50 whitespace-nowrap">
                         {platform.count}
                       </Badge>
                     </div>
@@ -327,17 +326,17 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Quick Stats */}
-          <SidebarGroup className="mt-8">
-            <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-6 flex items-center gap-2 px-4">
+          <SidebarGroup className="mt-10 bg-card border border-border rounded-xl p-5 md:p-6 shadow-sm">
+            <SidebarGroupLabel className="text-muted-foreground font-black text-xs uppercase tracking-widest mb-5 md:mb-6 flex items-center gap-2">
               <Star className="w-4 h-4" />
               🏆 Performance Stats
             </SidebarGroupLabel>
             <SidebarGroupContent>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {quickStats.map((stat) => (
                   <div
                     key={stat.label}
-                    className="flex items-center justify-between p-4 rounded-xl hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group"
+                    className="flex items-center justify-between p-3 md:p-4 rounded-xl hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group min-h-[3rem]"
                   >
                     <div className="flex items-center min-w-0 flex-1">
                       <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-muted group-hover:bg-background transition-all duration-200 shadow-sm">

@@ -36,12 +36,12 @@ export const createClient = (request: NextRequest) => {
   return { supabase, response: supabaseResponse };
 };
 
-// Helper function for session management (optional)
-async function updateSession(request: NextRequest) {
-  const { supabase, response } = createClient(request);
-
-  // Refresh the user's session if needed
-  await supabase.auth.getUser();
-
-  return response;
-}
+// Helper function for session management (optional) - kept for future use
+// async function updateSession(request: NextRequest) {
+//   const { supabase, response } = createClient(request);
+//
+//   // Refresh the user's session if needed
+//   await supabase.auth.getUser();
+//
+//   return response;
+// }

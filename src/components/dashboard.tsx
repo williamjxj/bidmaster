@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 // import { Progress } from "@/components/ui/progress"
-import { Target, Search, TrendingUp, DollarSign, ArrowUpRight, ArrowDownRight, Zap, Trophy, Activity } from "lucide-react"
+import { Target, Search, DollarSign, ArrowUpRight, ArrowDownRight, Zap, Trophy, Activity } from "lucide-react"
 
 interface DashboardStatsProps {
   stats: {

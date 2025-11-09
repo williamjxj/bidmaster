@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { projectsApi, bidsApi, sourcesApi, userPreferencesApi, getDashboardData } from '@/lib/api'
+import { projectsApi, bidsApi, sourcesApi, userPreferencesApi } from '@/lib/api'
 
 // Projects hooks
 export const useProjects = (filters?: Parameters<typeof projectsApi.getProjects>[0]) => {
@@ -9,25 +9,26 @@ export const useProjects = (filters?: Parameters<typeof projectsApi.getProjects>
   })
 }
 
-const useProject = (id: string) => {
-  return useQuery({
-    queryKey: ['projects', id],
-    queryFn: () => projectsApi.getProject(id),
-    enabled: !!id,
-  })
-}
+// Unused hooks - kept for future use
+// const useProject = (id: string) => {
+//   return useQuery({
+//     queryKey: ['projects', id],
+//     queryFn: () => projectsApi.getProject(id),
+//     enabled: !!id,
+//   })
+// }
 
-const useCreateProject = () => {
-  const queryClient = useQueryClient()
-  
-  return useMutation({
-    mutationFn: projectsApi.createProject,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projects'] })
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
-    },
-  })
-}
+// const useCreateProject = () => {
+//   const queryClient = useQueryClient()
+//   
+//   return useMutation({
+//     mutationFn: projectsApi.createProject,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['projects'] })
+//       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+//     },
+//   })
+// }
 
 export const useUpdateProject = () => {
   const queryClient = useQueryClient()
@@ -43,17 +44,17 @@ export const useUpdateProject = () => {
   })
 }
 
-const useDeleteProject = () => {
-  const queryClient = useQueryClient()
-  
-  return useMutation({
-    mutationFn: projectsApi.deleteProject,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projects'] })
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
-    },
-  })
-}
+// const useDeleteProject = () => {
+//   const queryClient = useQueryClient()
+//   
+//   return useMutation({
+//     mutationFn: projectsApi.deleteProject,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['projects'] })
+//       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+//     },
+//   })
+// }
 
 // Bids hooks
 export const useBids = (filters?: Parameters<typeof bidsApi.getBids>[0]) => {
@@ -63,39 +64,39 @@ export const useBids = (filters?: Parameters<typeof bidsApi.getBids>[0]) => {
   })
 }
 
-const useBid = (id: string) => {
-  return useQuery({
-    queryKey: ['bids', id],
-    queryFn: () => bidsApi.getBid(id),
-    enabled: !!id,
-  })
-}
+// const useBid = (id: string) => {
+//   return useQuery({
+//     queryKey: ['bids', id],
+//     queryFn: () => bidsApi.getBid(id),
+//     enabled: !!id,
+//   })
+// }
 
-const useCreateBid = () => {
-  const queryClient = useQueryClient()
-  
-  return useMutation({
-    mutationFn: bidsApi.createBid,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['bids'] })
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
-    },
-  })
-}
+// const useCreateBid = () => {
+//   const queryClient = useQueryClient()
+//   
+//   return useMutation({
+//     mutationFn: bidsApi.createBid,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['bids'] })
+//       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+//     },
+//   })
+// }
 
-const useUpdateBid = () => {
-  const queryClient = useQueryClient()
-  
-  return useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: Parameters<typeof bidsApi.updateBid>[1] }) =>
-      bidsApi.updateBid(id, updates),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['bids'] })
-      queryClient.invalidateQueries({ queryKey: ['bids', data.id] })
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
-    },
-  })
-}
+// const useUpdateBid = () => {
+//   const queryClient = useQueryClient()
+//   
+//   return useMutation({
+//     mutationFn: ({ id, updates }: { id: string; updates: Parameters<typeof bidsApi.updateBid>[1] }) =>
+//       bidsApi.updateBid(id, updates),
+//     onSuccess: (data) => {
+//       queryClient.invalidateQueries({ queryKey: ['bids'] })
+//       queryClient.invalidateQueries({ queryKey: ['bids', data.id] })
+//       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+//     },
+//   })
+// }
 
 export const useDeleteBid = () => {
   const queryClient = useQueryClient()
@@ -151,14 +152,14 @@ export const useDeleteSource = () => {
   })
 }
 
-// Dashboard hook
-const useDashboard = () => {
-  return useQuery({
-    queryKey: ['dashboard'],
-    queryFn: getDashboardData,
-    staleTime: 1000 * 60 * 2, // 2 minutes
-  })
-}
+// Dashboard hook - kept for future use
+// const useDashboard = () => {
+//   return useQuery({
+//     queryKey: ['dashboard'],
+//     queryFn: getDashboardData,
+//     staleTime: 1000 * 60 * 2, // 2 minutes
+//   })
+// }
 
 // Statistics hooks
 export const useProjectStats = () => {

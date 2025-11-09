@@ -2,18 +2,10 @@
 
 import { useAuth } from '@/hooks/useAuth'
 import { usePathname } from 'next/navigation'
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
-import { Separator } from "@/components/ui/separator"
-import { UserNav } from "@/components/user-nav"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { TopHeader } from "@/components/top-header"
+import { Footer } from "@/components/footer"
 
 interface LayoutWrapperProps {
   children: React.ReactNode
@@ -45,47 +37,14 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-20 shrink-0 items-center gap-4 justify-between border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-8 shadow-sm">
-          <div className="flex items-center gap-4">
-            <SidebarTrigger className="-ml-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-lg transition-colors p-2" />
-            <Separator orientation="vertical" className="mr-2 h-6" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                    BidMaster Hub
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="text-sm font-semibold text-foreground">
-                    {getPageTitle(pathname)}
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+        <TopHeader />
+        <main className="flex-1 overflow-auto bg-background min-h-[calc(100vh-4rem)]">
+          <div className="w-full">
+            {children}
           </div>
-          <UserNav />
-        </header>
-        <main className="flex-1 overflow-auto bg-muted/30 p-8">{children}</main>
+        </main>
+        <Footer />
       </SidebarInset>
     </SidebarProvider>
   )
-}
-
-function getPageTitle(pathname: string): string {
-  const segments = pathname.split('/').filter(Boolean)
-  if (segments.length === 0) return 'Dashboard'
-  
-  const pageMap: Record<string, string> = {
-    'dashboard': 'Dashboard',
-    'projects': 'Projects',
-    'bids': 'Bids', 
-    'analytics': 'Analytics',
-    'calendar': 'Calendar',
-    'settings': 'Settings',
-    'profile': 'Profile'
-  }
-  
-  return pageMap[segments[0]] || segments[0].charAt(0).toUpperCase() + segments[0].slice(1)
 }

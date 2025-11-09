@@ -18,7 +18,3 @@ export function toast({ title, description, variant = 'default' }: ToastProps) {
     alert(`${title}${description ? `\n${description}` : ''}`)
   }
 }
-
-function useToast() {
-  return { toast }
-}
