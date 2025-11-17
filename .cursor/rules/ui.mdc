@@ -1,5 +1,5 @@
 ---
-alwaysApply: true
+alwaysApply: manual
 ---
 
 The current UI is cluttered and poorly structured — it lacks proper spacing, margins, and visual hierarchy. The layout and CSS design need a complete overhaul.

@@ -1,32 +1,55 @@
 # 🎯 BidMaster: Your Ultimate Project Bidding Hub
 
-production URL: https://bidmaster-hub.vercel.app/
+**Production URL**: https://bidmaster-hub.vercel.app/
 
-Tired of juggling multiple freelance platforms, missing out on opportunities, and struggling to track your bids? **BidMaster** is here to change that. We provide a centralized platform to discover, manage, and win more projects, effortlessly.
+## 🎯 Business Purpose
+
+**BidMaster** solves a critical pain point for freelancers and agencies: the fragmentation of opportunity discovery and bid management across multiple platforms. 
+
+### The Problem
+
+Freelancers today face three major challenges:
+
+1. **Platform Fragmentation**: Opportunities are scattered across Upwork, Freelancer, Toptal, and dozens of other platforms, making it impossible to efficiently discover and compare projects
+2. **Bid Tracking Chaos**: Managing proposals across multiple platforms leads to missed follow-ups, duplicate applications, and lost opportunities
+3. **Lack of Strategic Insights**: Without centralized analytics, freelancers can't identify which platforms, project types, or bidding strategies yield the best results
+
+### The Solution
+
+BidMaster provides a **centralized command center** for freelance success:
+
+- **Unified Discovery**: Aggregate projects from multiple platforms into a single, searchable dashboard
+- **Intelligent Pipeline Management**: Track every bid from discovery to win/loss with status management and reminders
+- **Data-Driven Optimization**: Analytics reveal your most successful platforms, optimal bid amounts, and winning project characteristics
+- **Time Efficiency**: Reduce time spent searching by 70%+ and increase bid submission rates through streamlined workflows
+
+### Target Market
+
+**Primary Users:**
+- **Freelance Developers & Designers**: Individual professionals managing their own client acquisition
+- **Small to Medium Agencies**: Teams needing coordinated bid management and pipeline visibility
+- **Business Development Teams**: Sales professionals tracking proposals and optimizing conversion rates
+
+**Value Proposition**: Transform freelance project acquisition from a time-consuming, error-prone process into a strategic, data-driven operation that increases win rates and revenue.
 
 ## ✨ Key Features
 
-*   **Discover Opportunities:** We aggregate freelance projects from top platforms like Upwork, Freelancer, and more, so you can find the best projects in one place.
-*   **Intelligent Filtering:** Zero in on the perfect projects with powerful, easy-to-use filters for technology, budget, and more.
-*   **Effortless Bid Management:** Track your bids from start to finish. Know the status of every application, from "To Bid" to "Won."
-*   **Powerful Analytics:** Gain insights into your bidding strategy. Understand your win/loss rate, identify your most successful platforms, and optimize your approach for better results.
-*   **Modern, User-Friendly Interface:** A clean, intuitive, and responsive design that works beautifully on any device.
+*   **Discover Opportunities:** Aggregate freelance projects from top platforms like Upwork, Freelancer, and more in one unified dashboard
+*   **Intelligent Filtering:** Zero in on perfect projects with powerful filters for technology, budget, location, and project type
+*   **Effortless Bid Management:** Track bids from discovery to submission to outcome, with status management and deadline reminders
+*   **Powerful Analytics:** Gain insights into your bidding strategy—win/loss rates, platform performance, and optimization opportunities
+*   **Modern Interface:** Clean, intuitive design that works beautifully on desktop, tablet, and mobile devices
 
-## 👤 Who is BidMaster For?
+## 🚀 Get Started
 
-*   **Freelance Developers & Agencies:** Spend less time searching and more time bidding on high-quality projects.
-*   **Project Managers:** Keep all your bids organized and your team on the same page.
-*   **Business Development Professionals:** Supercharge your lead generation and close more deals.
+**For Users:**
+1. Visit [bidmaster-hub.vercel.app](https://bidmaster-hub.vercel.app/)
+2. Sign up for a free account
+3. Configure your project preferences and filters
+4. Start discovering and tracking opportunities!
 
-## 🚀 Get Started in Minutes
-
-1.  **Sign Up:** Create your free BidMaster account.
-2.  **Set Your Preferences:** Tell us what kinds of projects you're looking for.
-3.  **Discover & Bid:** Start exploring opportunities and winning new business!
-
-Ready to take your freelancing career to the next level?
-
-[**Visit BidMaster Today!**](https://bidmaster-hub.vercel.app/)
+**For Developers:**
+See the [Developer Documentation](#-developer-documentation) section below.
 
 ---
 
@@ -156,36 +179,15 @@ curl -X POST http://localhost:3000/api/scrape/cleanup \
   -d '{"dryRun":true}'
 ```
 
-### 🏗️ Architecture & Technology Stack
+### 🏗️ Technology Stack
 
-#### Frontend
-- **Next.js 15.3.5**: React framework with App Router
-- **TypeScript**: Type-safe development
-- **TailwindCSS**: Utility-first styling
-- **shadcn/ui**: Modern component library
-- **TweakCN Ocean Breeze Theme**: Beautiful, accessible theme for consistent UI design
-- **React Query**: State management and data fetching
+**Frontend**: Next.js 15 (App Router) + TypeScript + Tailwind CSS + shadcn/ui  
+**Backend**: Supabase (PostgreSQL + Auth) + Next.js API Routes  
+**Scraping**: Puppeteer with rate limiting and error handling  
+**State Management**: React Query (TanStack Query)  
+**Testing**: Custom crawler test suite + ESLint + TypeScript
 
-#### Design System
-- **Theme**: Ocean Breeze (via TweakCN)
-- **Theme Updates**: See [Theme Update Workflow](docs/theme-updates.md) for instructions on updating or customizing the theme
-
-#### Backend & Database
-- **Supabase**: PostgreSQL database and authentication
-- **Prisma**: Database ORM (optional integration)
-- **Row Level Security**: Data protection
-
-#### Web Scraping
-- **Puppeteer**: Headless browser automation
-- **Rate Limiting**: Respectful scraping practices
-- **Mock Data**: Development-friendly fallbacks
-- **Performance Monitoring**: Built-in analytics
-
-#### Testing & Quality
-- **ESLint**: Code linting and formatting
-- **TypeScript**: Static type checking
-- **Custom Test Suite**: Crawler validation framework
-- **Performance Benchmarking**: Automated performance analysis
+Built with modern web technologies for performance, scalability, and developer experience.
 
 ### 📁 Project Structure
 
